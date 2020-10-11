@@ -1,7 +1,29 @@
-.mermaid svg {
-  width:1000px;
+
+//Does this id change?
+svg{
+  border:1px solid forestgreen !important;
+
+}
+pre {
+  width:100%;
+  // width:2000px !important;
+  min-width: 1600px;
+  height: auto;
+  align-content: center;
+
 }
 
+.mermaidcontainer {
+  min-width:0px;
+  margin:1px;
+  vertical-align: auto;
+}
+
+svg[id^=mermaid-]{
+  // width:1000px !important;
+  max-width: initial;
+  align-content: center;
+}
 
 g.qualityow{
   color:orangered;

@@ -1,3 +1,17 @@
+* {
+  margin:0;
+  padding: 0;
+}
+
 .content {
   width:100%;
+  min-width:1600px;
+  margin:auto;
+  padding: auto;
+}
+
+
+/*Debug*/
+div {
+  border: 1px solid hotpink !important;
 }

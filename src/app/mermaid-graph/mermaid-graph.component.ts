@@ -33,11 +33,6 @@ export class MermaidGraphComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  }
-
-  ngAfterContentInit(): void {
-    //Called after ngOnInit when the component's or directive's content has been initialized.
-    //Add 'implements AfterContentInit' to the class.
     if(this.mermaid){
       console.log(this.mermaid.nativeElement);
 
@@ -51,20 +46,79 @@ export class MermaidGraphComponent implements OnInit {
           htmlLabels:true
       },
       logLevel: 'debug',
-      theme: "forest",
+      theme: "default",
       themeVariables: {
         "fontSize": "18px"
       }
-
   };
   mermaid.initialize(config);
+  }
+
+  ngAfterContentInit(): void {
+    //Called after ngOnInit when the component's or directive's content has been initialized.
+    //Add 'implements AfterContentInit' to the class.
+
     // mermaid.initialize({
     // });
 
   // mermaid.render();
+  // const mySVGContainer = document.getElementById('mermaidcontainer');
+  // if(mySVGContainer) {
+    const allSvg = document.getElementsByTagName('svg');
+    console.log(allSvg);
 
+
+    // for (let index = 0; index < allSvg.length; index++) {
+    //   const element = allSvg[index];
+    //   console.log(element);
+    //   if (element.nodeName.startsWith("mermaid")){
+
+    //     if (!(element instanceof SVGSVGElement || SVGElement)) {
+    //       console.log(element);
+    //     }
+    //     let mySVG: SVGSVGElement = element;
+    //     console.log(mySVG);
+    //     //mySVG as HTMLElement;
+    //     //console.log(mySVG as HTMLElement);
+    //     mySVG.setAttribute("width", "1000px");
+    //     mySVG.setAttribute("viewBox", "0 0 100 100");
+    //     mySVG.setAttribute("border", "blue")
+
+    //   }
+    //   else {
+    //     console.log('no', element.nodeName);
+    //   }
+
+    // }
+    const s1 = document.querySelector('#mermaidcontainer')!.firstElementChild;
+    console.log(s1);
+
+
+
+    const graphDefinition = 'graph TB\na-->b';
+    const cb = function(svgGraph: any){
+        console.log(svgGraph);
+    };
+    mermaid.render('mermaidcontainerdirectrender',graphDefinition,cb);
+
+
+    this.RefreshMermaid();
   }
 
+  RefreshMermaid(){
+    let element = document.getElementById('mermaidcontainer') as HTMLElement;
+    console.log('svg?',element)
+    element.removeAttribute('data-processed');
+    element.firstElementChild?.removeAttribute('style');
+    console.log('svg?',element.firstElementChild);
+    mermaid.init(undefined, element);
+
+
+    // element = document.getElementById('mermaidcontainerdirectrender') as HTMLElement;
+    // console.log(element)
+    // element.removeAttribute('data-processed');
+    // mermaid.init(undefined, element);
+  }
 
 
 }
