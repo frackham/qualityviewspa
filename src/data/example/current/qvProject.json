@@ -1,0 +1,23 @@
+{
+  "projectName": "Example QV",
+  "elements": [
+    {
+      "elementName" : "FE API"
+    },
+
+    {
+      "elementName" : "BE API"
+    },
+
+    {
+      "elementName" : "DB"
+    }
+  ],
+  "relationships": [
+    {
+      "fromElement": "BE API",
+      "toElement" : "FE API",
+      "label": "consumes"
+    }
+  ]
+}

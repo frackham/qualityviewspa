@@ -1,0 +1,18 @@
+{
+  "dimensions": [
+    {
+      "name" : "Security",
+      "description": "How secure the element is.",
+      "note" : "use established security source to evaluate this",
+      "tooltip" : ""
+    },
+
+    {
+      "name" : "Deployability",
+      "description": "How easy and fast it is to redeploy the element.",
+      "note" : "use DORA metrics",
+      "tooltip" : ""
+    }
+
+  ]
+}
