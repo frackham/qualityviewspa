@@ -1,0 +1,48 @@
+<script>
+
+  var callback = function(){
+        alert('A callback was triggered');
+    }
+</script>
+
+<pre>
+  <p>Here is a mermaid diagram:</p>
+
+  <div class="mermaid">
+    graph LR
+
+
+    subgraph Website
+
+        DB(Database)
+        BE-API[Back End API]
+        FE-API[Front End API]
+        Web[Website]
+
+
+        DB --- BE-API
+        BE-API --- FE-API
+        FE-API --- Web
+      end
+
+    subgraph Inspiration
+      DB2(Database)
+    end
+
+    subgraph Experience
+      DB3(Database)
+    end
+
+
+    classDef default fill:#f9f,stroke:#333,stroke-width:4px;
+    classDef qualitylow fill:#B02020,stroke:#333,stroke-width:4px;
+    classDef qualitymid fill:#DD550C,stroke:#333,stroke-width:4px;
+    classDef qualityhigh fill:#DFE74A,stroke:#333,stroke-width:4px;
+    class DB qualityow;
+    class FE-API qualitylow;
+    class DB2,Web qualitymid;
+    class DB3,BE-API qualityhigh;
+    </div>
+   <!-- <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+   <script>mermaid.initialize({startOnLoad:true});</script> -->
+</pre>
