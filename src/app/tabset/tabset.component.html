@@ -1,0 +1,27 @@
+<mat-tab-group mat-align-tabs="start" animationDuration="500ms">
+
+  <mat-tab label="Notes" isActive="true">
+    <!-- <p>spacing issues without a component?</p> -->
+    <app-notes></app-notes>
+    <!-- <ng-template matTabContent> lazy load content
+      <app-embedded-mermaid></app-embedded-mermaid>
+    </ng-template> -->
+  </mat-tab>
+
+  <mat-tab label="Quality View">
+    <ng-template matTabContent> <!-- ng-template lets us lazy load content (though whichever tab loads first will fail)-->
+      <app-embedded-mermaid></app-embedded-mermaid>
+      <!-- <app-mermaid-graph></app-mermaid-graph> -->
+    </ng-template>
+  </mat-tab>
+
+  <mat-tab label="Data">
+    <app-sandbox></app-sandbox>
+  </mat-tab>
+
+  <mat-tab label="Moodboard">
+    <app-moodboard></app-moodboard>
+  </mat-tab>
+
+</mat-tab-group>
+

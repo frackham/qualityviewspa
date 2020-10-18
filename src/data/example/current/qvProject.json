@@ -1,23 +1,99 @@
 {
-  "projectName": "Example QV",
-  "elements": [
-    {
-      "elementName" : "FE API"
-    },
+  "project": {
+    "projectName": "Example QV",
+    "subProjects":[
+      "Inspiration",
+      "Experience",
+      "Website"
+    ],
+    "tempElementScoreScale": 10,
+    "elements": [
+      {
+        "elementId" : "Inspiration-FE-API",
+        "elementName" : "FE API",
+        "tempElementScore": 10,
+        "subProject": "Inspiration"
 
-    {
-      "elementName" : "BE API"
-    },
+      },
+      {
+        "elementId" : "Inspiration-BE-API",
+        "elementName" : "BE API",
+        "tempElementScore": 10,
+        "subProject": "Inspiration"
+      },
 
-    {
-      "elementName" : "DB"
-    }
-  ],
-  "relationships": [
-    {
-      "fromElement": "BE API",
-      "toElement" : "FE API",
-      "label": "consumes"
-    }
-  ]
+      {
+        "elementId" : "Inspiration-DB",
+        "elementName" : "Database",
+        "tempElementScore": 10,
+        "subProject": "Inspiration"
+      },
+
+      {
+        "elementId" : "Experience-FE-API",
+        "elementName" : "FE API",
+        "tempElementScore": 10,
+        "subProject": "Experience"
+
+      },
+      {
+        "elementId" : "Experience-BE-API",
+        "elementName" : "BE API",
+        "tempElementScore": 10,
+        "subProject": "Experience"
+      },
+
+      {
+        "elementId" : "Experience-DB",
+        "elementName" : "Database",
+        "tempElementScore": 10,
+        "subProject": "Experience"
+      },
+
+      {
+        "elementId" : "Website-DB",
+        "elementName" : "Database",
+        "tempElementScore": 10,
+        "subProject": "Website"
+      },
+      {
+        "elementId" : "Website-Website",
+        "elementName" : "Website",
+        "tempElementScore": 10,
+        "subProject": "Website"
+      }
+    ],
+    "relationships": [
+      {
+        "fromElement": "Inspiration-BE-API",
+        "toElement" : "Inspiration-FE-API",
+        "label": "consumes"
+      },
+
+      {
+        "fromElement": "Inspiration-DB",
+        "toElement" : "Inspiration-BE-API",
+        "label": "consumes"
+      },
+
+      {
+        "fromElement": "Experience-BE-API",
+        "toElement" : "Experience-FE-API",
+        "label": "consumes"
+      },
+
+      {
+        "fromElement": "Experience-DB",
+        "toElement" : "Experience-BE-API",
+        "label": "consumes"
+      },
+
+      {
+        "fromElement": "Website-DB",
+        "toElement" : "Website-Website",
+        "label": "consumes"
+      }
+    ]
+  }
+
 }

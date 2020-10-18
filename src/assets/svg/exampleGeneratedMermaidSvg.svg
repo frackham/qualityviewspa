@@ -1,0 +1,189 @@
+<svg id="generated-mermaid-svg-wrapper" width="100%" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="697.3895874023438" style="max-width: 847.4375px;" viewBox="0 0 847.4375 697.3895874023438">
+	<style>#generated-mermaid-svg-wrapper{font-family:"trebuchet ms",verdana,arial;font-size:16px;fill:#333;}#generated-mermaid-svg-wrapper .error-icon{fill:#552222;}#generated-mermaid-svg-wrapper .error-text{fill:#552222;stroke:#552222;}#generated-mermaid-svg-wrapper .edge-thickness-normal{stroke-width:2px;}#generated-mermaid-svg-wrapper .edge-thickness-thick{stroke-width:3.5px;}#generated-mermaid-svg-wrapper .edge-pattern-solid{stroke-dasharray:0;}#generated-mermaid-svg-wrapper .edge-pattern-dashed{stroke-dasharray:3;}#generated-mermaid-svg-wrapper .edge-pattern-dotted{stroke-dasharray:2;}#generated-mermaid-svg-wrapper .marker{fill:#333333;}#generated-mermaid-svg-wrapper .marker.cross{stroke:#333333;}#generated-mermaid-svg-wrapper svg{font-family:"trebuchet ms",verdana,arial;font-size:16px;}#generated-mermaid-svg-wrapper .label{font-family:"trebuchet ms",verdana,arial;color:#333;}#generated-mermaid-svg-wrapper .label text{fill:#333;}#generated-mermaid-svg-wrapper .node rect,#generated-mermaid-svg-wrapper .node circle,#generated-mermaid-svg-wrapper .node ellipse,#generated-mermaid-svg-wrapper .node polygon,#generated-mermaid-svg-wrapper .node path{fill:#ECECFF;stroke:#9370DB;stroke-width:1px;}#generated-mermaid-svg-wrapper .node .label{text-align:center;}#generated-mermaid-svg-wrapper .node.clickable{cursor:pointer;}#generated-mermaid-svg-wrapper .arrowheadPath{fill:#333333;}#generated-mermaid-svg-wrapper .edgePath .path{stroke:#333333;stroke-width:1.5px;}#generated-mermaid-svg-wrapper .flowchart-link{stroke:#333333;fill:none;}#generated-mermaid-svg-wrapper .edgeLabel{background-color:#e8e8e8;text-align:center;}#generated-mermaid-svg-wrapper .edgeLabel rect{opacity:0.5;background-color:#e8e8e8;fill:#e8e8e8;}#generated-mermaid-svg-wrapper .cluster rect{fill:#ffffde;stroke:#aaaa33;stroke-width:1px;}#generated-mermaid-svg-wrapper .cluster text{fill:#333;}#generated-mermaid-svg-wrapper div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"trebuchet ms",verdana,arial;font-size:12px;background:hsl(80,100%,96.2745098039%);border:1px solid #aaaa33;border-radius:2px;pointer-events:none;z-index:100;}#generated-mermaid-svg-wrapper:root{--mermaid-font-family:"trebuchet ms",verdana,arial;}#generated-mermaid-svg-wrapper .default > *{fill:#f9f !important;stroke:#333 !important;stroke-width:4px !important;stroke:red !important;}#generated-mermaid-svg-wrapper .default tspan{!important;}#generated-mermaid-svg-wrapper .q09 > *{fill:#ffffff !important;}#generated-mermaid-svg-wrapper .q09 tspan{!important;}#generated-mermaid-svg-wrapper .q19 > *{fill:#fff5eb !important;}#generated-mermaid-svg-wrapper .q19 tspan{!important;}#generated-mermaid-svg-wrapper .q29 > *{fill:#fee6ce !important;}#generated-mermaid-svg-wrapper .q29 tspan{!important;}#generated-mermaid-svg-wrapper .q39 > *{fill:#fdd0a2 !important;}#generated-mermaid-svg-wrapper .q39 tspan{!important;}#generated-mermaid-svg-wrapper .q49 > *{fill:#fdae6b !important;}#generated-mermaid-svg-wrapper .q49 tspan{!important;}#generated-mermaid-svg-wrapper .q59 > *{fill:#fd8d3c !important;}#generated-mermaid-svg-wrapper .q59 tspan{!important;}#generated-mermaid-svg-wrapper .q69 > *{fill:#f16913 !important;}#generated-mermaid-svg-wrapper .q69 tspan{!important;}#generated-mermaid-svg-wrapper .q79 > *{fill:#d94801 !important;}#generated-mermaid-svg-wrapper .q79 tspan{!important;}#generated-mermaid-svg-wrapper .q89 > *{fill:#a63603 !important;}#generated-mermaid-svg-wrapper .q89 tspan{!important;}#generated-mermaid-svg-wrapper .q99 > *{fill:#7f2704 !important;}#generated-mermaid-svg-wrapper .q99 tspan{!important;}#generated-mermaid-svg-wrapper .KeyStyle > *{fill:#FFF !important;stroke:#FFF !important;stroke-width:0px !important;}#generated-mermaid-svg-wrapper .KeyStyle tspan{!important;}#generated-mermaid-svg-wrapper flowchart{fill:apa;}</style>
+	<g>
+		<g class="output">
+			<g class="clusters">
+				<g class="cluster" id="flowchart-SGKey-59" transform="translate(183.3359375,108)" style="opacity: 1;">
+					<rect style="fill:#FFF;stroke:#FFF;stroke-width:0px;" width="350.671875" height="200" x="-175.3359375" y="-100"/>
+					<g class="label" transform="translate(0, -86)" id="generated-mermaid-svg-wrapperText">
+						<g transform="translate(0,0)">
+							<foreignObject width="0" height="0">
+								<div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"/>
+							</foreignObject>
+						</g>
+					</g>
+				</g>
+				<g class="cluster" id="flowchart-Experience-61" transform="translate(183.3359375,298.23159408569336)" style="opacity: 1;">
+					<rect width="350.671875" height="140.46318817138672" x="-175.3359375" y="-70.23159408569336"/>
+					<g class="label" transform="translate(0, -56.231597900390625)" id="generated-mermaid-svg-wrapperText">
+						<g transform="translate(-39.5625,-10)">
+							<foreignObject width="79.125" height="20">
+								<div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">Experience</div>
+							</foreignObject>
+						</g>
+					</g>
+				</g>
+				<g class="cluster" id="flowchart-Inspiration-62" transform="translate(183.3359375,458.6947822570801)" style="opacity: 1;">
+					<rect width="350.671875" height="140.46318817138672" x="-175.3359375" y="-70.23159408569336"/>
+					<g class="label" transform="translate(0, -56.231597900390625)" id="generated-mermaid-svg-wrapperText">
+						<g transform="translate(-38.0078125,-10)">
+							<foreignObject width="76.015625" height="20">
+								<div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">Inspiration</div>
+							</foreignObject>
+						</g>
+					</g>
+				</g>
+				<g class="cluster" id="flowchart-Website-63" transform="translate(423.71875,619.1579704284668)" style="opacity: 1;">
+					<rect width="831.4375" height="140.46318817138672" x="-415.71875" y="-70.23159408569336"/>
+					<g class="label" transform="translate(0, -56.231597900390625)" id="generated-mermaid-svg-wrapperText">
+						<g transform="translate(-28.328125,-10)">
+							<foreignObject width="56.65625" height="20">
+								<div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">Website</div>
+							</foreignObject>
+						</g>
+					</g>
+				</g>
+			</g>
+			<g class="edgePaths">
+				<g class="edgePath LS-DB LE-BE-API" id="L-DB-BE-API" style="opacity: 1;">
+					<path class="path" d="M226.0859375,619.1579704284668L358.671875,619.1579704284668L383.671875,619.1579704284668L408.671875,619.1579704284668" marker-end="url(#arrowhead70)" style="fill:none;stroke-width:4px;stroke:black;"/>
+					<defs>
+						<marker id="arrowhead70" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto">
+							<path d="M 0 0 L 0 0 L 0 0 z" style="fill: #333"/>
+						</marker>
+					</defs>
+				</g>
+				<g class="edgePath LS-BE-API LE-FE-API" id="L-BE-API-FE-API" style="opacity: 1;">
+					<path class="path" d="M520.8125,619.1579704284668L545.8125,619.1579704284668L570.8125,619.1579704284668" marker-end="url(#arrowhead71)" style="fill:none;stroke-width:4px;stroke:black;"/>
+					<defs>
+						<marker id="arrowhead71" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto">
+							<path d="M 0 0 L 0 0 L 0 0 z" style="fill: #333"/>
+						</marker>
+					</defs>
+				</g>
+				<g class="edgePath LS-FE-API LE-Web" id="L-FE-API-Web" style="opacity: 1;">
+					<path class="path" d="M687.78125,619.1579704284668L712.78125,619.1579704284668L737.78125,619.1579704284668" marker-end="url(#arrowhead72)" style="fill:none;stroke-width:4px;stroke:black;"/>
+					<defs>
+						<marker id="arrowhead72" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto">
+							<path d="M 0 0 L 0 0 L 0 0 z" style="fill: #333"/>
+						</marker>
+					</defs>
+				</g>
+			</g>
+			<g class="edgeLabels">
+				<g class="edgeLabel" transform="" style="opacity: 1;">
+					<g transform="translate(0,0)" class="label">
+						<rect rx="0" ry="0" width="0" height="0"/>
+						<foreignObject width="0" height="0">
+							<div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">
+								<span id="L-L-DB-BE-API" class="edgeLabel L-LS-DB' L-LE-BE-API"/>
+							</div>
+						</foreignObject>
+					</g>
+				</g>
+				<g class="edgeLabel" transform="" style="opacity: 1;">
+					<g transform="translate(0,0)" class="label">
+						<rect rx="0" ry="0" width="0" height="0"/>
+						<foreignObject width="0" height="0">
+							<div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">
+								<span id="L-L-BE-API-FE-API" class="edgeLabel L-LS-BE-API' L-LE-FE-API"/>
+							</div>
+						</foreignObject>
+					</g>
+				</g>
+				<g class="edgeLabel" transform="" style="opacity: 1;">
+					<g transform="translate(0,0)" class="label">
+						<rect rx="0" ry="0" width="0" height="0"/>
+						<foreignObject width="0" height="0">
+							<div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">
+								<span id="L-L-FE-API-Web" class="edgeLabel L-LS-FE-API' L-LE-Web"/>
+							</div>
+						</foreignObject>
+					</g>
+				</g>
+			</g>
+			<g class="nodes">
+				<g class="node KeyStyle" id="flowchart-KeyItem1-57" transform="translate(183.3359375,63)" style="opacity: 1;">
+					<polygon points="10,0 290.671875,0 300.671875,-20 290.671875,-40 10,-40 0,-20" transform="translate(-150.3359375,20)" class="label-container"/>
+					<g class="label" transform="translate(0,0)">
+						<g transform="translate(-130.3359375,-10)">
+							<foreignObject width="260.671875" height="20">
+								<div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">&#127755; Descriptive text in key</div>
+							</foreignObject>
+						</g>
+					</g>
+				</g>
+				<g class="node KeyStyle" id="flowchart-KeyItem2-58" transform="translate(183.3359375,153)" style="opacity: 1;">
+					<polygon points="10,0 290.671875,0 300.671875,-20 290.671875,-40 10,-40 0,-20" transform="translate(-150.3359375,20)" class="label-container"/>
+					<g class="label" transform="translate(0,0)">
+						<g transform="translate(-130.3359375,-10)">
+							<foreignObject width="260.671875" height="20">
+								<div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">&#127755; Descriptive text in key</div>
+							</foreignObject>
+						</g>
+					</g>
+				</g>
+				<g class="node q09" id="flowchart-DB3-56" label-offset-y="10.15439429928741" transform="translate(183.3359375,298.23159408569336)" style="opacity: 1;">
+					<path d="M 0,10.15439429928741 a 42.75,10.15439429928741 0,0,0 85.5 0 a 42.75,10.15439429928741 0,0,0 -85.5 0 l 0,50.15439429928741 a 42.75,10.15439429928741 0,0,0 85.5 0 l 0,-50.15439429928741" transform="translate(-42.75,-35.23159144893111)" class="label-container"/>
+					<g class="label" transform="translate(0,0)">
+						<g transform="translate(-32.75,-10)">
+							<foreignObject width="65.5" height="20">
+								<div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">Database</div>
+							</foreignObject>
+						</g>
+					</g>
+				</g>
+				<g class="node q99 clickable" id="flowchart-DB2-55" label-offset-y="10.15439429928741" transform="translate(183.3359375,458.6947822570801)" style="opacity: 1;" title="text">
+					<path d="M 0,10.15439429928741 a 42.75,10.15439429928741 0,0,0 85.5 0 a 42.75,10.15439429928741 0,0,0 -85.5 0 l 0,50.15439429928741 a 42.75,10.15439429928741 0,0,0 85.5 0 l 0,-50.15439429928741" transform="translate(-42.75,-35.23159144893111)" class="label-container"/>
+					<g class="label" transform="translate(0,0)">
+						<g transform="translate(-32.75,-10)">
+							<foreignObject width="65.5" height="20">
+								<div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">Database</div>
+							</foreignObject>
+						</g>
+					</g>
+				</g>
+				<g class="node q59" id="flowchart-DB-45" label-offset-y="10.15439429928741" transform="translate(183.3359375,619.1579704284668)" style="opacity: 1;">
+					<path d="M 0,10.15439429928741 a 42.75,10.15439429928741 0,0,0 85.5 0 a 42.75,10.15439429928741 0,0,0 -85.5 0 l 0,50.15439429928741 a 42.75,10.15439429928741 0,0,0 85.5 0 l 0,-50.15439429928741" transform="translate(-42.75,-35.23159144893111)" class="label-container"/>
+					<g class="label" transform="translate(0,0)">
+						<g transform="translate(-32.75,-10)">
+							<foreignObject width="65.5" height="20">
+								<div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">Database</div>
+							</foreignObject>
+						</g>
+					</g>
+				</g>
+				<g class="node q59 q09" id="flowchart-BE-API-46" transform="translate(464.7421875,619.1579704284668)" style="opacity: 1;">
+					<rect rx="0" ry="0" x="-56.0703125" y="-20" width="112.140625" height="40" class="label-container"/>
+					<g class="label" transform="translate(0,0)">
+						<g transform="translate(-46.0703125,-10)">
+							<foreignObject width="92.140625" height="20">
+								<div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">Back End API</div>
+							</foreignObject>
+						</g>
+					</g>
+				</g>
+				<g class="node q79 clickable" id="flowchart-FE-API-47" transform="translate(629.296875,619.1579704284668)" style="opacity: 1;" title="Any Tooltip Text">
+					<rect rx="0" ry="0" x="-58.484375" y="-20" width="116.96875" height="40" class="label-container"/>
+					<g class="label" transform="translate(0,0)">
+						<g transform="translate(-48.484375,-10)">
+							<foreignObject width="96.96875" height="20">
+								<div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">Front End API</div>
+							</foreignObject>
+						</g>
+					</g>
+				</g>
+				<g class="node q99" id="flowchart-Web-48" transform="translate(776.109375,619.1579704284668)" style="opacity: 1;">
+					<rect rx="0" ry="0" x="-38.328125" y="-20" width="76.65625" height="40" class="label-container"/>
+					<g class="label" transform="translate(0,0)">
+						<g transform="translate(-28.328125,-10)">
+							<foreignObject width="56.65625" height="20">
+								<div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">Website</div>
+							</foreignObject>
+						</g>
+					</g>
+				</g>
+			</g>
+		</g>
+	</g>
+</svg>

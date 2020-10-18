@@ -1,13 +1,5 @@
-<script>
-
-  var callback = function(){ //TODO: See notes on interactivity/tooltips
-        alert('A callback was triggered');
-    }
-</script>
-
-<p>Here is a mermaid diagram:</p>
-
-<p>Direct above</p>
+<app-loading *ngIf="loading"></app-loading>
+<div id="mermaid-content-wrapper" [ngClass]="mermaidWrapperCssClass">
 <pre>
   <div id="mermaidcontainer" class="mermaid">
     graph LR
@@ -34,16 +26,31 @@
       DB3(Database)
     end
 
-
+    %% This needs generating from a template
     classDef default fill:#f9f,stroke:#333,stroke-width:4px;
-    classDef qualitylow fill:#B02020,stroke:#333,stroke-width:4px;
+    classDef qualitylow fill:#B02020,stroke:#333,stroke-width:4px;color:#ffffff;
     classDef qualitymid fill:#DD550C,stroke:#333,stroke-width:4px;
     classDef qualityhigh fill:#DFE74A,stroke:#333,stroke-width:4px;
+    classDef q09 fill:#ffffff
+    classDef q19 fill:#fff5eb
+    classDef q29 fill:#fee6ce
+    classDef q39 fill:#fdd0a2
+    classDef q49 fill:#fdae6b
+    classDef q59 fill:#fd8d3c
+    classDef q69 fill:#f16913
+    classDef q79 fill:#d94801
+    classDef q89 fill:#a63603
+    classDef q99 fill:#7f2704
+
     class DB qualityow;
     class FE-API qualitylow;
-    class DB2,Web qualitymid;
+    class DB2,Web q99;
     class DB3,BE-API qualityhigh;
+
+    click DB2 callback "text"
+    click FE-API undefinedTooltip "Any Tooltip Text"
     </div>
    <!-- <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
    <script>mermaid.initialize({startOnLoad:true});</script> -->
 </pre>
+</div>

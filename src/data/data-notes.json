@@ -1,0 +1,48 @@
+{
+  "faq": [
+
+  ],
+  "notes": [
+    {
+      "noteid": "Holiday",
+      "note": ""
+    }
+  ],
+  "inspirations":[
+    {
+      "quote": "If it hurts, do it more often",
+      "attribution": "TBC",
+      "link": ""
+    },
+    {
+      "quote": "Something on leftshifting",
+      "attribution": "TBC",
+      "link": ""
+    },
+    {
+      "quote": "Something on smaller work",
+      "attribution": "TBC",
+      "link": ""
+    },
+    {
+      "quote": "Several things from DORA on more frequent deployments",
+      "attribution": "TBC",
+      "link": ""
+    },
+    {
+      "quote": "Several things from Michael Feathers, Robert Fowler etc. on refactoring/code quality",
+      "attribution": "TBC",
+      "link": ""
+    },
+    {
+      "quote": "Several things on automation",
+      "attribution": "TBC",
+      "link": ""
+    },
+    {
+      "quote": "Several things on visibility and information radiators",
+      "attribution": "TBC",
+      "link": ""
+    }
+  ]
+}

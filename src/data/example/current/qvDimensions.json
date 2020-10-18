@@ -4,14 +4,90 @@
       "name" : "Security",
       "description": "How secure the element is.",
       "note" : "use established security source to evaluate this",
-      "tooltip" : ""
+      "tooltip" : "Careful!"
     },
 
     {
       "name" : "Deployability",
       "description": "How easy and fast it is to redeploy the element.",
       "note" : "use DORA metrics",
-      "tooltip" : ""
+      "tooltip" : "Use DORA metrics",
+      "relatedReferences": [
+        "https://www.infoq.com/presentations/coinbase-technical-debt/"
+      ]
+    },
+
+    {
+      "name" : "Code Quality",
+      "description": "Holistic perception of the quality of the codebase.",
+      "note" : "use DORA metrics",
+      "tooltip" : "This should come from qualitative judgements of the team, plus some appropriate code metrics. Dismiss the metrics if they don't help!"
+    },
+
+    {
+      "name" : "Test Quality",
+      "description": "How useful tests are in codifying the component and asserting its validity and correctness.",
+      "note" : "",
+      "tooltip" : "Covers the test coverage, speed, how much they're part of the dev workflow..."
+    },
+
+    {
+      "name" : "Stakeholder Engagement",
+      "description": "The degree to which stakeholders respond to queries, actively focus on and understand the component.",
+      "note" : "",
+      "tooltip" : "This shouldn't be political - not everything requires stakeholder attention, but misalignment between development and stakeholders should be addressed."
+    },
+
+    {
+      "name" : "Version Control Coverage",
+      "description": "How much of the component is in version control.",
+      "note" : "use DORA metrics",
+      "tooltip" : "Configuration as code, pipeline as code should help bring some things that are traditionally not in VC in. This helps with testing of change, and visibility of change."
+    },
+
+    {
+      "name" : "Ease of Change",
+      "description": "How easy and fast it is to change the architecture or add new features.",
+      "note" : "",
+      "tooltip" : "You'd expect this to be good in lossely coupled systems."
+    },
+
+    {
+      "name" : "Ease of Recovery",
+      "description": "How easy and fast it is to redeploy the element in the event of an outage or failure.",
+      "note" : "use DORA metrics",
+      "tooltip" : "Consider whether failing forward or rollback is the right strategy for this component."
+    },
+
+    {
+      "name" : "Stability",
+      "description": "How often a failure occurs.",
+      "note" : "use DORA metrics",
+      "tooltip" : "Consider what stable looks like - depending on whether exceptions are exceptional, a stable component might still show errors in instrumentation."
+    },
+
+    {
+      "name" : "Visibility",
+      "description": "How easy it is to understand what is happening in the system, in every environment.",
+      "note" : "Visibility, observability, instrumentation? Probably observability over time. See 2 ebooks in email on o18lly.",
+      "tooltip" : "Visibility, observability, instrumentation?",
+      "relatedReferences": [
+        "https://www.infoq.com/podcasts/tesla-colin-breck/?itm_source=podcasts_about_Software_Craftsmanship&itm_medium=link&itm_campaign=Software_Craftsmanship"
+      ]
+    },
+
+    {
+      "name" : "Architectural Quality",
+      "description": "How well-designed and implemented the subsystem components are.",
+      "note" : "use DORA metrics",
+      "tooltip" : "Consider coupling, ...and what else?"
+    },
+
+    {
+      "name" : "Up-to-date-ness",
+      "description": "How current the technologies and packages are",
+      "note" : "",
+      "tooltip" : "We don't want cutting edge for it's own sake, but clinging to outdated technology risks being less secure and less fully featured. Fear of updating packages is a smell, it suggests we don't understand what they're doing or how they would change."
     }
 
   ]

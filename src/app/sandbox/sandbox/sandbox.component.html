@@ -1,0 +1,59 @@
+<div id="sandbox-container">
+
+  <div class="flex-column">
+    <h4>Dimensions</h4>
+    <ul>
+      <li *ngFor="let dimension of dimensions; index as i; " class="hastooltip">
+        {{dimension.name}} <span class="description">({{dimension.description}})</span>
+        <span class="tooltiptext">{{dimension.tooltip}}</span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="flex-column-wide">
+    <h4>Evidence</h4>
+
+    <div *ngFor="let dimension of dimensions; index as i; ">
+      <p>{{dimension.name}}</p>
+        <div *ngFor="let evidenceDimension of evidence; index as i; ">
+          <div *ngIf="dimension.name == evidenceDimension.dimension">
+            <ul>
+              <li *ngFor="let evidenceSource of evidenceDimension.evidenceSources; index as i; ">
+                {{evidenceSource.name}}
+              </li>
+            </ul>
+          </div>
+        </div>
+    </div>
+  </div>
+
+  <div class="flex-column">
+    <h4>Results</h4>
+
+    <div *ngFor="let dimension of dimensions; index as i; ">
+      <p>{{dimension.name}}</p>
+        <div *ngFor="let evidenceDimension of evidence; index as i; ">
+          <div *ngIf="dimension.name == evidenceDimension.dimension">
+            <div *ngFor="let result of results; index as i; ">
+
+              <p>{{result.projectelement}}</p>
+              <p>{{result.projectelementResults}}</p>
+
+
+              <div *ngIf="result.projectelement == evidenceDimension.element">
+                <p>{{result.projectelement}}</p>
+                <p>{{result.projectelementResults}}</p>
+                <ul>
+                  <!-- <li *ngFor="let evidenceSource of evidenceDimension.evidenceSources; index as i; ">
+                    {{evidenceSource.name}}
+                  </li> -->
+                  <li>{{result.projectelementResults}}</li>
+                </ul>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+
+
+</div>

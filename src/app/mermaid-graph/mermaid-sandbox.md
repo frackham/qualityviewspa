@@ -4,3 +4,11 @@ graph TD
       B --> C[Server1]
       B --> D[Server2]
 ```
+
+
+# Mermaid lessons:
+## Styling
+
+
+# Mermaid hypotheses:
+- colours need to be hex? rgb doesn't seem to work
