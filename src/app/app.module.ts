@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatTabsModule} from '@angular/material/tabs';
-
+import {MatTreeModule} from '@angular/material/tree';
 
 
 import { AppRoutingModule } from './app-routing.module';

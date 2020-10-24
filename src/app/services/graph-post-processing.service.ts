@@ -84,13 +84,21 @@ export class GraphPostProcessingService {
   getPostProcessingData() {
     this.elements = this.projectDataService.getElements();
   }
+  
+  clusterOnClick(cluster:any){
+  		alert('cluster on click fn!');
+  		alert('a cluster on click should show subproject summary, and element should show element results breakdown (getResultsOfElement(elementId)');
+  		console.log(cluster);
+  }
 
   ProcessClusters() {
     if(!this._xmlDoc) { throw "no xmldoc defined" }
     var svgClusters = this._xmlDoc.getElementsByClassName("cluster");
     for (var i=0, len=svgClusters.length|0; i<len; i=i+1|0) {
       svgClusters[i].classList.add("svg-mermaid-cluster"); //TODO: Use this class to style using CSS, and apply classes to other mermaid types
-
+      
+      svgClusters[i].setAttribute("onclick","alert('!, next trying passing this to the postprocessing function')");
+//clusterOnClick
 
       var r = svgClusters[i].getElementsByTagName("rect")[0] //rect element in svg, background of a subgraph.
       r.classList.add(`svg-mermaid-cluster-background`);
