@@ -7,7 +7,7 @@ import { ProjectDataService } from './project-data.service';
   providedIn: 'root'
 })
 export class GraphBuilderService {
-
+  private _debug:boolean = false;
   graphTemplate:string = "";
   graphDirty:boolean = false;
   testGraphData:string = `
@@ -40,16 +40,16 @@ export class GraphBuilderService {
   classDef qualitylow fill:#B02020,stroke:#333,stroke-width:4px;color:#ffffff;
   classDef qualitymid fill:#DD550C,stroke:#333,stroke-width:4px;
   classDef qualityhigh fill:#DFE74A,stroke:#333,stroke-width:4px;
-  classDef q09 fill:#ffffff
-  classDef q19 fill:#fff5eb
-  classDef q29 fill:#fee6ce
-  classDef q39 fill:#fdd0a2
-  classDef q49 fill:#fdae6b
-  classDef q59 fill:#fd8d3c
-  classDef q69 fill:#f16913
-  classDef q79 fill:#d94801
-  classDef q89 fill:#a63603
-  classDef q99 fill:#7f2704
+  classDef q09 fill:#ffffff,stroke:#333
+  classDef q19 fill:#fff5eb,stroke:#333
+  classDef q29 fill:#fee6ce,stroke:#333
+  classDef q39 fill:#fdd0a2,stroke:#333
+  classDef q49 fill:#fdae6b,stroke:#333
+  classDef q59 fill:#fd8d3c,stroke:#333
+  classDef q69 fill:#f16913,stroke:#333
+  classDef q79 fill:#d94801,stroke:#333
+  classDef q89 fill:#a63603,stroke:#333
+  classDef q99 fill:#7f2704,stroke:#333
 
   class DB qualityow;
   class FE-API qualitylow;
@@ -109,6 +109,7 @@ export class GraphBuilderService {
   `;
 
   constructor(private projectDataService: ProjectDataService) {
+    this._debug = false; //TODO: Move to config
 
   }
 
@@ -175,22 +176,45 @@ Builder_AddHeader(template: string): string {
 }
 
 Builder_AddElements(template: string): string {
-  this.projectDataService.getProject().subProjects.forEach(sg => {
+  for (let sg of this.projectDataService.getProject().subProjects) {
+    if(sg === "StyleHelper" && !this._debug) {
+      continue;
+    }
 
     template += `\r\n subgraph ${sg}`
     var elements = this.projectDataService.getElements().filter(function(element) { return element.subProject === sg; });
     elements.forEach(el =>  {
-      template += `\r\n  ${el.elementId}[${el.elementName}]`
+      switch (el.shape ?? null) {
+        case null:
+          template += `\r\n  ${el.elementId}[${el.elementName}]`
+          break;
+
+        case "database":
+          template += `\r\n  ${el.elementId}[(${el.elementName})]`
+          break;
+
+        case "circle":
+          template += `\r\n  ${el.elementId}((${el.elementName}))`
+          break;
+
+        case "rounded":
+          template += `\r\n  ${el.elementId}(${el.elementName})`
+          break;
+
+        default:
+          template += `\r\n  ${el.elementId}[${el.elementName}]`
+          break;
+      }
     });
     template += `\r\n end \r\n\r\n`
-  });
+  };
   return template;
 }
 
 Builder_AddRelationships(template: string): string {
   this.projectDataService.getProject().relationships.forEach(rel => {
 
-    template += `\r\n  ${rel.fromElement} --- ${rel.toElement}`
+    template += `\r\n  ${rel.fromElement} ---> ${rel.toElement}`
   });
   return template ;
 }
@@ -211,16 +235,16 @@ Builder_AddStyles(template:string): string {
 
   %% Styles
     classDef default fill:#f9f,stroke:#333,stroke-width:4px,stroke:red
-    classDef q09 fill:#ffffff
-    classDef q19 fill:#fff5eb
-    classDef q29 fill:#fee6ce
-    classDef q39 fill:#fdd0a2
-    classDef q49 fill:#fdae6b
-    classDef q59 fill:#fd8d3c
-    classDef q69 fill:#f16913
-    classDef q79 fill:#d94801
-    classDef q89 fill:#a63603
-    classDef q99 fill:#7f2704
+    classDef q09 fill:#ffffff,stroke:#111,stroke-width:2px
+    classDef q19 fill:#fff5eb,stroke:#111,stroke-width:2px
+    classDef q29 fill:#fee6ce,stroke:#111,stroke-width:2px
+    classDef q39 fill:#fdd0a2,stroke:#111,stroke-width:2px
+    classDef q49 fill:#fdae6b,stroke:#111,stroke-width:2px
+    classDef q59 fill:#fd8d3c,stroke:#111,stroke-width:2px
+    classDef q69 fill:#f16913,stroke:#111,stroke-width:2px
+    classDef q79 fill:#d94801,stroke:#111,stroke-width:2px
+    classDef q89 fill:#a63603,stroke:#111,stroke-width:2px
+    classDef q99 fill:#7f2704,stroke:#111,stroke-width:2px
 
     linkStyle default fill:none,stroke-width:4px,stroke:black
   `;

@@ -6,6 +6,7 @@ import { Renderer2, Inject } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { ElementRef } from '@angular/core';
 import { GraphBuilderService } from 'src/app/services/graph-builder.service';
+import { GraphPostProcessingService } from 'src/app/services/graph-post-processing.service';
 
 @Component({
   selector: 'app-embedded-mermaid',
@@ -20,7 +21,9 @@ export class EmbeddedMermaidComponent implements OnInit, AfterViewInit {
 
   constructor(
     @Inject(DOCUMENT) private _document: Document,
-    private _graphBuilder: GraphBuilderService) { }
+    private _graphBuilder: GraphBuilderService,
+    private _graphPostProcessing : GraphPostProcessingService
+    ) { }
 
 
   ngOnInit(): void {
@@ -29,7 +32,12 @@ export class EmbeddedMermaidComponent implements OnInit, AfterViewInit {
     mermaidAPI.initialize(
       //mermaid config:
       {
-          securityLevel: 'loose'
+          securityLevel: 'loose',
+          flowchart: {
+            curve: 'basis' //See https://github.com/mermaid-js/mermaid/issues/580 and https://github.com/d3/d3-shape/blob/master/README.md#curves
+                              //known working values: monotoneY, basis, linear, stepAfter, stepBefore
+                              //basis seems best so far, in principle steps are what I want but they overlap too much in practice.
+          }
       }
     );
 
@@ -38,21 +46,12 @@ export class EmbeddedMermaidComponent implements OnInit, AfterViewInit {
         this.svgContent = g;
     });
 
-    var parser = new DOMParser();
-    var xmlDoc = parser.parseFromString(this.svgContent, "image/svg+xml");
-    var elements = xmlDoc.getElementsByClassName("node");
+    this.svgContent = this._graphPostProcessing.PostProcess(this.svgContent)
 
-    //Manually editing the svg from mermaid before we use it.
-    //This allows us to inject anything we want here that can be applied to svg (including css and interactions) rather than relying what's available in mermaid.
-    for (var i=0, len=elements.length|0; i<len; i=i+1|0) {
-      elements[i].classList.add("myClass"); //TODO: Use this class to style using CSS, and apply classes to other mermaid types
-      elements[i].setAttribute("onclick","window.parent.SvgElementClickHandler(this)");
-    }
-    var markup = xmlDoc.documentElement.outerHTML;
-    console.log(markup);
-    this.svgContent =markup;
 
   }
+
+
 
   ngAfterContentInit():void{
     // console.log('ngAfterContentInit');

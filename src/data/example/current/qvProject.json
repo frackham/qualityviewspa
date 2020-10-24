@@ -3,22 +3,24 @@
     "projectName": "Example QV",
     "subProjects":[
       "Inspiration",
-      "Experience",
-      "Website"
+      "Experience-Classic",
+      "Experience-Iceberg",
+      "Website",
+      "StyleHelper"
     ],
     "tempElementScoreScale": 10,
     "elements": [
       {
-        "elementId" : "Inspiration-FE-API",
+        "elementId" : "Inspiration-DNN-CMS",
         "elementName" : "FE API",
-        "tempElementScore": 10,
+        "tempElementScore": 5,
         "subProject": "Inspiration"
 
       },
       {
         "elementId" : "Inspiration-BE-API",
         "elementName" : "BE API",
-        "tempElementScore": 10,
+        "tempElementScore": 7,
         "subProject": "Inspiration"
       },
 
@@ -26,47 +28,105 @@
         "elementId" : "Inspiration-DB",
         "elementName" : "Database",
         "tempElementScore": 10,
-        "subProject": "Inspiration"
+        "subProject": "Inspiration",
+        "shape": "database"
       },
 
       {
-        "elementId" : "Experience-FE-API",
-        "elementName" : "FE API",
-        "tempElementScore": 10,
-        "subProject": "Experience"
+        "elementId" : "Experience-Employer",
+        "elementName" : "Employer (data?x2?)",
+        "tempElementScore": 1,
+        "shape": "database"
 
       },
       {
-        "elementId" : "Experience-BE-API",
-        "elementName" : "BE API",
-        "tempElementScore": 10,
-        "subProject": "Experience"
+        "elementId" : "Experience-Classic-BE-API",
+        "elementName" : "BE API?",
+        "tempElementScore": 8,
+        "subProject": "Experience-Classic"
+      },
+      {
+        "elementId" : "Experience-Classic-DNN-CMS",
+        "elementName" : "DNN",
+        "tempElementScore": 2,
+        "subProject": "Experience-Classic"
+      },
+      {
+        "elementId" : "Experience-Classic-Frontend",
+        "elementName" : "Frontend",
+        "tempElementScore": 2,
+        "subProject": "Experience-Classic"
       },
 
       {
         "elementId" : "Experience-DB",
         "elementName" : "Database",
-        "tempElementScore": 10,
-        "subProject": "Experience"
+        "tempElementScore": 3,
+        "shape": "database"
       },
+      {
+        "elementId" : "Experience-DB2",
+        "elementName" : "Database2",
+        "tempElementScore": 3,
+        "shape": "database"
+      },
+      {
+        "elementId" : "Experience-Iceberg-BE-API",
+        "elementName" : "BE API?",
+        "tempElementScore": 10,
+        "subProject": "Experience-Iceberg"
+      },
+      {
+        "elementId" : "Experience-Iceberg-DNN-CMS",
+        "elementName" : "DNN",
+        "tempElementScore": 6,
+        "subProject": "Experience-Iceberg"
+      },
+      {
+        "elementId" : "Experience-Iceberg-Frontend",
+        "elementName" : "Frontend",
+        "tempElementScore": 2,
+        "subProject": "Experience-Iceberg"
+      },
+
 
       {
         "elementId" : "Website-DB",
         "elementName" : "Database",
         "tempElementScore": 10,
-        "subProject": "Website"
+        "subProject": "Website",
+        "shape": "database"
+      },
+      {
+        "elementId" : "Website-DB2",
+        "elementName" : "Database2",
+        "tempElementScore": 7,
+        "subProject": "Website",
+        "shape": "database"
       },
       {
         "elementId" : "Website-Website",
         "elementName" : "Website",
-        "tempElementScore": 10,
+        "tempElementScore": 2,
         "subProject": "Website"
-      }
+      },
+
+      {        "elementId" : "StyleHelper-0",   "elementName" : "StyleHelper-0",  "tempElementScore": 0,"subProject": "StyleHelper"      },
+      {        "elementId" : "StyleHelper-1",   "elementName" : "StyleHelper-1",  "tempElementScore": 1,"subProject": "StyleHelper"      },
+      {        "elementId" : "StyleHelper-2",   "elementName" : "StyleHelper-2",  "tempElementScore": 2,"subProject": "StyleHelper"      },
+      {        "elementId" : "StyleHelper-3",   "elementName" : "StyleHelper-3",  "tempElementScore": 3,"subProject": "StyleHelper"      },
+      {        "elementId" : "StyleHelper-4",   "elementName" : "StyleHelper-4",  "tempElementScore": 4,"subProject": "StyleHelper"      },
+      {        "elementId" : "StyleHelper-5",   "elementName" : "StyleHelper-5",  "tempElementScore": 5,"subProject": "StyleHelper"      },
+      {        "elementId" : "StyleHelper-6",   "elementName" : "StyleHelper-6",  "tempElementScore": 6,"subProject": "StyleHelper"      },
+      {        "elementId" : "StyleHelper-7",   "elementName" : "StyleHelper-7",  "tempElementScore": 7,"subProject": "StyleHelper"      },
+      {        "elementId" : "StyleHelper-8",   "elementName" : "StyleHelper-8",  "tempElementScore": 8,"subProject": "StyleHelper", "shape": "circle"      },
+      {        "elementId" : "StyleHelper-9",   "elementName" : "StyleHelper-9",  "tempElementScore": 9,"subProject": "StyleHelper", "shape": "rounded"      },
+      {        "elementId" : "StyleHelper-10",  "elementName" : "StyleHelper-10",  "tempElementScore": 10,"subProject": "StyleHelper", "shape": "database"      }
     ],
     "relationships": [
       {
         "fromElement": "Inspiration-BE-API",
-        "toElement" : "Inspiration-FE-API",
+        "toElement" : "Inspiration-DNN-CMS",
         "label": "consumes"
       },
 
@@ -76,20 +136,59 @@
         "label": "consumes"
       },
 
+
       {
-        "fromElement": "Experience-BE-API",
-        "toElement" : "Experience-FE-API",
+        "fromElement": "Experience-Iceberg-BE-API",
+        "toElement" : "Experience-Iceberg-DNN-CMS",
+        "label": "consumes"
+      },
+      {
+        "fromElement": "Experience-Iceberg-DNN-CMS",
+        "toElement" : "Experience-Iceberg-Frontend",
         "label": "consumes"
       },
 
       {
         "fromElement": "Experience-DB",
-        "toElement" : "Experience-BE-API",
+        "toElement" : "Experience-Iceberg-BE-API",
+        "label": "consumes"
+      },
+      {
+        "fromElement": "Experience-DB",
+        "toElement" : "Experience-Classic-BE-API",
         "label": "consumes"
       },
 
       {
+        "fromElement": "Experience-DB2",
+        "toElement" : "Experience-Iceberg-BE-API",
+        "label": "consumes"
+      },
+      {
+        "fromElement": "Experience-DB2",
+        "toElement" : "Experience-Classic-BE-API",
+        "label": "consumes"
+      },
+
+      {
+        "fromElement": "Experience-Classic-BE-API",
+        "toElement" : "Experience-Classic-DNN-CMS",
+        "label": "consumes"
+      },
+
+
+
+      {
+        "fromElement": "Experience-Classic-DNN-CMS",
+        "toElement" : "Experience-Classic-Frontend",
+        "label": "consumes"
+      },
+      {
         "fromElement": "Website-DB",
+        "toElement" : "Website-Website",
+        "label": "consumes"
+      },{
+        "fromElement": "Website-DB2",
         "toElement" : "Website-Website",
         "label": "consumes"
       }

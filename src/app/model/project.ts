@@ -12,6 +12,8 @@
       elementName: string;
       tempElementScore: number;
       subProject?: string;
+      elementRegex?(): string;
+      shape?: string; // default is square. alternatives: "database", "circle", "rounded"
   }
 
   export interface Relationship {
