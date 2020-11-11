@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
 import {SelectionModel} from '@angular/cdk/collections';
 import {FlatTreeControl} from '@angular/cdk/tree';
-import {Component, Injectable} from '@angular/core';
+import {OnInit, Component, Injectable} from '@angular/core';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import {BehaviorSubject} from 'rxjs';
 
@@ -10,15 +9,15 @@ import {BehaviorSubject} from 'rxjs';
  * Node for to-do item
  */
 export class TodoItemNode {
-  children: TodoItemNode[];
-  item: string;
+  children: TodoItemNode[] = [];
+  item: string = '';
 }
 
 /** Flat to-do item node with expandable and level information */
 export class TodoItemFlatNode {
-  item: string;
-  level: number;
-  expandable: boolean;
+  item: string = '';
+  level: number = 0;
+  expandable: boolean = false;
 }
 
 /**
@@ -118,9 +117,10 @@ export class ChecklistDatabase {
   providers: [ChecklistDatabase]
 
 })
+
 export class NotesComponent implements OnInit {
 
-  constructor() { }
+  // constructor() { }
 
   ngOnInit(): void {
   }
