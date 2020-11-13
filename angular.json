@@ -73,7 +73,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "qualityviewspa:build"
+            "browserTarget": "qualityviewspa:build",
+              "port": 4312
           },
           "configurations": {
             "production": {

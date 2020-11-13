@@ -1,0 +1,49 @@
+{
+  "subProjects":
+  [
+    {
+    "name": "SalesForce",
+    "environmentType": "Cloud Platform",
+    "environments":[
+      {
+        "name": "prod",
+        "url": "",
+        "deploymentMechanism": "Manual edits only"
+      },
+      {
+        "name": "dev"
+      }
+    ]
+    },
+    {}
+  ],
+
+  "tempDeletesubProjects":[
+    "SalesForce",
+    "Inspiration",
+    "Experience-Classic",
+    "Experience-Iceberg",
+    "Progression",
+    "Youth-Card",
+    "Website",
+    "Other_UnHomed",
+    "StyleHelper"
+  ],
+  "environmentTypes": [
+    "Cloud Platform",
+    "SQL",
+    "VM",
+    "Web App",
+    "API",
+    "Cloud Resources"
+  ],
+  "deploymentMechanisms": [
+    "Manual edits only",
+    "Scripts/CLI",
+    "CI/CD (WIP)",
+    "CI/CD (some manual actions required)",
+    "CI/CD",
+    "Other GUI (not CI/CD)"
+  ]
+}
+
