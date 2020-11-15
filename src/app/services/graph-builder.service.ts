@@ -6,7 +6,27 @@ import { ProjectDataService } from './project-data.service';
 @Injectable({
   providedIn: 'root'
 })
+
+// export class GraphBuilderConfig {
+
+//   constructor() {
+
+//   }
+// }
+
 export class GraphBuilderService {
+
+  /*config notes:
+    include/exclude list for projects - Show takes priority if in both lists.
+
+  */
+  private config:any = {
+    subProjectsToHide: [
+      "Other_UnHomed"
+      //, "Website", "Experience-Classic", "Experience-Iceberg"
+    ],
+    subProjectsToShow: []
+  };
   private _debug:boolean = false;
   graphTemplate:string = "";
   graphDirty:boolean = false;
@@ -107,11 +127,16 @@ export class GraphBuilderService {
   click DB2 callback "text"
   click FE-API undefinedTooltip "Any Tooltip Text"
   `;
+  // config: GraphBuilderConfig | null = null;
 
   constructor(private projectDataService: ProjectDataService) {
     this._debug = false; //TODO: Move to config
 
   }
+
+  // UseConfig(config:GraphBuilderConfig){
+  //   this.config = config;
+  // }
 
   BuildGraph(){
     let buildingTemplate:string = `
@@ -181,6 +206,10 @@ Builder_AddElements(template: string): string {
       continue;
     }
 
+    if(this.config.subProjectsToHide.includes(sg)) {
+      continue;
+    }
+
     template += `\r\n subgraph ${sg}`
     var elements = this.projectDataService.getElements().filter(function(element) { return element.subProject === sg; });
     elements.forEach(el =>  {
@@ -212,9 +241,19 @@ Builder_AddElements(template: string): string {
 }
 
 Builder_AddRelationships(template: string): string {
+  var allElements = this.projectDataService.getElements();
+
   this.projectDataService.getProject().relationships.forEach(rel => {
 
-    template += `\r\n  ${rel.fromElement} ---> ${rel.toElement}`
+    var fromElement = allElements.find(x => x.elementId === rel.fromElement);
+    var toElement = allElements.find(x => x.elementId === rel.toElement);
+
+    //Don't include relationships where either element is in subprojects we're excluding.
+    var includeRelationShip:boolean = true;
+    if(this.config.subProjectsToHide.includes(fromElement?.subProject)) { includeRelationShip = false; }
+    if(this.config.subProjectsToHide.includes(toElement?.subProject)) { includeRelationShip = false; }
+
+    if(includeRelationShip) { template += `\r\n  ${rel.fromElement} ---> ${rel.toElement}` }
   });
   return template ;
 }
@@ -246,7 +285,11 @@ Builder_AddStyles(template:string): string {
     classDef q89 fill:#a63603,stroke:#111,stroke-width:2px
     classDef q99 fill:#7f2704,stroke:#111,stroke-width:2px
 
-    linkStyle default fill:none,stroke-width:4px,stroke:black
+    linkStyle default fill:none,stroke-width:4px,stroke:black, opacity: 0.3;
+
+    %%Thick solid lines
+    %%linkStyle default fill:none,stroke-width:4px,stroke:black
+
   `;
 }
 
