@@ -1,0 +1,29 @@
+TODO:
+embedded mermaid and tabset modules
+shared module
+
+
+refresh/redraw button (for now, remove when done, triggers parent to redraw)
+
+
+slide toggle for show notes overlay?: https://material.angular.io/components/slide-toggle/overview
+tooltips in mermaid controls
+https://material.angular.io/components/tooltip/overview
+
+datepicker control (show result state at date - only show dates with results?)
+https://material.angular.io/components/datepicker/overview
+
+
+card for project, element: https://material.angular.io/components/card/examples
+
+
+
+____________
+
+
+Capture notifications
+Learnings on IDE/Tooling (share a tip a day). <-- aim is to drip feed learnings.
+
+Capture menial work (including time) - driver for automation.
+
+Capture helpers scripts ---> Form for what it does (inputs,prereqs, outputs, limitations, notes etc.)

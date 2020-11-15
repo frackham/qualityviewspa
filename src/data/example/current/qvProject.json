@@ -3,6 +3,7 @@
     "projectName": "Example QV",
     "subProjects":[
       "SalesForce",
+      "Dotnet-Server-Services",
       "Teams",
       "Inspiration",
       "Experience-Classic",
@@ -145,6 +146,12 @@
         "subProject": "SalesForce"
       },
       {
+        "elementId" : "SalesForce-SObject-EmployerRegistration_Lead",
+        "elementName" : "EmployerRegistration_Lead",
+        "tempElementScore": 4,
+        "subProject": "SalesForce"
+      },
+      {
         "elementId" : "SalesForce-SObject-Applications",
         "elementName" : "Applications maybe",
         "tempElementScore": 4,
@@ -211,6 +218,41 @@
         "subProject": "Experience-Iceberg"
       },
 
+      {
+        "elementId" : "s4sSalesForceConnector",
+        "elementName" : "s4sSalesForceConnector",
+        "tempElementScore": 7,
+        "subProject": "Dotnet-Server-Services"
+      },
+      {
+        "elementId" : "Twitter-Service",
+        "elementName" : "Twitter-Service",
+        "tempElementScore": 7,
+        "subProject": "Dotnet-Server-Services"
+      },
+      {
+        "elementId" : "s4sNextGenDotMailer",
+        "elementName" : "s4sNextGenDotMailer",
+        "tempElementScore": 7,
+        "subProject": "Dotnet-Server-Services"
+      },
+      {
+        "elementId" : "s4sNextGenDotMailerV2",
+        "elementName" : "s4sNextGenDotMailerV2",
+        "tempElementScore": 7,
+        "subProject": "Dotnet-Server-Services"
+      },
+      {
+        "elementId" : "s4sNextGenDataLoad",
+        "elementName" : "s4sNextGenDataLoad",
+        "tempElementScore": 7,
+        "subProject": "Dotnet-Server-Services"
+      },
+
+
+
+
+
 
       {
         "elementId" : "Website-DB",
@@ -276,7 +318,16 @@
         "label": "consumes"
       },
 
-
+      {
+        "fromElement": "Experience-DB-s4snextgen",
+        "toElement" : "s4sSalesForceConnector",
+        "label": "consumes"
+      },
+      {
+        "fromElement": "s4sSalesForceConnector",
+        "toElement" : "SalesForce-SObject-EmployerRegistration_Lead",
+        "label": "consumes"
+      },
 
       {
         "fromElement": "Experience-DB-s4schools",

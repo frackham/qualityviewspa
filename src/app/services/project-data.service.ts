@@ -12,6 +12,7 @@ export class ProjectDataService {
 
   public globalDebugData:any = null
 
+  //TODO: add subprojects here.
 
   private _cachedProject: Project | null = null;
   private _cachedElements: Element[] = [];
@@ -32,6 +33,14 @@ export class ProjectDataService {
     }
     this._cachedProject = this.jsonDataService.project
     return this._cachedProject;
+  }
+
+  getSubProjects(useCached:boolean = true): string[] {
+    if (useCached && this._cachedProject) {
+      return this._cachedProject.subProjects;
+    }
+    this._cachedProject = this.jsonDataService.project
+    return this._cachedProject.subProjects;
   }
 
   //////////////////////////////////////////////////

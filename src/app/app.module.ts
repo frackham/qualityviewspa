@@ -22,6 +22,8 @@ import { MermaidHeaderControlsComponent } from './tabset/embedded-mermaid/mermai
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,9 @@ import { MatDividerModule } from '@angular/material/divider';
     MatChipsModule,
     MatSlideToggleModule,
     MatIconModule,
-    MatDividerModule
+    MatDividerModule,
+    MatDatepickerModule,
+    MatNativeDateModule
 
   ],
   providers: [

@@ -21,12 +21,16 @@
   </section>
 
   <section>
-    <mat-chip-list aria-label="Fish selection">
-      <mat-chip>One fish</mat-chip>
-      <mat-chip>Two fish</mat-chip>
-      <mat-chip color="primary" selected>Primary fish</mat-chip>
-      <mat-chip color="accent" selected>Accent fish</mat-chip>
+    <div class="example-button-row">
+    <mat-chip-list aria-label="Subproject selection" *ngFor="let subprojectChip of filtervalue_chips_subprojectsToShow"
+      ariaOrientation='horizontal' multiple=true >
+      <mat-chip color={{subprojectChip.color}}
+                selected={{subprojectChip.selected}}
+                (selectionChange)="changeSelected($event, subprojectChip)" (click)="subprojectChip.selected=!subprojectChip.selected">
+                {{subprojectChip.name}}
+      </mat-chip>
     </mat-chip-list>
+  </div>
   </section>
 
   <section class="example-section">
@@ -60,6 +64,14 @@
         </button>
       </div>
     </div>
+  </section>
+  <section>
+    <!-- <mat-form-field class="example-full-width" appearance="fill"> -->
+      <!-- <mat-label>Choose a date</mat-label> -->
+      <input matInput [matDatepicker]="picker">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker [dateClass]="dateClass" #picker></mat-datepicker>
+    <!-- </mat-form-field> -->
   </section>
 
 
