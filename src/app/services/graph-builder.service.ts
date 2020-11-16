@@ -1,18 +1,18 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Optional } from '@angular/core';
 import mermaid, { mermaidAPI } from 'mermaid';
 import { Project } from '../model/project';
 import { ProjectDataService } from './project-data.service';
 
+export interface GraphBuilderConfig {
+  subProjectsToHide: string[];
+  subProjectsToShow: string[];
+  debug: boolean;
+}
+
+
 @Injectable({
   providedIn: 'root'
 })
-
-// export class GraphBuilderConfig {
-
-//   constructor() {
-
-//   }
-// }
 
 export class GraphBuilderService {
 
@@ -20,12 +20,13 @@ export class GraphBuilderService {
     include/exclude list for projects - Show takes priority if in both lists.
 
   */
-  private config:any = {
+  public config:GraphBuilderConfig = {
     subProjectsToHide: [
       "Other_UnHomed"
       //, "Website", "Experience-Classic", "Experience-Iceberg"
     ],
-    subProjectsToShow: []
+    subProjectsToShow: [],
+    debug: false
   };
   private _debug:boolean = false;
   graphTemplate:string = "";
@@ -129,8 +130,21 @@ export class GraphBuilderService {
   `;
   // config: GraphBuilderConfig | null = null;
 
-  constructor(private projectDataService: ProjectDataService) {
-    this._debug = false; //TODO: Move to config
+  constructor(private projectDataService: ProjectDataService, @Optional() public _config:GraphBuilderConfig) {
+    if(_config) {
+      this.config = _config;
+    } else {
+      this.config =      {
+        subProjectsToHide: [
+          "Other_UnHomed"
+          //, "Website", "Experience-Classic", "Experience-Iceberg"
+        ],
+        subProjectsToShow: [],
+        debug: false
+      }
+    }
+    if(this.config.subProjectsToShow = []) { this.config.subProjectsToShow = this.projectDataService.getSubProjects(); }
+
 
   }
 
@@ -200,13 +214,26 @@ Builder_AddHeader(template: string): string {
   `;
 }
 
-Builder_AddElements(template: string): string {
-  for (let sg of this.projectDataService.getProject().subProjects) {
-    if(sg === "StyleHelper" && !this._debug) {
-      continue;
-    }
+GetSubProjectsToShow(){
+  //Correctly apply both hide/show filters.
+  //*HIDE* takes priority if in both lists. //BUG:Should be show rather than hide that takes priority..
+  var subProjects = this.config.subProjectsToShow;
 
-    if(this.config.subProjectsToHide.includes(sg)) {
+  //Remove values to hide.
+  subProjects = subProjects.filter( ( subProject ) => !this.config.subProjectsToHide.includes( subProject ) );
+
+  //Add values to show.
+  // this.config.subProjectsToShow.forEach( subToShow => {
+  //   if (!subProjects.includes(subToShow))
+  //   subProjects.push(subToShow);
+  // });
+
+  return subProjects;
+}
+
+Builder_AddElements(template: string): string {
+  for (let sg of this.GetSubProjectsToShow()) {
+    if(sg === "StyleHelper" && !this._debug) {
       continue;
     }
 
@@ -244,12 +271,15 @@ Builder_AddRelationships(template: string): string {
   var allElements = this.projectDataService.getElements();
 
   this.projectDataService.getProject().relationships.forEach(rel => {
-
-    var fromElement = allElements.find(x => x.elementId === rel.fromElement);
-    var toElement = allElements.find(x => x.elementId === rel.toElement);
+    var fromElement: any | null = allElements.find(x => x.elementId === rel.fromElement);
+    var toElement: any | null= allElements.find(x => x.elementId === rel.toElement);
 
     //Don't include relationships where either element is in subprojects we're excluding.
-    var includeRelationShip:boolean = true;
+    var includeRelationShip:boolean = false;
+    if(this.config.subProjectsToShow.includes(fromElement?.subProject)) { includeRelationShip = true; }
+    if(this.config.subProjectsToShow.includes(toElement?.subProject)) { includeRelationShip = true; }
+
+    this.GetSubProjectsToShow()
     if(this.config.subProjectsToHide.includes(fromElement?.subProject)) { includeRelationShip = false; }
     if(this.config.subProjectsToHide.includes(toElement?.subProject)) { includeRelationShip = false; }
 
@@ -309,14 +339,14 @@ Builder_AddFooter(template:string): string {
   %%Footer
   %%Want key here
   %%Use # codes for special characters: https://www.codetable.net/unicodecharacters?page=87
-  subgraph SGKey[" "]
-    KeyItem1{{"#127755; Descriptive text in key"}}
-    KeyItem2{{"#127755; Descriptive text in key"}}
-  end
-
-  style SGKey fill:#FFF,stroke:#FFF,stroke-width:0px
-  class KeyItem1,KeyItem2 KeyStyle;
-  classDef KeyStyle fill:#FFF,stroke:#FFF,stroke-width:0px
+  %%subgraph SGKey[" "]
+  %%  KeyItem1{{"#127755; Descriptive text in key"}}
+  %%  KeyItem2{{"#127755; Descriptive text in key"}}
+  %%end
+%%
+  %%style SGKey fill:#FFF,stroke:#FFF,stroke-width:0px
+  %%class KeyItem1,KeyItem2 KeyStyle;
+  %%classDef KeyStyle fill:#FFF,stroke:#FFF,stroke-width:0px
 `;
 }
 

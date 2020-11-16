@@ -20,18 +20,6 @@
     </div>
   </section>
 
-  <section>
-    <div class="example-button-row">
-    <mat-chip-list aria-label="Subproject selection" *ngFor="let subprojectChip of filtervalue_chips_subprojectsToShow"
-      ariaOrientation='horizontal' multiple=true >
-      <mat-chip color={{subprojectChip.color}}
-                selected={{subprojectChip.selected}}
-                (selectionChange)="changeSelected($event, subprojectChip)" (click)="subprojectChip.selected=!subprojectChip.selected">
-                {{subprojectChip.name}}
-      </mat-chip>
-    </mat-chip-list>
-  </div>
-  </section>
 
   <section class="example-section">
     <mat-slide-toggle
@@ -80,15 +68,20 @@
     <div class="example-label">Actual Controls</div>
     <div class="example-button-row">
     <button mat-raised-button color="primary">Refresh Diagram</button>
-
-    <h4>Subprojects to show:</h4>
-    <mat-chip-list aria-label="Subproject selection">
-      <!-- How to populate from subprojects? ngfor? -->
-      <mat-chip>Website</mat-chip>
-      <mat-chip>Youth-Card</mat-chip>
-      <mat-chip color="primary" selected>Experience-Iceberg</mat-chip>
-      <mat-chip color="accent" selected>Accent fish</mat-chip>
-    </mat-chip-list>
   </div>
+</section>
+
+<section>
+  <div class="mat-chip-list-wrapper">
+  <div class="example-label">Subprojects Selection</div>
+  <mat-chip-list aria-label="Subproject selection" *ngFor="let subprojectChip of filtervalue_chips_subprojectsToShow"
+    ariaOrientation='horizontal' multiple=true >
+    <mat-chip color={{subprojectChip.color}}
+              selected={{subprojectChip.selected}}
+              (click)="changeSelected($event, subprojectChip)">
+              {{subprojectChip.name}}
+    </mat-chip>
+  </mat-chip-list>
+</div>
 </section>
 </mat-expansion-panel>

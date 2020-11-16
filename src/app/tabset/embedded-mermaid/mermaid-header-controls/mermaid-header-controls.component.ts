@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, OnInit, AfterViewInit, Output, ViewEncapsulation } from '@angular/core';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatButtonModule} from '@angular/material/button';
 import {MatChipsModule} from '@angular/material/chips';
@@ -9,13 +9,7 @@ import {MatCalendarCellClassFunction} from '@angular/material/datepicker';
 
 import { ThemePalette } from '@angular/material/core';
 import { ProjectDataService } from 'src/app/services/project-data.service';
-
-export interface ChipSettings {
-  name: string;
-  color: ThemePalette;
-  selected: boolean;
-  // onClick: Function;
-}
+import { ChipSettings } from './ChipSettings';
 
 @Component({
   selector: 'app-mermaid-header-controls',
@@ -28,11 +22,23 @@ export class MermaidHeaderControlsComponent implements OnInit {
   checked = false;
   disabled = false;
   filtervalue_chips_subprojectsToShow: ChipSettings[] = [];
+  filtervalue_chips_subprojectsToShow_shouldEmit: boolean = false;
 
   constructor(private _projectDataService: ProjectDataService) { }
+  @Output() filterUpdate_SubProjects = new EventEmitter<ChipSettings[]>();
 
   ngOnInit(): void {
-    this._projectDataService.getSubProjects().forEach( subproject => this.filtervalue_chips_subprojectsToShow.push(
+
+  }
+
+  ngAfterViewInit(){
+
+    this.loadSubProjectsToChips();
+    this.filtervalue_chips_subprojectsToShow_shouldEmit = true;
+  }
+
+  async loadSubProjectsToChips(){
+    await this._projectDataService.getSubProjects().forEach( subproject => this.filtervalue_chips_subprojectsToShow.push(
       {
         name: subproject,
         color: 'primary',
@@ -40,13 +46,21 @@ export class MermaidHeaderControlsComponent implements OnInit {
       }
     ));
     // this.filtervalue_chips_subprojectsToShow = this._projectDataService.getSubProjects();
+    console.log('loaded, should be no emit events before this.');
   }
 
   changeSelected(e: any, subprojectChip:ChipSettings) {
-    console.log(e);
-    console.log(subprojectChip);
-    console.log(this.filtervalue_chips_subprojectsToShow);
-    subprojectChip.color = 'warn';
+    subprojectChip.selected=!subprojectChip.selected;
+    // console.log(e);
+    // console.log(subprojectChip);
+    // console.log(this.filtervalue_chips_subprojectsToShow);
+    // if(e.isUserInput) {
+      setTimeout(() => {
+        subprojectChip.selected ===true ? subprojectChip.color = 'warn' : subprojectChip.color = 'primary';
+        if(this.filtervalue_chips_subprojectsToShow_shouldEmit === true) {this.filterUpdate_SubProjects.emit(this.filtervalue_chips_subprojectsToShow);}
+      });
+    // }
+
     //
 
     //Trigger redraw.

@@ -70,6 +70,12 @@
         "subProject": "Youth-Card"
       },
       {
+        "elementId" : "Youth-Card-OneSignal",
+        "elementName" : "OneSignal",
+        "tempElementScore": 7,
+        "subProject": "Youth-Card"
+      },
+      {
         "elementId" : "Youth-Card-XamarinSolution",
         "elementName" : "Xamarin Solution",
         "tempElementScore": 7,
@@ -262,8 +268,8 @@
         "shape": "database"
       },
       {
-        "elementId" : "Website-DB2",
-        "elementName" : "Database2",
+        "elementId" : "Website-WordPress",
+        "elementName" : "WordPress",
         "tempElementScore": 7,
         "subProject": "Website",
         "shape": "database"
@@ -328,6 +334,11 @@
         "toElement" : "SalesForce-SObject-EmployerRegistration_Lead",
         "label": "consumes"
       },
+      {
+        "fromElement": "s4sSalesForceConnector",
+        "toElement" : "SalesForce-SObject-Contact-SchoolContact",
+        "label": "consumes"
+      },
 
       {
         "fromElement": "Experience-DB-s4schools",
@@ -349,10 +360,10 @@
       },
       {
         "fromElement": "Website-DB",
-        "toElement" : "Website-Website",
+        "toElement" : "Website-WordPress",
         "label": "consumes"
       },{
-        "fromElement": "Website-DB2",
+        "fromElement": "Website-WordPress",
         "toElement" : "Website-Website",
         "label": "consumes"
       }
@@ -417,6 +428,11 @@
 
       ,{
         "fromElement": "Youth-Card-Firebase",
+        "toElement" : "Youth-Card-XamarinSolution",
+        "label": "consumes"
+      }
+      ,{
+        "fromElement": "Youth-Card-OneSignal",
         "toElement" : "Youth-Card-XamarinSolution",
         "label": "consumes"
       }
