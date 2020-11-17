@@ -9,6 +9,7 @@ export class GraphPostProcessingService {
   private _parser: DOMParser;
   private _xmlDoc: Document | null = null;
   private elements: Element[] = [];
+  subProjects: string[]=[];
 
   constructor(
     private projectDataService: ProjectDataService) {
@@ -83,22 +84,48 @@ export class GraphPostProcessingService {
   }
   getPostProcessingData() {
     this.elements = this.projectDataService.getElements();
+    this.subProjects = this.projectDataService.getSubProjects();
   }
-  
+
   clusterOnClick(cluster:any){
   		alert('cluster on click fn!');
   		alert('a cluster on click should show subproject summary, and element should show element results breakdown (getResultsOfElement(elementId)');
   		console.log(cluster);
   }
 
+  simpleclick(){
+    alert('!!');
+  }
+
   ProcessClusters() {
     if(!this._xmlDoc) { throw "no xmldoc defined" }
-    var svgClusters = this._xmlDoc.getElementsByClassName("cluster");
+    let svgClusters = this._xmlDoc.getElementsByClassName("cluster");
+    // var svgClusters = (<SVGElement[]><any>this._xmlDoc.getElementsByClassName("cluster"));
+    // var svgClusters = (<SVGElement[]><any>this._xmlDoc.getElementsByClassName("cluster"));
     for (var i=0, len=svgClusters.length|0; i<len; i=i+1|0) {
       svgClusters[i].classList.add("svg-mermaid-cluster"); //TODO: Use this class to style using CSS, and apply classes to other mermaid types
-      
-      svgClusters[i].setAttribute("onclick","alert('!, next trying passing this to the postprocessing function')");
+
+      // svgClusters[i].setAttribute("onclick","alert('!, next trying passing this to the postprocessing function')");
+      // svgClusters[i].setAttribute("onclick",this.clusterOnClick.bind(null, svgClusters[i]));
+      // svgClusters[i].onclick = this.simpleclick.bind(null);
+      // svgClusters[i].setAttribute("onclick",this.simpleclick.bind(null).toString());
+      var svgEl: SVGElement = <SVGElement>svgClusters[i];
+      //svgEl.addEventListener("click", function(){alert('clicked')}, false);
+      // svgClusters[i].onclick = () => { alert('!, next trying passing this to the postprocessing function');}
 //clusterOnClick
+      svgEl.onclick = function() { alert('!!!');}
+      svgEl.style.fill = "red";
+      svgEl.style.stroke = "#FFAAAA";
+      var parsedClusterName:string = svgEl.id.replace("flowchart-", "");
+      parsedClusterName = parsedClusterName.substring( 0, parsedClusterName.lastIndexOf('-') );
+
+      var tempClusterData = {
+        name: parsedClusterName
+      }
+
+      svgEl.setAttribute("data-cluster-name", parsedClusterName);// readable using svgEl.dataset.clusterName,
+      svgEl.setAttribute("data-cluster", JSON.stringify(tempClusterData));// readable using svgEl.dataset.cluster,
+      svgEl.setAttribute("onclick","alert('!, next trying passing this to the postprocessing function'); console.log('SVGELCLICK', this, this.dataset.cluster, this.dataset.clusterName);");
 
       var r = svgClusters[i].getElementsByTagName("rect")[0] //rect element in svg, background of a subgraph.
       r.classList.add(`svg-mermaid-cluster-background`);
