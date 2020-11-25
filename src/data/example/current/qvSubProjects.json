@@ -109,28 +109,88 @@
       "environmentType": "x",
       "environments":[
           {
-            "name": "Apple App Store (iOS)",
-            "purpose": "Production",
+            "name": "Local",
+            "purpose": "Local",
             "url": "",
-            "deploymentMechanism": "Publish via Apple portal"
+            "notes": "",
+            "deploymentMechanism": "Visual Studio Debug",
+            "steps": [
+              {
+                "name": "Build",
+                "status": "green"
+              },
+              {
+                "name": "Test",
+                "status": "amber"
+              }
+            ]
           },
           {
-            "name": "Googe Play (Android)",
-            "purpose": "Production",
+            "name": "Beta",
+            "purpose": "Test / Staging",
             "url": "",
-            "deploymentMechanism": "Publish via Google portal"
+            "notes": "",
+            "deploymentMechanism": "???",
+            "steps": [
+              {
+                "name": "Build",
+                "status": "green"
+              },
+              {
+                "name": "Deploy",
+                "status": "amber"
+              }
+            ]
           },
           {
-            "name": "prod",
+            "name": "Production - Android",
             "purpose": "Production",
             "url": "",
-            "deploymentMechanism": "Manual deployment"
+            "notes": "",
+            "deploymentMechanism": "Android dev portal???",
+            "steps": [
+              {
+                "name": "Build",
+                "status": "green"
+              },
+              {
+                "name": "Deploy",
+                "status": "green"
+              },
+              {
+                "name": "Google Play Approval",
+                "status": "amber"
+              },
+              {
+                "name": "Publish to Google Play",
+                "status": "red"
+              }
+            ]
           },
           {
-            "name": "Beta server",
-            "purpose": "Developer and Uat?",
+            "name": "Production - iOS",
+            "purpose": "Production",
             "url": "",
-            "deploymentMechanism": "Manual deployment"
+            "notes": "Publish via Apple portal",
+            "deploymentMechanism": "iOS dev portal???",
+            "steps": [
+              {
+                "name": "Build",
+                "status": "green"
+              },
+              {
+                "name": "Deploy",
+                "status": "green"
+              },
+              {
+                "name": "Apple App Store Approval",
+                "status": "red"
+              },
+              {
+                "name": "Publish to Apple App Store",
+                "status": "red"
+              }
+            ]
           }
         ]
     },

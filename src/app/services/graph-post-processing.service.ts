@@ -131,7 +131,7 @@ export class GraphPostProcessingService {
       svgEl.setAttribute("data-cluster", JSON.stringify(tempClusterData));// readable using svgEl.dataset.cluster,
       var alertString = `Subproject clicked: ${parsedClusterName}. Data on data-cluster attribute: ${JSON.stringify(tempClusterData)}`;
       // svgEl.setAttribute("onclick","alert('Subproject clicked: ' + this.dataset.clusterName + '. Data on data-cluster attribute: ' + this.dataset.cluster ); console.log('SVGELCLICK', this, this.dataset.cluster, this.dataset.clusterName);");
-      svgEl.setAttribute("onclick","window.showGlobalModal_Subproject(this.dataset); ");
+      svgEl.setAttribute("onclick",`window.showGlobalModal_Subproject(this.dataset, this.dataset.clusterName); `);
 
       var r = svgClusters[i].getElementsByTagName("rect")[0] //rect element in svg, background of a subgraph.
       r.classList.add(`svg-mermaid-cluster-background`);

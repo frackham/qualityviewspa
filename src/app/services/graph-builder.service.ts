@@ -356,4 +356,31 @@ Builder_AddFooter(template:string): string {
 `;
 }
 
+///////////////////////////////////////////
+//Standalone graphs - how to execute from global js...?
+/*
+e.g
+graph LR
+  subgraph Dev
+    DevBuild[Build] --> DevDeploy[Deploy]
+  end
+  subgraph Prod
+    ProdBuild[Build] --> ProdDeploy[Deploy]
+  end
+*/
+Builder_ReturnStandalonGraph_SubProject(source:any): string {
+  var completedTemplate:string = 'graph LR';
+
+  completedTemplate += `subgraph Dev
+  DevBuild[Build] --> DevDeploy[Deploy]
+  end `;
+  completedTemplate += `subgraph Dev
+  DevBuild[Build] --> DevDeploy[Deploy]
+  end `;
+
+
+  console.log('standalone subgraph template:', {completedTemplate} )
+  return completedTemplate;
+}
+
 }
