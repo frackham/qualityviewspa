@@ -38,7 +38,7 @@ export class MermaidHeaderControlsComponent implements OnInit {
   }
 
   async loadSubProjectsToChips(){
-    await this._projectDataService.getSubProjects().forEach( subproject => this.filtervalue_chips_subprojectsToShow.push(
+    await this._projectDataService.getSubProjectNames().forEach( subproject => this.filtervalue_chips_subprojectsToShow.push(
       {
         name: subproject,
         color: 'primary',

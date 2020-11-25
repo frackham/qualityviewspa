@@ -2,33 +2,172 @@
   "subProjects":
   [
     {
-    "name": "SalesForce",
-    "environmentType": "Cloud Platform",
-    "environments":[
-      {
-        "name": "prod",
-        "url": "",
-        "deploymentMechanism": "Manual edits only"
-      },
-      {
-        "name": "dev"
-      }
-    ]
+      "name": "SalesForce",
+      "tagline" : "",
+      "environmentType": "Cloud Platform",
+      "environments":[
+          {
+            "name": "prod",
+            "purpose": "Production",
+            "url": "",
+            "deploymentMechanism": "Manual edits only"
+          },
+          {
+            "name": "dev pro sandbox",
+            "purpose": "Developer Sandbox",
+            "url": "",
+            "deploymentMechanism": "GUI refresh from another Org"
+          },
+          {
+            "name": "other sandboxes",
+            "purpose": "Various",
+            "url": "",
+            "deploymentMechanism": "GUI refresh from another Org"
+          }
+        ]
     },
-    {}
+    {
+      "name": "Inspiration",
+      "aliases": [ "Portal?" ],
+      "tagline" : "x",
+      "environmentType": "x",
+      "environments":[
+          {
+            "name": "prod",
+            "purpose": "Production",
+            "url": "",
+            "deploymentMechanism": "Manual edits only"
+          },
+          {
+            "name": "dev",
+            "purpose": "Developer Sandbox",
+            "url": "",
+            "deploymentMechanism": "GUI refresh from another Org"
+          }
+        ]
+    },
+    {
+      "name": "Experience-Classic",
+      "aliases": [ "Portal?" ],
+      "tagline" : "x",
+      "environmentType": "x",
+      "environments":[
+          {
+            "name": "prod",
+            "purpose": "Production",
+            "url": "",
+            "deploymentMechanism": "Manual edits only"
+          }
+        ]
+    },
+    {
+      "name": "Experience-Iceberg",
+      "aliases": [ "Portal?" ],
+      "tagline" : "x",
+      "environmentType": "x",
+      "environments":[
+          {
+            "name": "prod",
+            "purpose": "Production",
+            "url": "",
+            "deploymentMechanism": "Manual edits only"
+          },
+          {
+            "name": "dev",
+            "purpose": "Developer Sandbox",
+            "inProgress": true,
+            "url": "",
+            "deploymentMechanism": "GUI refresh from another Org"
+          }
+        ]
+    },
+    {
+      "name": "Progression",
+      "aliases": [ "Portal?" ],
+      "tagline" : "x",
+      "environmentType": "x",
+      "environments":[
+          {
+            "name": "prod",
+            "purpose": "Production",
+            "url": "",
+            "deploymentMechanism": "Manual edits only"
+          },
+          {
+            "name": "dev",
+            "purpose": "Developer Sandbox",
+            "inProgress": true,
+            "url": "",
+            "deploymentMechanism": "GUI refresh from another Org"
+          }
+        ]
+    },
+    {
+      "name": "Youth-Card",
+      "aliases": [ "Xamarin", "App" ],
+      "tagline" : "Mobile student-facing application",
+      "environmentType": "x",
+      "environments":[
+          {
+            "name": "Apple App Store (iOS)",
+            "purpose": "Production",
+            "url": "",
+            "deploymentMechanism": "Publish via Apple portal"
+          },
+          {
+            "name": "Googe Play (Android)",
+            "purpose": "Production",
+            "url": "",
+            "deploymentMechanism": "Publish via Google portal"
+          },
+          {
+            "name": "prod",
+            "purpose": "Production",
+            "url": "",
+            "deploymentMechanism": "Manual deployment"
+          },
+          {
+            "name": "Beta server",
+            "purpose": "Developer and Uat?",
+            "url": "",
+            "deploymentMechanism": "Manual deployment"
+          }
+        ]
+    },
+    {
+      "name": "Website",
+      "aliases": [ "Wordpress" ],
+      "tagline" : "Public facing website, redirects users to appropriate 'portal' application",
+      "environmentType": "x",
+      "environments":[
+          {
+            "name": "prod",
+            "purpose": "Production",
+            "url": "",
+            "deploymentMechanism": "GUI edits only"
+          }
+        ]
+    },
+    {
+      "name": "Other_UnHomed"
+    },
+    {
+      "name": "StyleHelper"
+    },
+    {
+      "name": "Dotnet-Server-Services",
+      "tagline" : "Individual integration projects used by Experience/Portal"
+    },
+    {
+      "name": "Teams",
+      "tagline" : "Chat"
+    },
+    {
+      "name": "Azure",
+      "tagline" : "Cloud hosting of functional services"
+    }
   ],
 
-  "tempDeletesubProjects":[
-    "SalesForce",
-    "Inspiration",
-    "Experience-Classic",
-    "Experience-Iceberg",
-    "Progression",
-    "Youth-Card",
-    "Website",
-    "Other_UnHomed",
-    "StyleHelper"
-  ],
   "environmentTypes": [
     "Cloud Platform",
     "SQL",

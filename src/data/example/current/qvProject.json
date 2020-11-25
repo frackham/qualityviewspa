@@ -11,6 +11,7 @@
       "Progression",
       "Youth-Card",
       "Website",
+      "Azure",
       "Other_UnHomed",
       "StyleHelper"
     ],
@@ -41,6 +42,13 @@
       },
 
 
+
+      {
+        "elementId" : "Azure-AD",
+        "elementName" : "AD Tenant",
+        "tempElementScore": 7,
+        "subProject": "Azure"
+      },
 
       {
         "elementId" : "Teams-ExperiencePlatformReportingChannel",

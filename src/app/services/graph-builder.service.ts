@@ -143,7 +143,7 @@ export class GraphBuilderService {
         debug: false
       }
     }
-    if(this.config.subProjectsToShow = []) { this.config.subProjectsToShow = this.projectDataService.getSubProjects(); }
+    if(this.config.subProjectsToShow = []) { this.config.subProjectsToShow = this.projectDataService.getSubProjectNames(); }
 
 
   }
@@ -237,32 +237,38 @@ Builder_AddElements(template: string): string {
       continue;
     }
 
-    template += `\r\n subgraph ${sg}`
-    var elements = this.projectDataService.getElements().filter(function(element) { return element.subProject === sg; });
-    elements.forEach(el =>  {
-      switch (el.shape ?? null) {
-        case null:
-          template += `\r\n  ${el.elementId}[${el.elementName}]`
-          break;
+    var subproject = this.projectDataService.getSubProject(sg);
+    if(subproject){
+      template += `\r\n subgraph "${sg}"`
+      // template += `\r\n subgraph "${sg}<br/>${tagline}"`
+      var elements = this.projectDataService.getElements().filter(function(element) { return element.subProject === sg; });
+      elements.forEach(el =>  {
+        switch (el.shape ?? null) {
+          case null:
+            template += `\r\n  ${el.elementId}[${el.elementName}]`
+            break;
 
-        case "database":
-          template += `\r\n  ${el.elementId}[(${el.elementName})]`
-          break;
+          case "database":
+            template += `\r\n  ${el.elementId}[(${el.elementName})]`
+            break;
 
-        case "circle":
-          template += `\r\n  ${el.elementId}((${el.elementName}))`
-          break;
+          case "circle":
+            template += `\r\n  ${el.elementId}((${el.elementName}))`
+            break;
 
-        case "rounded":
-          template += `\r\n  ${el.elementId}(${el.elementName})`
-          break;
+          case "rounded":
+            template += `\r\n  ${el.elementId}(${el.elementName})`
+            break;
 
-        default:
-          template += `\r\n  ${el.elementId}[${el.elementName}]`
-          break;
-      }
-    });
-    template += `\r\n end \r\n\r\n`
+          default:
+            template += `\r\n  ${el.elementId}[${el.elementName}]`
+            break;
+        }
+      });
+      template += `\r\n end \r\n\r\n`
+    } else {
+      console.error(`${sg} did not return a project from this.projectDataService during graph build process.`)
+    };
   };
   return template;
 }

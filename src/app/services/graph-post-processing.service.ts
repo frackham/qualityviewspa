@@ -10,6 +10,7 @@ export class GraphPostProcessingService {
   private _xmlDoc: Document | null = null;
   private elements: Element[] = [];
   subProjects: string[]=[];
+  subProjectNames: string[] = [];
 
   constructor(
     private projectDataService: ProjectDataService) {
@@ -84,6 +85,7 @@ export class GraphPostProcessingService {
   }
   getPostProcessingData() {
     this.elements = this.projectDataService.getElements();
+    this.subProjectNames = this.projectDataService.getSubProjectNames();
     this.subProjects = this.projectDataService.getSubProjects();
   }
 
@@ -119,13 +121,17 @@ export class GraphPostProcessingService {
       var parsedClusterName:string = svgEl.id.replace("flowchart-", "");
       parsedClusterName = parsedClusterName.substring( 0, parsedClusterName.lastIndexOf('-') );
 
-      var tempClusterData = {
-        name: parsedClusterName
-      }
+      var tempClusterData = this.projectDataService.getSubProject(parsedClusterName);
+
+      // {
+      //   name: parsedClusterName
+      // }
 
       svgEl.setAttribute("data-cluster-name", parsedClusterName);// readable using svgEl.dataset.clusterName,
       svgEl.setAttribute("data-cluster", JSON.stringify(tempClusterData));// readable using svgEl.dataset.cluster,
-      svgEl.setAttribute("onclick","alert('!, next trying passing this to the postprocessing function'); console.log('SVGELCLICK', this, this.dataset.cluster, this.dataset.clusterName);");
+      var alertString = `Subproject clicked: ${parsedClusterName}. Data on data-cluster attribute: ${JSON.stringify(tempClusterData)}`;
+      // svgEl.setAttribute("onclick","alert('Subproject clicked: ' + this.dataset.clusterName + '. Data on data-cluster attribute: ' + this.dataset.cluster ); console.log('SVGELCLICK', this, this.dataset.cluster, this.dataset.clusterName);");
+      svgEl.setAttribute("onclick","window.showGlobalModal_Subproject(this.dataset); ");
 
       var r = svgClusters[i].getElementsByTagName("rect")[0] //rect element in svg, background of a subgraph.
       r.classList.add(`svg-mermaid-cluster-background`);
@@ -135,7 +141,43 @@ export class GraphPostProcessingService {
       var f1 = g2.getElementsByTagName("foreignObject")[0]
       var d1 = f1.getElementsByTagName("div")[0]
 
-      d1.classList.add(`svg-mermaid-cluster-title`);
+      d1.classList.add(`svg-mermaid-cluster-title`); //Subproject title.
+
+      var newElement = document.createElement("div");
+      newElement.className = "svg-mermaid-cluster-textblock";
+      newElement.innerHTML = "<p>TEXTY</p>";
+      d1.appendChild(newElement);//Add alias and tagline.
+
+      // // var newElement = document.createElementNS("http://www.w3.org/2000/svg", 'path'); //Create a path in SVG's namespace
+      // // newElement.setAttribute("d","M 0 0 L 10 10"); //Set path's data
+      // // newElement.style.stroke = "#000"; //Set stroke colour
+      // // newElement.style.strokeWidth = "5px"; //Set stroke width
+      // var subProjectSecondaryTextBlock = document.createElementNS("http://www.w3.org/2000/svg", 'text'); //Create a path in SVG's namespace
+      // subProjectSecondaryTextBlock.setAttribute("x","0"); //Set path's data
+      // subProjectSecondaryTextBlock.setAttribute("y","35"); //Set path's data
+      // subProjectSecondaryTextBlock.textContent = "";
+      // // subProjectSecondaryTextBlock.style.stroke = "#444"; //Set stroke colour
+      // // subProjectSecondaryTextBlock.style.strokeWidth = "5px"; //Set stroke width
+
+      // // text x="20" y="35" class="small">My</text>
+      // // var newElement = document.createElement("span");
+      // // newElement.className = "subproject-aliaslist";
+      // // newElement.innerHTML = "<br/>TEXTY";
+
+      // g2.appendChild(subProjectSecondaryTextBlock);//Add alias and tagline.
+      // var subProjectSecondaryTextBlock_aliases = document.createElementNS("http://www.w3.org/2000/svg", 'tspan'); //Create a path in SVG's namespace
+      // subProjectSecondaryTextBlock_aliases.setAttribute("dy","1.2em"); //Set path's data
+      // subProjectSecondaryTextBlock_aliases.textContent = "aliases";
+      // subProjectSecondaryTextBlock.appendChild(subProjectSecondaryTextBlock_aliases);
+      // var subProjectSecondaryTextBlock_tagline = document.createElementNS("http://www.w3.org/2000/svg", 'tspan'); //Create a path in SVG's namespace
+      // subProjectSecondaryTextBlock_tagline.setAttribute("dy","1.2em"); //Set path's data
+      // subProjectSecondaryTextBlock_tagline.textContent = "tagline";
+      // subProjectSecondaryTextBlock.appendChild(subProjectSecondaryTextBlock_tagline);
+      // // <text x="0" y="0">
+      // //   <tspan x="0" dy="1.2em">very long text</tspan>
+      // //   <tspan x="0" dy="1.2em">I would like to linebreak</tspan>
+      // // </text>
+
       var originalWidth:string|null = f1.getAttribute('width')
       f1.setAttribute('width', (parseFloat(originalWidth ? originalWidth : '')*2).toString() ?? '100%' )
     }

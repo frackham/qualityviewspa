@@ -12,9 +12,9 @@ export class ProjectDataService {
 
   public globalDebugData:any = null
 
-  //TODO: add subprojects here.
 
   private _cachedProject: Project | null = null;
+  private _cachedSubProjects: any | null = null; //TODO: subproject model.
   private _cachedElements: Element[] = [];
   private _cachedDimensions: Dimension[] = [];
   private _cachedEvidence: Evidence[] = [];
@@ -35,13 +35,29 @@ export class ProjectDataService {
     return this._cachedProject;
   }
 
-  getSubProjects(useCached:boolean = true): string[] {
+
+  //////////////////////////////////////////////////
+  //SubProjects
+  getSubProjectNames(useCached:boolean = true): string[] {
     if (useCached && this._cachedProject) {
       return this._cachedProject.subProjects;
     }
     this._cachedProject = this.jsonDataService.project
-    return this._cachedProject.subProjects;
+    return this._cachedProject.subProjects;  //Project only holds the names.
   }
+
+  getSubProjects(useCached:boolean = true): any[] {
+    if (useCached && this._cachedSubProjects) {
+      return this._cachedSubProjects;
+    }
+    this._cachedSubProjects = this.jsonDataService.subProjects
+    return this._cachedSubProjects;
+  }
+
+  getSubProject(name:string):any | undefined{
+    return this.getSubProjects(true).find(sub => sub.name === name)
+  }
+
 
   //////////////////////////////////////////////////
   //Elements
