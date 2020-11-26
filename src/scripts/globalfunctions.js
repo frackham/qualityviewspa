@@ -77,7 +77,7 @@ function showGlobalModal_Subproject(dataelement, subprojectName){
     var optional_aliases = clusterData.aliases ? `<h3>(AKA ${clusterData.aliases})</h3>` : '';
     var optional_tagline = clusterData.tagline ? `<p><b>${clusterData.tagline}</b></p>` : '';
     var optional_parsedEnvironments = clusterData.environments ? clusterData.environments.map(e => e.name).join(', ') : '';
-    var optional_environments = clusterData.environments ? `<ul>${optional_parsedEnvironments}</ul>` : '';
+
 
     var test_svgMarkup = SVGDiagramFromSource_SubProjectEnvironments(clusterData.environments, subprojectName);
     modalDynamicContentWrapper.innerHTML = `<h2 class='modal-title-subprojectmodal'>${dataelement.clusterName} Notes</h2>
@@ -94,14 +94,16 @@ function showGlobalModal_Subproject(dataelement, subprojectName){
 }
 
 function SVGDiagramFromSource_SubProjectEnvironments(source, subprojectName){
-  var svgMarkup = "";
 
+
+  var svgMarkup = "";
   var environmentsMarkup = "";
   var yOffset = 50;
   var yStep = 150;
   var xStep = 300;
   var maxXOffset = 800;
   source.forEach(function(env) {
+    var optional_parsedUrls = env.urls ? '<text xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" >' + env.urls.map( (url) => {  return `<a target="_blank" xlink:href="${url.url}"><text>${url.name}</text></a>`  } ).join('<br>') + "</text>": '';
 
 
     environmentsMarkup += "\r\n\ ";
@@ -132,7 +134,7 @@ function SVGDiagramFromSource_SubProjectEnvironments(source, subprojectName){
 // //  <rect id="svg_5" height="93" width="274" y="100.45313" x="458.5" stroke-width="1.5" stroke="#000" fill="#BF7E96"/>
 // //  <text xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_6" y="153.45313" x="142.5" fill-opacity="null" stroke-opacity="null" stroke-width="0" stroke="#000" fill="#000000">Build</text>
 // //  <text xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_7" y="156.45313" x="558.5" fill-opacity="null" stroke-opacity="null" stroke-width="0" stroke="#000" fill="#000000">Deploy</text>
-
+    environmentsMarkup +=`${optional_parsedUrls}`;
     environmentsMarkup +="</g>";
 
     //Set values for next environment
@@ -169,7 +171,7 @@ function SVGDiagramFromSource_SubProjectEnvironments(source, subprojectName){
   </svg>
 
 
-  <svg width="${maxXOffset}" height="${canvasY}" xmlns="http://www.w3.org/2000/svg">
+  <svg width="${maxXOffset}" height="${canvasY}" xmlns="http://www.w3.org/2000/svg"  xmlns:xlink="http://www.w3.org/1999/xlink">
  <g>
   <title>background</title>
   <rect fill="#fff" id="canvas_background" height="${canvasY}" width="${maxXOffset+2}" y="-1" x="-1"/>

@@ -103,4 +103,10 @@ export class EmbeddedMermaidComponent implements OnInit, AfterViewInit {
     this.refreshGraphAfterFilterChange();
   }
 
+  filterUpdate_RefreshDiagram(){
+    //Triggers when a subproject has changed, we should update config and redraw the graph.
+    console.log(`event reached!`)
+    this.refreshGraphAfterFilterChange();
+  }
+
 }

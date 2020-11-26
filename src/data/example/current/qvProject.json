@@ -262,25 +262,34 @@
         "tempElementScore": 7,
         "subProject": "Dotnet-Server-Services"
       },
-
-
-
-
-
-
       {
         "elementId" : "Website-DB",
         "elementName" : "Database",
         "tempElementScore": 7,
         "subProject": "Website",
         "shape": "database"
+      },{
+        "elementId" : "Website-GravityFormsSalesforce",
+        "elementName" : "Gravity Forms Salesforce",
+        "tempElementScore": 7,
+        "subProject": "Website"
+      },{
+        "elementId" : "Website-Speaker-Directory",
+        "elementName" : "Speaker Directory",
+        "tempElementScore": 7,
+        "subProject": "Website"
+      },{
+        "elementId" : "Website-Salesforce-Sync",
+        "elementName" : "HT Speakers for Schools Sync",
+        "tempElementScore": 7,
+        "subProject": "Website",
+        "note": "Syncs every 2 hours"
       },
       {
         "elementId" : "Website-WordPress",
         "elementName" : "WordPress",
         "tempElementScore": 7,
-        "subProject": "Website",
-        "shape": "database"
+        "subProject": "Website"
       },
       {
         "elementId" : "Website-Website",
@@ -367,6 +376,21 @@
         "label": "consumes"
       },
       {
+        "fromElement": "Website-Speaker-Directory",
+        "toElement" : "Website-WordPress",
+        "label": "consumes"
+      },
+      {
+        "fromElement": "Website-WordPress",
+        "toElement" : "Website-GravityFormsSalesforce",
+        "label": "consumes"
+      },
+      {
+        "fromElement": "Website-Salesforce-Sync",
+        "toElement" : "Website-WordPress",
+        "label": "consumes"
+      },
+      {
         "fromElement": "Website-DB",
         "toElement" : "Website-WordPress",
         "label": "consumes"
@@ -374,9 +398,21 @@
         "fromElement": "Website-WordPress",
         "toElement" : "Website-Website",
         "label": "consumes"
-      }
+      },
 
-      ,{
+
+      {
+        "fromElement": "Website-GravityFormsSalesforce",
+        "toElement" : "SalesForce-SObject-Contact-Other",
+        "label": "consumes"
+      },
+      {
+        "fromElement": "Website-Salesforce-Sync",
+        "toElement" : "SalesForce-SObject-Contact-Speaker",
+        "label": "consumes"
+      },
+
+      {
         "fromElement": "SalesForce-SObject-Contact-SchoolContact",
         "toElement" : "SalesForce-SObject-Organisation-School",
         "label": "consumes"

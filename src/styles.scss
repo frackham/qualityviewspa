@@ -8,7 +8,19 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .svg-mermaid-cluster-title:hover {
   filter: invert(0.11) sepia(0.5) saturate(8.3) hue-rotate(144deg) brightness(0.71);
 }
+svg|a:link, svg|a:visited {
+  cursor: pointer;
+}
 
+svg|a text,
+text svg|a {
+  fill: blue; /* Even for text, SVG uses fill over color */
+  text-decoration: underline;
+}
+
+svg|a:hover, svg|a:active {
+  outline: dotted 1px blue;
+}
 
 
 

@@ -28,7 +28,7 @@ export class GraphPostProcessingService {
     this.InsertSvgStyles(); //Updates xmldoc.
     this.ProcessClusters();
     this.ProcessNodes(); //Updates xmldoc.
-
+    this.ProcessSvgWrappingElement();
 
     //Return final postprocessed svg.
     var markup = this._xmlDoc.documentElement.outerHTML;
@@ -36,6 +36,14 @@ export class GraphPostProcessingService {
     svgContent = markup;
 
     return svgContent;
+  }
+
+  ProcessSvgWrappingElement() {
+    if(!this._xmlDoc) { throw "no xmldoc defined" }
+
+    var generatedDiagramHeight = this._xmlDoc.getElementsByClassName("output")[0].getAttribute("height");
+    //Set the overall SVG height to  g (.output) 's height
+    this._xmlDoc.documentElement.setAttribute("height", generatedDiagramHeight?.toString() ?? "1300");
   }
 
   InsertSvgStyles() {
@@ -101,6 +109,7 @@ export class GraphPostProcessingService {
 
   ProcessClusters() {
     if(!this._xmlDoc) { throw "no xmldoc defined" }
+
     let svgClusters = this._xmlDoc.getElementsByClassName("cluster");
     // var svgClusters = (<SVGElement[]><any>this._xmlDoc.getElementsByClassName("cluster"));
     // var svgClusters = (<SVGElement[]><any>this._xmlDoc.getElementsByClassName("cluster"));

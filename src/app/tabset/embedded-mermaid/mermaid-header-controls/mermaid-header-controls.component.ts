@@ -26,6 +26,7 @@ export class MermaidHeaderControlsComponent implements OnInit {
 
   constructor(private _projectDataService: ProjectDataService) { }
   @Output() filterUpdate_SubProjects = new EventEmitter<ChipSettings[]>();
+  @Output() filterUpdate_RefreshDiagram = new EventEmitter<void>();
 
   ngOnInit(): void {
 
@@ -47,6 +48,14 @@ export class MermaidHeaderControlsComponent implements OnInit {
     ));
     // this.filtervalue_chips_subprojectsToShow = this._projectDataService.getSubProjects();
     console.log('loaded, should be no emit events before this.');
+  }
+
+  refreshDiagram(){
+    //pass responsibility to parent
+    setTimeout(() => {
+      this.filterUpdate_RefreshDiagram.emit();
+      console.log('manual refresh diagram')
+    });
   }
 
   changeSelected(e: any, subprojectChip:ChipSettings) {

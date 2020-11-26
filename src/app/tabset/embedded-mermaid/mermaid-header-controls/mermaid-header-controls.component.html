@@ -50,6 +50,18 @@
         <button mat-icon-button disabled aria-label="Example icon button with a open in new tab icon">
           <mat-icon>open_in_new</mat-icon>
         </button>
+        <button mat-icon-button disabled aria-label="Example icon button with a open in new tab icon">
+          <mat-icon>save</mat-icon>
+        </button>
+        <button mat-icon-button disabled aria-label="Example icon button with a open in new tab icon">
+          <mat-icon>folder</mat-icon>
+        </button>
+        <button mat-icon-button disabled aria-label="Example icon button with a open in new tab icon">
+          <mat-icon>rule_folder</mat-icon>
+        </button>
+        <button mat-icon-button disabled aria-label="Example icon button with a open in new tab icon">
+          <mat-icon>add_photo_alt</mat-icon>
+        </button>
       </div>
     </div>
   </section>
@@ -67,7 +79,7 @@
   <section>
     <div class="example-label">Actual Controls</div>
     <div class="example-button-row">
-    <button mat-raised-button color="primary">Refresh Diagram</button>
+    <button mat-raised-button color="primary" (click)="refreshDiagram()">Refresh Diagram</button>
   </div>
 </section>
 

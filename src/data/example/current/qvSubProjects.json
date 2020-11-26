@@ -106,7 +106,7 @@
       "name": "Youth-Card",
       "aliases": [ "Xamarin", "App" ],
       "tagline" : "Mobile student-facing application",
-      "environmentType": "x",
+      "environmentType": "unknown",
       "environments":[
           {
             "name": "Local",
@@ -200,13 +200,23 @@
       "tagline" : "Public facing website, redirects users to appropriate 'portal' application",
       "environmentType": "x",
       "environments":[
-          {
-            "name": "prod",
-            "purpose": "Production",
-            "url": "",
-            "deploymentMechanism": "GUI edits only"
-          }
-        ]
+        {
+          "name": "Live",
+          "purpose": "Production",
+          "urls": [
+            { "name":"Site", "url": "https://www.speakersforschools.org/" },
+            { "name":"Admin Panel", "url": "https://www.speakersforschools.org/admin" }
+          ],
+          "deploymentMechanism": "GUI edits only",
+          "notes": "",
+          "steps": [
+            {
+              "name": "Live edits only",
+              "status": "amber"
+            }
+          ]
+        }
+      ]
     },
     {
       "name": "Other_UnHomed"
