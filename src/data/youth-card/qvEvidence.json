@@ -1,0 +1,255 @@
+{
+  "evidence": [
+    {
+      "dimension": "Deployability",
+      "element" : "all",
+      "evidenceSources": [
+        {
+          "name": "Deploys/Dev/Month",
+          "valueType": "float",
+          "link": "",
+          "note": "Deployment Frequency (dora)",
+          "tooltip": ""
+        },
+        {
+          "name": "MTTDeploy",
+          "valueType": "time",
+          "link": "",
+          "note": "",
+          "tooltip": ""
+        },
+        {
+          "name": "Deploy Success Rate",
+          "valueType": "percentage",
+          "link": "",
+          "note": "",
+          "tooltip": ""
+        }
+      ]
+    },
+
+    {
+      "dimension": "Code Quality",
+      "element" : "all",
+      "evidenceSources": [
+        {
+          "name": "Cyclomatic Complexity",
+          "valueType": "float",
+          "link": "",
+          "note": "",
+          "tooltip": ""
+        },
+
+        {
+          "name": "Average function length (LOC)",
+          "valueType": "float",
+          "link": "",
+          "note": "",
+          "tooltip": ""
+        },
+
+        {
+          "name": "Bug count",
+          "valueType": "number",
+          "link": "",
+          "note": "",
+          "tooltip": ""
+        },
+
+        {
+          "name": "Change Failure Rate (part of code quality and Deployment?) (dora)",
+          "valueType": "percentage",
+          "link": "",
+          "note": "",
+          "tooltip": ""
+        }
+      ]
+    },
+
+    {
+      "dimension": "Security",
+      "element" : "all",
+      "evidenceSources": [
+        {
+          "name": "OWasp Top 10?",
+          "valueType": "outOf10",
+          "link": "",
+          "note": "",
+          "tooltip": ""
+        },
+
+        {
+          "name": "Security scanning",
+          "valueType": "outOf10",
+          "link": "",
+          "note": "e.g. npm audit",
+          "tooltip": ""
+        }
+      ]
+    },
+
+    {
+      "dimension": "Test Quality",
+      "element" : "all",
+      "evidenceSources": [
+        {
+          "name": "Test code coverage",
+          "valueType": "percentage",
+          "link": "",
+          "note": "",
+          "tooltip": ""
+        },
+        {
+          "name": "Test branch coverage",
+          "valueType": "percentage",
+          "link": "",
+          "note": "",
+          "tooltip": ""
+        },
+        {
+          "name": "Time taken to run tests",
+          "valueType": "time",
+          "link": "",
+          "note": "",
+          "tooltip": ""
+        },
+        {
+          "name": "Test Flakiness",
+          "valueType": "outOf10",
+          "link": "",
+          "note": "",
+          "tooltip": ""
+        },
+        {
+          "name": "Team evaluation of how useful tests are",
+          "valueType": "outOf10",
+          "link": "",
+          "note": "",
+          "tooltip": ""
+        },
+        {
+          "name": "Components not covered by tests or checks",
+          "valueType": "outOf10",
+          "link": "",
+          "note": "e.g. APIs, Databases...",
+          "tooltip": "This includes manual elements that wouldn't be captured by coverage metrics. You could have 100% test and branch coverage, and not test your API policies (for example)."
+        }
+      ]
+    },
+
+    {
+      "dimension": "Version Control Coverage",
+      "element" : "all",
+      "evidenceSources": [
+        {
+          "name": "Number of manual changes required per deploy",
+          "valueType": "number",
+          "link": "",
+          "note": "",
+          "tooltip": ""
+        }
+      ]
+    },
+
+    {
+      "dimension": "Ease of Change",
+      "element" : "all",
+      "evidenceSources": [
+        {
+          "name": "Lead time for change (dora)",
+          "valueType": "time",
+          "link": "",
+          "note": "",
+          "tooltip": ""
+        }
+      ]
+    },
+
+    {
+      "dimension": "Ease of Recovery",
+      "element" : "all",
+      "evidenceSources": [
+        {
+          "name": "MTTR (dora)",
+          "valueType": "time",
+          "link": "",
+          "note": "",
+          "tooltip": ""
+        }
+      ]
+    },
+
+    {
+      "dimension": "Up-to-date-ness",
+      "element" : "all",
+      "evidenceSources": [
+        {
+          "name": "Auto update checks",
+          "valueType": "outOf10",
+          "link": "",
+          "note": "e.g. npm audit",
+          "tooltip": ""
+        }
+      ]
+    },
+
+    {
+      "dimension": "Architectural Quality",
+      "element" : "all",
+      "evidenceSources": [
+        {
+          "name": "Hands in the room",
+          "valueType": "outOf10",
+          "link": "",
+          "note": "Consider https://sqa.stackexchange.com/questions/45916/how-do-you-determine-that-your-projects-quality-has-increased-over-time/45918?atw=1#45918",
+          "tooltip": "Team evaluation"
+        }
+
+      ]
+    },
+
+    {
+      "dimension": "Stability",
+      "element" : "all",
+      "evidenceSources": [
+        {
+          "name": "Uptime",
+          "valueType": "time",
+          "link": "",
+          "note": "",
+          "tooltip": ""
+        },
+        {
+          "name": "SLA",
+          "valueType": "time",
+          "link": "",
+          "note": "",
+          "tooltip": ""
+        }
+      ]
+    },
+
+    {
+      "dimension": "Visibility",
+      "element" : "all",
+      "evidenceSources": [
+        {
+          "name": "Logging",
+          "valueType": "outOf10",
+          "link": "",
+          "note": "",
+          "tooltip": ""
+        },
+        {
+          "name": "App insights/object logging",
+          "valueType": "outOf10",
+          "link": "",
+          "note": "",
+          "tooltip": ""
+        }
+      ]
+    }
+
+  ]
+
+}

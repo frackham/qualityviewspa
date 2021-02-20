@@ -60,9 +60,27 @@ function showGlobalModal_Element(e, dataelementText){
       return;
     }
     modal.style.display = "block";
+
+    var referenceList = "";
+    if(dataelement.references) {
+      referenceList = "<ul>";
+      dataelement.references.forEach(element => {
+        referenceList += "<li><a target='_blank' href='" + element +"'>" + element + "</a></li>";
+      });
+      referenceList += "</ul>";
+    }
+    var notesList = "";
+    if(dataelement.notes) {
+      notesList = "<div>";
+      dataelement.notes.forEach(element => {
+        notesList += "<p>" + element + "</p>";
+      });
+      notesList += "</div>";
+    }
+
     modalDynamicContentWrapper.innerHTML = `<h2>${dataelement.elementName}</h2>
       <p>Score: ${dataelement.tempElementScore}</p>
-      `;
+      ${referenceList}${notesList}`;
   } else {
     console.error('globalfunctions.js : showGlobalModal_Element : called without dataelementText, the element may not exist in the element dataset.');
   }

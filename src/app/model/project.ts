@@ -5,6 +5,8 @@
     elements: Element[];
     relationships: Relationship[];
     subProjects: string[];
+    styleOverrideHeight: string;
+    styleOverrideWidth: string;
 }
 
     export interface Element {
@@ -13,6 +15,8 @@
       tempElementScore: number;
       subProject?: string;
       elementRegex?(): string;
+      references?: string[];
+      notes?: string[];
       shape?: string; // default is square. alternatives: "database", "circle", "rounded"
   }
 

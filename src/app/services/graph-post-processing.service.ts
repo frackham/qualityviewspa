@@ -43,7 +43,15 @@ export class GraphPostProcessingService {
 
     var generatedDiagramHeight = this._xmlDoc.getElementsByClassName("output")[0].getAttribute("height");
     //Set the overall SVG height to  g (.output) 's height
-    this._xmlDoc.documentElement.setAttribute("height", generatedDiagramHeight?.toString() ?? "1300");
+    var overrideHeight = "1300";
+    overrideHeight = this.projectDataService.getProject().styleOverrideHeight;
+    this._xmlDoc.documentElement.setAttribute("height", generatedDiagramHeight?.toString() ?? overrideHeight);
+
+
+    var overrideWidth = this.projectDataService.getProject().styleOverrideWidth;
+    this._xmlDoc.documentElement.setAttribute("width", overrideWidth);
+    this._xmlDoc.documentElement.setAttribute("maxwidth", overrideWidth);
+
   }
 
   InsertSvgStyles() {

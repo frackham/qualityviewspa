@@ -1,0 +1,110 @@
+{
+  "project": {
+    "projectName": "Youth Card",
+    "subProjects":[
+      "Youth-Card",
+      "Youth-Card-CMS-App"
+    ],
+    "styleOverrideHeight": 300,
+    "styleOverrideWidth": 800,
+    "tempElementScoreScale": 10,
+    "elements": [
+
+
+      {
+        "elementId" : "Youth-Card-CMS",
+        "elementName" : "CMS",
+        "tempElementScore": 10,
+        "subProject": "Youth-Card-CMS-App",
+        "references": [
+          "https://github.com/speakersforschools/youthcard-cms"
+        ],
+        "notes":[
+          "Needs test data.",
+          "Not able to login to CMS."
+        ]
+
+      },
+      {
+        "elementId" : "Youth-Card-Firebase",
+        "elementName" : "Firebase",
+        "tempElementScore": 10,
+        "subProject": "Youth-Card"
+      },
+      {
+        "elementId" : "Youth-Card-DB",
+        "elementName" : "DB",
+        "tempElementScore": 10,
+        "subProject": "Youth-Card",
+        "references": [
+          "https://github.com/speakersforschools/SfS.YouthCard.Data"
+        ],
+        "notes":[
+          "Needs test data.",
+          "Not able to login to CMS."
+        ]
+
+
+      },
+      {
+        "elementId" : "Youth-Card-OneSignal",
+        "elementName" : "OneSignal",
+        "tempElementScore": 10,
+        "subProject": "Youth-Card"
+      },
+      {
+        "elementId" : "Youth-Card-XamarinSolution",
+        "elementName" : "Xamarin Solution",
+        "tempElementScore": 10,
+        "subProject": "Youth-Card"
+      },
+      {
+        "elementId" : "Youth-Card-MobileApp-Android",
+        "elementName" : "Android App",
+        "tempElementScore": 10,
+        "subProject": "Youth-Card"
+      },
+      {
+        "elementId" : "Youth-Card-MobileApp-iOS",
+        "elementName" : "iOS App",
+        "tempElementScore": 10,
+        "subProject": "Youth-Card"
+      }
+    ],
+    "relationships": [
+      {
+        "fromElement": "Youth-Card-Firebase",
+        "toElement" : "Youth-Card-XamarinSolution",
+        "label": "consumes"
+      }
+      ,{
+        "fromElement": "Youth-Card-OneSignal",
+        "toElement" : "Youth-Card-XamarinSolution",
+        "label": "consumes"
+      }
+      ,{
+        "fromElement": "Youth-Card-DB",
+        "toElement" : "Youth-Card-CMS",
+        "label": "consumes"
+      }
+      ,{
+        "fromElement": "Youth-Card-DB",
+        "toElement" : "Youth-Card-XamarinSolution",
+        "label": "consumes"
+      }
+      ,{
+        "fromElement": "Youth-Card-XamarinSolution",
+        "toElement" : "Youth-Card-MobileApp-Android",
+        "label": "consumes"
+      }
+      ,{
+        "fromElement": "Youth-Card-XamarinSolution",
+        "toElement" : "Youth-Card-MobileApp-iOS",
+        "label": "consumes"
+      }
+
+
+    ]
+  }
+
+}

@@ -1,0 +1,154 @@
+{
+  "subProjects":
+  [
+
+    {
+      "name": "Youth-Card",
+      "aliases": [ "Xamarin", "App" ],
+      "tagline" : "Mobile student-facing application",
+      "environmentType": "unknown",
+      "environments":[
+          {
+            "name": "Local",
+            "purpose": "Local",
+            "url": "https://speakersforschools.atlassian.net/wiki/spaces/SFS/pages/edit-v2/137625636?draftShareId=035f3766-3047-4fe4-b5bf-28399ad5f75a  ",
+            "notes": "",
+            "deploymentMechanism": "Visual Studio Debug",
+            "steps": [
+              {
+                "name": "Build",
+                "status": "red"
+              },
+              {
+                "name": "Test",
+                "status": "red"
+              },
+              {
+                "name": "Deploy",
+                "status": "red"
+              }
+            ]
+          },
+          {
+            "name": "Beta",
+            "purpose": "Test / Staging",
+            "url": "",
+            "notes": "",
+            "deploymentMechanism": "???",
+            "steps": [
+              {
+                "name": "Build",
+                "status": "green"
+              },
+              {
+                "name": "Deploy",
+                "status": "amber"
+              }
+            ]
+          },
+          {
+            "name": "Production - Android",
+            "purpose": "Production",
+            "url": "",
+            "notes": "",
+            "deploymentMechanism": "Android dev portal???",
+            "steps": [
+              {
+                "name": "Build",
+                "status": "green"
+              },
+              {
+                "name": "Deploy",
+                "status": "green"
+              },
+              {
+                "name": "Google Play Approval",
+                "status": "amber"
+              },
+              {
+                "name": "Publish to Google Play",
+                "status": "red"
+              }
+            ]
+          },
+          {
+            "name": "Production - iOS",
+            "purpose": "Production",
+            "url": "",
+            "notes": "Publish via Apple portal",
+            "deploymentMechanism": "iOS dev portal???",
+            "steps": [
+              {
+                "name": "Build",
+                "status": "green"
+              },
+              {
+                "name": "Deploy",
+                "status": "green"
+              },
+              {
+                "name": "Apple App Store Approval",
+                "status": "red"
+              },
+              {
+                "name": "Publish to Apple App Store",
+                "status": "red"
+              }
+            ]
+          }
+        ]
+    },
+
+    {
+      "name": "Youth-Card-CMS-App",
+      "aliases": [ "CMS" ],
+      "tagline" : "CMS for administering Youth Card app content",
+      "environmentType": "Web App",
+      "environments":[
+          {
+            "name": "Local",
+            "purpose": "Local",
+            "url": "http://localhost:51233/",
+            "urls": [
+              { "name":"Login", "url": "http://localhost:51233/" },
+              { "name":"Setup notes", "url": "https://speakersforschools.atlassian.net/wiki/spaces/SFS/pages/edit-v2/137625636?draftShareId=035f3766-3047-4fe4-b5bf-28399ad5f75a" }
+            ],
+            "notes": "",
+            "deploymentMechanism": "Visual Studio Debug",
+            "steps": [
+              {
+                "name": "Build",
+                "status": "red"
+              },
+              {
+                "name": "Test",
+                "status": "red"
+              },
+              {
+                "name": "Deploy",
+                "status": "red"
+              }
+            ]
+          }
+        ]
+    }
+  ],
+
+  "environmentTypes": [
+    "Cloud Platform",
+    "SQL",
+    "VM",
+    "Web App",
+    "API",
+    "Cloud Resources"
+  ],
+  "deploymentMechanisms": [
+    "Manual edits only",
+    "Scripts/CLI",
+    "CI/CD (WIP)",
+    "CI/CD (some manual actions required)",
+    "CI/CD",
+    "Other GUI (not CI/CD)"
+  ]
+}
+
