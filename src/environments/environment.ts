@@ -4,7 +4,10 @@
 
 export const environment = {
   production: false,
+  consoleDebugValues: false,
+  // consoleDebugValues: true,
   dataSource: 'youth-card'
+  // dataSource: 'example/current' //youth-card
 };
 
 /*

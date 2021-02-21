@@ -4,6 +4,24 @@
 
     {
       "name": "Youth-Card",
+      "aliases": [ "" ],
+      "tagline" : "Mobile student-facing application",
+      "environmentType": "unknown",
+      "environments":[
+
+        ]
+    },
+    {
+      "name": "Youth-Card-DB-Project",
+      "aliases": [ "SfS.YouthCard.Data" ],
+      "tagline" : "Database for Youth Card",
+      "environmentType": "unknown",
+      "environments":[
+
+        ]
+    },
+    {
+      "name": "Youth-Card-Mobile-App",
       "aliases": [ "Xamarin", "App" ],
       "tagline" : "Mobile student-facing application",
       "environmentType": "unknown",
@@ -104,6 +122,13 @@
       "aliases": [ "CMS" ],
       "tagline" : "CMS for administering Youth Card app content",
       "environmentType": "Web App",
+      "milestones": [
+        {
+          "name" : "Pilot Release (CMS Only)",
+          "type": "Hard Date",
+          "date" : "2021-03-08T00:00:00.000Z"
+        }
+      ],
       "environments":[
           {
             "name": "Local",

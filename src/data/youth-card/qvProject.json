@@ -3,7 +3,9 @@
     "projectName": "Youth Card",
     "subProjects":[
       "Youth-Card",
-      "Youth-Card-CMS-App"
+      "Youth-Card-DB-Project",
+      "Youth-Card-CMS-App",
+      "Youth-Card-Mobile-App"
     ],
     "styleOverrideHeight": 300,
     "styleOverrideWidth": 800,
@@ -14,7 +16,7 @@
       {
         "elementId" : "Youth-Card-CMS",
         "elementName" : "CMS",
-        "tempElementScore": 10,
+        "tempElementScore": 8,
         "subProject": "Youth-Card-CMS-App",
         "references": [
           "https://github.com/speakersforschools/youthcard-cms"
@@ -28,14 +30,16 @@
       {
         "elementId" : "Youth-Card-Firebase",
         "elementName" : "Firebase",
+        "shape": "rounded",
         "tempElementScore": 10,
         "subProject": "Youth-Card"
       },
       {
         "elementId" : "Youth-Card-DB",
         "elementName" : "DB",
-        "tempElementScore": 10,
-        "subProject": "Youth-Card",
+        "shape": "database",
+        "tempElementScore": 8,
+        "subProject": "Youth-Card-DB-Project",
         "references": [
           "https://github.com/speakersforschools/SfS.YouthCard.Data"
         ],
@@ -49,6 +53,7 @@
       {
         "elementId" : "Youth-Card-OneSignal",
         "elementName" : "OneSignal",
+        "shape": "rounded",
         "tempElementScore": 10,
         "subProject": "Youth-Card"
       },
@@ -56,19 +61,62 @@
         "elementId" : "Youth-Card-XamarinSolution",
         "elementName" : "Xamarin Solution",
         "tempElementScore": 10,
-        "subProject": "Youth-Card"
+        "subProject": "Youth-Card-Mobile-App",
+        "references": [
+          "https://github.com/speakersforschools/youthcard-app"
+        ],
+        "notes":[
+          "Solution builds both Android and iOS apps"
+        ]
       },
       {
         "elementId" : "Youth-Card-MobileApp-Android",
         "elementName" : "Android App",
         "tempElementScore": 10,
-        "subProject": "Youth-Card"
+        "subProject": "Youth-Card-Mobile-App",
+        "references": [
+          ""
+        ],
+        "notes":[
+          ""
+        ]
       },
       {
         "elementId" : "Youth-Card-MobileApp-iOS",
         "elementName" : "iOS App",
         "tempElementScore": 10,
-        "subProject": "Youth-Card"
+        "subProject": "Youth-Card-Mobile-App",
+        "references": [
+          ""
+        ],
+        "notes":[
+          ""
+        ]
+      }
+      ,
+      {
+        "elementId" : "Youth-Card-Exe-Unknown",
+        "elementName" : "Youth Card Exe",
+        "tempElementScore": 10,
+        "subProject": "Youth-Card",
+        "references": [
+          "https://github.com/speakersforschools/youthcard-exe"
+        ],
+        "notes":[
+          "???? What is this?"
+        ]
+      },
+      {
+        "elementId" : "Youth-Card-EmailSender",
+        "elementName" : "Youth Card Email Sender",
+        "tempElementScore": 10,
+        "subProject": "Youth-Card",
+        "references": [
+          "https://github.com/speakersforschools/youthcard-email-sender"
+        ],
+        "notes":[
+          "Azure function, deployed via pipeline."
+        ]
       }
     ],
     "relationships": [
@@ -89,7 +137,12 @@
       }
       ,{
         "fromElement": "Youth-Card-DB",
-        "toElement" : "Youth-Card-XamarinSolution",
+        "toElement" : "Youth-Card-MobileApp-Android",
+        "label": "consumes"
+      }
+      ,{
+        "fromElement": "Youth-Card-DB",
+        "toElement" : "Youth-Card-MobileApp-iOS",
         "label": "consumes"
       }
       ,{
@@ -102,6 +155,7 @@
         "toElement" : "Youth-Card-MobileApp-iOS",
         "label": "consumes"
       }
+
 
 
     ]

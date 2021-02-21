@@ -5,8 +5,8 @@
     elements: Element[];
     relationships: Relationship[];
     subProjects: string[];
-    styleOverrideHeight: string;
-    styleOverrideWidth: string;
+    styleOverrideHeight?: number;
+    styleOverrideWidth?: number;
 }
 
     export interface Element {

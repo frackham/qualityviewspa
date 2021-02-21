@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 import { Dimension } from '../model/dimension';
 import { Evidence, EvidenceSource } from '../model/evidence';
 import { Project, Element, Relationship } from '../model/project';
@@ -15,14 +16,21 @@ export class ProjectDataService {
 
   private _cachedProject: Project | null = null;
   private _cachedSubProjects: any | null = null; //TODO: subproject model.
-  private _cachedElements: Element[] = [];
-  private _cachedDimensions: Dimension[] = [];
-  private _cachedEvidence: Evidence[] = [];
+  private _cachedElements: Element[] | null = null;
+  private _cachedDimensions: Dimension[] | null = [];
+  private _cachedEvidence: Evidence[] | null = [];
 
   constructor(
     private jsonDataService: JsonDataService) {
+      //This can be used to debug what is being returned by
+      //TODO: Hook to debug feature flag.
+      //See https://medium.com/ngconf/feature-flags-in-angular-77efc77d7885
+      if(environment.consoleDebugValues){
+        console.log("debug mode");
+        console.log('ProjectDataService:CTOR');
 
-      (<any>window).globalDebugData = this.jsonDataService.project.elements; //TODO: Remove.
+        (<any>window).globalDebugData = this.jsonDataService.dimensions;
+      }
     }
 
   //////////////////////////////////////////////////
@@ -31,6 +39,7 @@ export class ProjectDataService {
     if (useCached && this._cachedProject) {
       return this._cachedProject;
     }
+    this.jsonDataService.refresh();
     this._cachedProject = this.jsonDataService.project
     return this._cachedProject;
   }
@@ -42,6 +51,7 @@ export class ProjectDataService {
     if (useCached && this._cachedProject) {
       return this._cachedProject.subProjects;
     }
+    this.jsonDataService.refresh();
     this._cachedProject = this.jsonDataService.project
     return this._cachedProject.subProjects;  //Project only holds the names.
   }
@@ -50,6 +60,7 @@ export class ProjectDataService {
     if (useCached && this._cachedSubProjects) {
       return this._cachedSubProjects;
     }
+    this.jsonDataService.refresh();
     this._cachedSubProjects = this.jsonDataService.subProjects
     return this._cachedSubProjects;
   }
@@ -62,10 +73,11 @@ export class ProjectDataService {
   //////////////////////////////////////////////////
   //Elements
   getElements(useCached:boolean = true): Element[] {
-    if (useCached && this._cachedElements.length > 0) {
+    if (useCached && this._cachedElements && this._cachedElements.length > 0) {
       return this._cachedElements;
     }
 
+    this.jsonDataService.refresh();
     this._cachedElements = this.getProject(useCached).elements;
     this._cachedElements.forEach(el =>  {
       el.elementRegex = function(){
@@ -94,9 +106,10 @@ export class ProjectDataService {
   //////////////////////////////////////////////////
   //Dimensions
   getDimensions(useCached:boolean = true): Dimension[] {
-    if (useCached && this._cachedDimensions.length > 0) {
+    if (useCached && this._cachedDimensions && this._cachedDimensions.length > 0) {
       return this._cachedDimensions;
     }
+    this.jsonDataService.refresh();
     this._cachedDimensions = this.jsonDataService.dimensions
     return this._cachedDimensions;
   }
@@ -105,9 +118,10 @@ export class ProjectDataService {
   //////////////////////////////////////////////////
   // Evidence
   getEvidence(useCached:boolean = true): Evidence[] {
-    if (useCached && this._cachedEvidence.length > 0) {
+    if (useCached && this._cachedEvidence && this._cachedEvidence.length > 0) {
       return this._cachedEvidence;
     }
+    this.jsonDataService.refresh();
     this._cachedEvidence = this.jsonDataService.evidence
     return this._cachedEvidence;
   }
@@ -119,6 +133,7 @@ export class ProjectDataService {
   // Results
   getResults(): Result[] {
     //throw new Error('Method not implemented.');
+    this.jsonDataService.refresh();
     return this.jsonDataService.results;
   }
 

@@ -1,4 +1,4 @@
-console.log('global functions loaded')
+console.info('global functions loaded')
 
 function SvgElementClickHandler_TOUSE(e, dataelement, callback){ //TODO: Allow injecting a callback so different elements logic can be handled at the angular controller.
   console.log(e)
@@ -12,7 +12,7 @@ function SvgElementClickHandler_TOUSE(e, dataelement, callback){ //TODO: Allow i
 }
 
 function SvgElementClickHandler(e, dataelement){
-  console.log(e)
+  console.info(e);
   //alert(`A callback was triggered [${e}, ${e.id}, ${e.text}, ${e.name}.\r\n\r\n ${e.dataset.example}. \r\n\r\n${e.dataset.element}]`);
   // alert('dataelement', e["dataelement"].val())
   window.parent["lastSvgElement"] = e;
@@ -69,6 +69,7 @@ function showGlobalModal_Element(e, dataelementText){
       });
       referenceList += "</ul>";
     }
+
     var notesList = "";
     if(dataelement.notes) {
       notesList = "<div>";
@@ -78,15 +79,20 @@ function showGlobalModal_Element(e, dataelementText){
       notesList += "</div>";
     }
 
+
     modalDynamicContentWrapper.innerHTML = `<h2>${dataelement.elementName}</h2>
       <p>Score: ${dataelement.tempElementScore}</p>
-      ${referenceList}${notesList}`;
+      ${referenceList}${notesList}
+      `;
   } else {
     console.error('globalfunctions.js : showGlobalModal_Element : called without dataelementText, the element may not exist in the element dataset.');
   }
 }
 
 function showGlobalModal_Subproject(dataelement, subprojectName){
+  //TODO: Review design of this subproject popup modal:
+  //https://slideuplift.com/powerpoint-templates/tag/project-overview/
+
 
   if(dataelement) {
     modal.style.display = "block";
@@ -98,13 +104,37 @@ function showGlobalModal_Subproject(dataelement, subprojectName){
 
 
     var test_svgMarkup = SVGDiagramFromSource_SubProjectEnvironments(clusterData.environments, subprojectName);
+
+    var optional_milestones = "";
+    if(clusterData.milestones) {
+      optional_milestones = "<div>";
+      clusterData.milestones.forEach(milestone => {
+        var milestoneDate = new Date(milestone.date);
+        var descriptor = "";
+        var milestoneClass = "";
+        if (milestone.type == "Hard Date") {descriptor = " (Hard Deadline)"; milestoneClass = "subproject-timeline-date-harddeadline" }
+        var dateString = milestoneDate.toLocaleString('en-GB', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',  timeZone: 'UTC' });
+        optional_milestones += "<p class='" + milestoneClass + "'>" + milestone.name + " : " + dateString + descriptor + "</p>";
+      });
+      optional_milestones += "</div>";
+    }
+
+    //TODO: Convert milestones into visual timeline: https://codepen.io/AdamKimmerer/pen/RraRbb
+    //Also add visual of today as a date into that.
+    // Alternative: https://www.grapecity.com/blogs/create-javascript-gantt-chart-using-flexchart
+    // https://codepen.io/carrrter/pen/ELLmyX
+
     modalDynamicContentWrapper.innerHTML = `<h2 class='modal-title-subprojectmodal'>${dataelement.clusterName} Notes</h2>
       ${optional_aliases}
       ${optional_tagline}
       <br />
-
+      ${optional_milestones}
+    </script>
+    <br />
       <h4 class="modal-section-subtitle">Environments</h4>
       ${test_svgMarkup}
+
+
     `;
   } else {
     console.error('globalfunctions.js : showGlobalModal_Subproject : called without dataelement, the subproject may not exist in the subproject dataset.');
@@ -129,7 +159,7 @@ function SVGDiagramFromSource_SubProjectEnvironments(source, subprojectName){
 
     environmentsMarkup += `<title>${env.name}</title>`;
     environmentsMarkup += `<text xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_2_${env.name}" y="${yOffset - 30}" x="0" stroke-width="0" stroke="#000" fill="#000000">${env.name}</text>`;
-    environmentsMarkup += `<text xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="16" id="svg_2_${env.name}" y="${yOffset - 10}" x="0" stroke-width="0" stroke="#000" fill="#888888">(${env.deploymentMechanism})</text>`;
+    environmentsMarkup += `<text xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="16" id="svg_2_${env.name}" y="${yOffset - 10}" x="0" stroke-width="0" stroke="#000" fill="#888888">(${env.deploymentMechanism}) : (${env.optional_parsedUrls})</text>`;
 
     //per step - move X.
     var xOffset = 0;

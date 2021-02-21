@@ -1,4 +1,4 @@
-<mat-tab-group mat-align-tabs="start" animationDuration="500ms">
+<mat-tab-group mat-align-tabs="start" animationDuration="500ms" (selectedTabChange)="tabChanged($event)">
 
   <mat-tab label="Notes">
     <!-- <p>spacing issues without a component?</p> -->
@@ -16,7 +16,7 @@
   </mat-tab>
 
   <mat-tab label="Data">
-    <app-sandbox></app-sandbox>
+    <app-sandbox [child_id]="reset_seed"></app-sandbox>
   </mat-tab>
 
   <mat-tab label="Moodboard">

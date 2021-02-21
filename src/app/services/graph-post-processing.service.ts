@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ProjectDataService } from './project-data.service';
 import { Element } from '../model/project';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -32,7 +33,10 @@ export class GraphPostProcessingService {
 
     //Return final postprocessed svg.
     var markup = this._xmlDoc.documentElement.outerHTML;
-    console.log(markup);
+
+    if(environment.consoleDebugValues){
+      console.log(markup);
+    }
     svgContent = markup;
 
     return svgContent;
@@ -43,15 +47,16 @@ export class GraphPostProcessingService {
 
     var generatedDiagramHeight = this._xmlDoc.getElementsByClassName("output")[0].getAttribute("height");
     //Set the overall SVG height to  g (.output) 's height
-    var overrideHeight = "1300";
-    overrideHeight = this.projectDataService.getProject().styleOverrideHeight;
-    this._xmlDoc.documentElement.setAttribute("height", generatedDiagramHeight?.toString() ?? overrideHeight);
 
-
-    var overrideWidth = this.projectDataService.getProject().styleOverrideWidth;
-    this._xmlDoc.documentElement.setAttribute("width", overrideWidth);
-    this._xmlDoc.documentElement.setAttribute("maxwidth", overrideWidth);
-
+    if(this.projectDataService.getProject().styleOverrideWidth){
+      var overrideWidth = this.projectDataService.getProject().styleOverrideWidth ?? 0;
+      this._xmlDoc.documentElement.setAttribute("width", overrideWidth.toString());
+      this._xmlDoc.documentElement.setAttribute("maxwidth", overrideWidth.toString());
+    }
+    if(this.projectDataService.getProject().styleOverrideWidth){
+      var overrideHeight = this.projectDataService.getProject().styleOverrideHeight ?? 1300;
+      this._xmlDoc.documentElement.setAttribute("height", generatedDiagramHeight?.toString() ?? overrideHeight.toString());
+    }
   }
 
   InsertSvgStyles() {
@@ -86,16 +91,15 @@ export class GraphPostProcessingService {
 
     `
 
-    // var theSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    // theSvg.innerHTML = preStyle;
     var theStyle = document.createElementNS("http://www.w3.org/2000/svg", "style");
     theStyle.innerHTML = preStyle;
     if(this._xmlDoc?.firstElementChild){
 
     this._xmlDoc.firstElementChild.appendChild(theStyle);
-    console.log("theStyle=", theStyle, this._xmlDoc.firstElementChild); // undefined, try adding svg to DOM
-    // this._xmlDoc.appendChild(theSvg);
-    // console.log("theSvg=", theSvg); // still undefined
+
+    if(environment.consoleDebugValues){
+      console.log("theStyle=", theStyle, this._xmlDoc.firstElementChild);
+    }
     }
 
   }
@@ -105,15 +109,15 @@ export class GraphPostProcessingService {
     this.subProjects = this.projectDataService.getSubProjects();
   }
 
-  clusterOnClick(cluster:any){
-  		alert('cluster on click fn!');
-  		alert('a cluster on click should show subproject summary, and element should show element results breakdown (getResultsOfElement(elementId)');
-  		console.log(cluster);
-  }
+  // clusterOnClick(cluster:any){
+  // 		alert('cluster on click fn!');
+  // 		alert('a cluster on click should show subproject summary, and element should show element results breakdown (getResultsOfElement(elementId)');
+  // 		console.log(cluster);
+  // }
 
-  simpleclick(){
-    alert('!!');
-  }
+  // simpleclick(){
+  //   alert('!!');
+  // }
 
   ProcessClusters() {
     if(!this._xmlDoc) { throw "no xmldoc defined" }

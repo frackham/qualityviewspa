@@ -1,3 +1,5 @@
+<p>Dataloaded: {{dataLoaded}}, attempted {{attemptedLoads}}</p>
+
 <div id="sandbox-container">
 
   <div class="flex-column">
@@ -32,7 +34,7 @@
 
     <div *ngFor="let dimension of dimensions; index as i; ">
       <p>{{dimension.name}}</p>
-        <div *ngFor="let evidenceDimension of evidence; index as i; ">
+        <!-- <div *ngFor="let evidenceDimension of evidence; index as i; ">
           <div *ngIf="dimension.name == evidenceDimension.dimension">
             <div *ngFor="let result of results; index as i; ">
 
@@ -47,13 +49,13 @@
                 <ul *ngFor="let elementResult of result.projectelementResults; index as i; ">
                   <!-- <li *ngFor="let evidenceSource of evidenceDimension.evidenceSources; index as i; ">
                     {{evidenceSource.name}}
-                  </li> -->
+                  </li>
                   <li>E{{elementResult.result}}</li>
                 </ul>
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
     </div>
   </div>
 
