@@ -1,7 +1,7 @@
 console.info('global functions loaded')
 
 function SvgElementClickHandler_TOUSE(e, dataelement, callback){ //TODO: Allow injecting a callback so different elements logic can be handled at the angular controller.
-  console.log(e)
+  //console.log(e)
   alert(`A callback was triggered [${e}, ${e.id}, ${e.text}, ${e.name}.\r\n\r\n ${e.dataset.example}. \r\n\r\n${e.dataset.element}]`);
   // alert('dataelement', e["dataelement"].val())
   window.parent["lastSvgElement"] = e;
@@ -12,7 +12,7 @@ function SvgElementClickHandler_TOUSE(e, dataelement, callback){ //TODO: Allow i
 }
 
 function SvgElementClickHandler(e, dataelement){
-  console.info(e);
+  //console.info(e);
   //alert(`A callback was triggered [${e}, ${e.id}, ${e.text}, ${e.name}.\r\n\r\n ${e.dataset.example}. \r\n\r\n${e.dataset.element}]`);
   // alert('dataelement', e["dataelement"].val())
   window.parent["lastSvgElement"] = e;
@@ -96,7 +96,7 @@ function showGlobalModal_Subproject(dataelement, subprojectName){
 
   if(dataelement) {
     modal.style.display = "block";
-    console.log({dataelement});
+    //console.log({dataelement});
     var clusterData = JSON.parse(dataelement.cluster);
     var optional_aliases = clusterData.aliases ? `<h3>(AKA ${clusterData.aliases})</h3>` : '';
     var optional_tagline = clusterData.tagline ? `<p><b>${clusterData.tagline}</b></p>` : '';
@@ -151,16 +151,36 @@ function SVGDiagramFromSource_SubProjectEnvironments(source, subprojectName){
   var xStep = 300;
   var maxXOffset = 800;
   source.forEach(function(env) {
-    var optional_parsedUrls = env.urls ? '<text xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" >' + env.urls.map( (url) => {  return `<a target="_blank" xlink:href="${url.url}"><text>${url.name}</text></a>`  } ).join('<br>') + "</text>": '';
+    var optional_parsedUrls = env.urls ?
+      //'<text xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" >' + env.urls.map( (url) => {  return `<a target="_blank" xlink:href="${url.url}">${url.name}</a>`  } ).join('<br>') + "</text>": '';
+      env.urls.map( (url) => {
+        return `<a target="_blank" xlink:href="${url.url}"><text><tspan>${url.name}</tspan>
+        </text></a>`
+      } ).join('<br>')
+    : '';
+
+    // <a xlink:href="#code">
+    //   <text
+    //     // transform="..."
+    //     font-family="Helvetica, Arial, sans-serif" font-size="54"
+    //     // font-weight="normal" fill="#008F68"
+    //     >
+    //       <tspan x="..." y="...">
+    //         Some Text
+    //       </tspan>
+    //   </text>
+    // </a>
 
 
     environmentsMarkup += "\r\n\ ";
     environmentsMarkup +="<g>"
-
+    // var showLinksOnClickEventalert = "alert('" + optional_parsedUrls + "');";
+    var showLinksOnClickEventalert = "alert('" + "!" + "');";
     environmentsMarkup += `<title>${env.name}</title>`;
-    environmentsMarkup += `<text xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_2_${env.name}" y="${yOffset - 30}" x="0" stroke-width="0" stroke="#000" fill="#000000">${env.name}</text>`;
-    environmentsMarkup += `<text xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="16" id="svg_2_${env.name}" y="${yOffset - 10}" x="0" stroke-width="0" stroke="#000" fill="#888888">(${env.deploymentMechanism}) : (${env.optional_parsedUrls})</text>`;
+    environmentsMarkup += `<text onclick="${showLinksOnClickEventalert}" xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_2_${env.name}" y="${yOffset - 30}" x="0" stroke-width="0" stroke="#000" fill="#000000">${env.name}</text>`;
+    environmentsMarkup += `<text xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="16" id="svg_2_${env.name}" y="${yOffset - 10}" x="0" stroke-width="0" stroke="#000" fill="#888888">(${env.deploymentMechanism})</text>`;
 
+    // environmentsMarkup += optional_parsedUrls;
     //per step - move X.
     var xOffset = 0;
     var stepBlockHeight = 70;
@@ -182,7 +202,7 @@ function SVGDiagramFromSource_SubProjectEnvironments(source, subprojectName){
 // //  <rect id="svg_5" height="93" width="274" y="100.45313" x="458.5" stroke-width="1.5" stroke="#000" fill="#BF7E96"/>
 // //  <text xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_6" y="153.45313" x="142.5" fill-opacity="null" stroke-opacity="null" stroke-width="0" stroke="#000" fill="#000000">Build</text>
 // //  <text xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_7" y="156.45313" x="558.5" fill-opacity="null" stroke-opacity="null" stroke-width="0" stroke="#000" fill="#000000">Deploy</text>
-    environmentsMarkup +=`${optional_parsedUrls}`;
+
     environmentsMarkup +="</g>";
 
     //Set values for next environment
@@ -228,6 +248,7 @@ function SVGDiagramFromSource_SubProjectEnvironments(source, subprojectName){
   </g>
  </g>
   ${environmentsMarkup}
+
 </svg>
   `;
 

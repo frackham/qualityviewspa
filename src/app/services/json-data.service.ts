@@ -121,7 +121,7 @@ export class JsonDataService {
 
     if(this.useDynamicImport) { this.dynamicImporter(); } else { this.staticImporter(); }
 
-    if(true){
+    if(environment.consoleDebugValues){
       var outcome = "Data load called: ";
       outcome += "\r\n - Project: " + this.project;
       outcome += "\r\n - SubProjects: " + this.subProjects.length;
@@ -139,7 +139,7 @@ export class JsonDataService {
     if(environment.consoleDebugValues){
       console.log('loadData:end', this.dataLoaded);
     }
-    }
+  }
 
 
 

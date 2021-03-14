@@ -143,15 +143,74 @@
             "steps": [
               {
                 "name": "Build",
-                "status": "red"
+                "status": "amber"
               },
               {
                 "name": "Test",
                 "status": "red"
               },
               {
-                "name": "Deploy",
+                "name": "Deploy (Manual)",
                 "status": "red"
+              }
+            ]
+          },
+          {
+            "name": "Development",
+            "purpose": "Development",
+            "url": "https://dev-youthcard-cms.azurewebsites.net/",
+            "urls": [
+              { "name":"Login", "url": "https://dev-youthcard-cms.azurewebsites.net/" },
+              { "name":"Azure Resource Group", "url": "https://portal.azure.com/#@speakers4schools.org/resource/subscriptions/c22427a0-8f77-4832-ab4e-1aa42cb3e902/resourceGroups/Dev-YouthCard/overview" },
+              { "name":"CMS Public Url", "url": "http://cms.dev.youthcard.org/" },
+              { "name":"API Public Url", "url": "http://api.dev.youthcard.org/" },
+              { "name":"Setup notes", "url": "https://speakersforschools.atlassian.net/wiki/spaces/SFS/pages/edit-v2/137625636?draftShareId=035f3766-3047-4fe4-b5bf-28399ad5f75a" }
+            ],
+            "notes": "",
+            "deploymentMechanism": "CI Triggered from (master)",
+            "steps": [
+              {
+                "name": "Build",
+                "status": "red",
+                "link": ""
+              },
+              {
+                "name": "Test",
+                "status": "red",
+                "link": ""
+              },
+              {
+                "name": "Deploy (CD)",
+                "status": "red",
+                "link": "https://dev.azure.com/speakersforschools/youthcard/_release?definitionId=2&view=mine&_a=releases"
+              }
+            ]
+          },
+          {
+            "name": "Nettrackers dev site??",
+            "purpose": "Development",
+            "url": "http://3.8.212.0/",
+            "urls": [
+              { "name":"Login", "url": "http://3.8.212.0/" },
+              { "name":"Setup notes", "url": "https://speakersforschools.atlassian.net/wiki/spaces/SFS/pages/edit-v2/137625636?draftShareId=035f3766-3047-4fe4-b5bf-28399ad5f75a" }
+            ],
+            "notes": "",
+            "deploymentMechanism": "CI Triggered from (BRANCH)",
+            "steps": [
+              {
+                "name": "Build",
+                "status": "red",
+                "link": ""
+              },
+              {
+                "name": "Test",
+                "status": "red",
+                "link": ""
+              },
+              {
+                "name": "Deploy (CI)",
+                "status": "red",
+                "link": ""
               }
             ]
           }

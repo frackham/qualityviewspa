@@ -69,7 +69,11 @@ export class EmbeddedMermaidComponent implements OnInit, AfterViewInit {
   updateSvgInDiv() {
     //console.log('svgContent', this.svgContent)//works
     let mermaidcontentWrapper = document.querySelector("#embedded-mermaid-content");
-    mermaidcontentWrapper!.innerHTML = this.svgContent
+    try {
+      mermaidcontentWrapper!.innerHTML = this.svgContent
+    } catch (error){
+      console.error("failed to updateSvgInDiv using: ", this.svgContent, error)
+    }
 
   }
 

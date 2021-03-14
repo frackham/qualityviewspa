@@ -1,0 +1,37 @@
+{
+  "remediations": [
+    {
+      "projectelement": "Youth-Card-DB",
+      "projectelementremediations":[
+        {
+          "dimension": "Version Control Coverage",
+          "readiness": "Actionable",
+          "remediation": "Add youth card EX to VC (update project).",
+          "note" : ""
+        },
+        {
+          "dimension": "Version Control Coverage",
+          "readiness": "Investigation",
+          "remediation": "2"
+        }
+      ]
+    },
+
+    {
+      "projectelement": "Youth-Card-CMS",
+      "projectelementremediations":[
+        // {
+        //   "dimension": "Version Control Coverage",
+        //   "readiness": "Number of manual changes required per deploy",
+        //   "remediation": "2",
+        //   "note" : ""
+        // },
+        // {
+        //   "dimension": "Version Control Coverage",
+        //   "readiness": "Number of manual changes required per deploy",
+        //   "remediation": "2"
+        // }
+      ]
+    }
+  ]
+}

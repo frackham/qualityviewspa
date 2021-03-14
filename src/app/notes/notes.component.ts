@@ -3,6 +3,7 @@ import {FlatTreeControl} from '@angular/cdk/tree';
 import {OnInit, Component, Injectable} from '@angular/core';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import {BehaviorSubject} from 'rxjs';
+import { ApiService } from '../services/api.service';
 
 
 /**
@@ -51,14 +52,36 @@ const TREE_DATA = {
 @Injectable()
 export class ChecklistDatabase {
   dataChange = new BehaviorSubject<TodoItemNode[]>([]);
+  projects!: any;
+  parts!: any;
+  isReady:boolean = false;
 
   get data(): TodoItemNode[] { return this.dataChange.value; }
 
-  constructor() {
+  constructor( public apiService: ApiService) {
     this.initialize();
   }
 
+  async testApiService() {
+    console.log('TEMP PROJECTS');
+    console.log(this.projects);
+    console.log(this.parts);
+  }
+
   initialize() {
+    this.isReady = false;
+    this.apiService.getProjects(0).subscribe((res: {}) => {
+      this.projects = res;
+      this.isReady = true;
+      this.testApiService();
+    });
+
+    this.apiService.getParts(0).subscribe((res: {}) => {
+      this.parts = res;
+      this.isReady = true;
+      this.testApiService();
+    });
+
     // Build the tree nodes from Json object. The result is a list of `TodoItemNode` with nested
     //     file node as children.
     const data = this.buildFileTree(TREE_DATA, 0);
