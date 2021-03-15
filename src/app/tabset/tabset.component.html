@@ -1,4 +1,9 @@
-<mat-tab-group mat-align-tabs="start" animationDuration="500ms" (selectedTabChange)="tabChanged($event)">
+<mat-tab-group
+  mat-align-tabs="start"
+  animationDuration="500ms"
+  (selectedTabChange)="tabChanged($event)"
+  mat-stretch-tabs
+  >
 
   <mat-tab label="Notes">
     <!-- <p>spacing issues without a component?</p> -->
@@ -25,7 +30,7 @@
   </mat-tab>
 
   <mat-tab label="API Explorer">
-    <app-apiexplorer></app-apiexplorer>
+    <app-apiexplorer style="width:100%"></app-apiexplorer>
   </mat-tab>
 
   <mat-tab label="Moodboard">

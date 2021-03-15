@@ -1,25 +1,10 @@
 <div id="#notes-container">
-<p>Next steps:</p>
+
+<h4>Links</h4>
 <ul>
-  <li>Add edit grids for each data type.</li>
-  <li>Use views for data sources of grids with related objects...e.g. project details on parts, but only part is edited.</li>
-
-  <li>Add create hooks to the table (header buttons in ag grid). With create and edit, I can add much of the source data.</li>
-
-  <li>Data model: requires relationships between parts. Directional, strength (so default distance of 10, but can be less/more) to push components apart.</li>
-  <li>Want to be able to use to create a force-directed layout, but still near the original QV diagram.</li>
-
-  <li>Data model: Add todo list (notes object).</li>
-  <li>Data entry: Transfer content in Data tab.</li>
-  <li>Data entry: Add default values for dimensions (see that email, including Product Owner Index).</li>
-
-  <li>Investigate: How does EF handle FK constraints?</li>
-  <li>Investigate: Add sproc, view to API</li>
-  <li>Project views: Layout design (spacing, location). Component build (parts). Dimension build (qds). Snapshot of results (results of a snapshot, using data sources... should have a single button 'capture' that fires off each request.</li>
-
+  <li>Quality view presentation - all useful, starts at 10.30 RE QVs themselves: <a href="https://www.infoq.com/presentations/quality-views-technical-debt/">https://www.infoq.com/presentations/quality-views-technical-debt/</a></li>
 </ul>
-
-<mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+<!-- <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
   <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
     <button mat-icon-button disabled></button>
     <mat-checkbox class="checklist-leaf-node"
@@ -48,8 +33,31 @@
                   (change)="todoItemSelectionToggle(node)">{{node.item}}</mat-checkbox>
     <button mat-icon-button (click)="addNewItem(node)"><mat-icon>add</mat-icon></button>
   </mat-tree-node>
-</mat-tree>
+</mat-tree> -->
 
+<div id="gridwrapper_note">
+  <h2>Notes</h2>
+
+  <!-- style="min-width: 500px; min-height: 500px; width: 100%; height: 100%;" -->
+  <button (click)="onGridAdd_Note($event)">Add Note</button>
+  <button [disabled]="onGridDelete_IsDisabled_Note()" (click)="onGridDelete_Note($event)">Delete Selected Notes</button>
+  <ag-grid-angular
+      #agGridNote
+      style="min-width: 500px; width: 100%;"
+      class="ag-theme-material apiexplorer-grid apiexplorer-grid-note"
+      [rowData]="noteRowData"
+      [defaultColDef]="defaultColDef"
+      [columnDefs]="noteColumnDefs"
+      rowSelection="multiple"
+      [enableCellChangeFlash]="true"
+      [animateRows]="true"
+      (cellValueChanged)="onCellValueChanged_Note($event)"
+      (gridReady)="onGridReady_Note($event)"
+      domLayout='autoHeight'
+  >
+  </ag-grid-angular>
+  <p>Edit the notes above.</p>
+</div>
 
 
 </div>
