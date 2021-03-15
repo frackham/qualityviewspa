@@ -1,5 +1,23 @@
 <div id="#notes-container">
-<p>notes works!</p>
+<p>Next steps:</p>
+<ul>
+  <li>Add edit grids for each data type.</li>
+  <li>Use views for data sources of grids with related objects...e.g. project details on parts, but only part is edited.</li>
+
+  <li>Add create hooks to the table (header buttons in ag grid). With create and edit, I can add much of the source data.</li>
+
+  <li>Data model: requires relationships between parts. Directional, strength (so default distance of 10, but can be less/more) to push components apart.</li>
+  <li>Want to be able to use to create a force-directed layout, but still near the original QV diagram.</li>
+
+  <li>Data model: Add todo list (notes object).</li>
+  <li>Data entry: Transfer content in Data tab.</li>
+  <li>Data entry: Add default values for dimensions (see that email, including Product Owner Index).</li>
+
+  <li>Investigate: How does EF handle FK constraints?</li>
+  <li>Investigate: Add sproc, view to API</li>
+  <li>Project views: Layout design (spacing, location). Component build (parts). Dimension build (qds). Snapshot of results (results of a snapshot, using data sources... should have a single button 'capture' that fires off each request.</li>
+
+</ul>
 
 <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
   <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>

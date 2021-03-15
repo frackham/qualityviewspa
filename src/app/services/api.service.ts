@@ -34,6 +34,24 @@ export class ApiService {
     )
   }
 
+
+  postSingleProject(id: string, project: tempproject): void{
+    // console.log(`attempting to post update for project ${id}`);
+    var projectUpdate: any = {};
+    projectUpdate.Name = project.name;
+    projectUpdate.Description = project.description;
+    // projectUpdate.IsDefault = project.i;
+    // projectUpdate.Image = project.;
+    // projectUpdate.Logo = project.;
+
+    // console.log(`attempting to post: ${JSON.stringify(projectUpdate)}`);
+
+    this.httpClient.post<tempproject>(this.endpoint + '/project/' + id, project).subscribe(data => {
+      console.log('post response');
+      console.log(data);
+    });
+  }
+
   getProjects(id: any): Observable<tempproject> {
     return this.httpClient.get<tempproject>(this.endpoint + '/project/list')
     .pipe(
@@ -51,14 +69,32 @@ export class ApiService {
     )
   }
 
-getParts(id: any): Observable<temppart> {
-  return this.httpClient.get<temppart>(this.endpoint + '/part/list')
-  .pipe(
-    retry(1),
-    catchError(this.processError)
-  )
-}
+  getParts(id: any): Observable<temppart> {
+    return this.httpClient.get<temppart>(this.endpoint + '/part/list')
+    .pipe(
+      retry(1),
+      catchError(this.processError)
+    )
+  }
 
+  postSinglePart(id: string, part: temppart): void{
+    // console.log(`attempting to post update for project ${id}`);
+    var partUpdate: any = {};
+    partUpdate.Name = part.name;
+    partUpdate.Description = part.description;
+    // projectUpdate.IsDefault = project.i;
+    // projectUpdate.Image = project.;
+    // projectUpdate.Logo = project.;
+
+    // console.log(`attempting to post: ${JSON.stringify(projectUpdate)}`);
+
+    this.httpClient.post<temppart>(this.endpoint + '/part/' + id, part).subscribe(data => {
+      console.log('post response');
+      console.log(data);
+    });
+  }
+
+  ///////////////////////
   processError(err: { error: { message: string; }; status: any; message: any; }) {
     let message = '';
     if(err.error instanceof ErrorEvent) {

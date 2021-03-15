@@ -26,6 +26,9 @@ import { MatDividerModule } from '@angular/material/divider';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { HttpClientModule } from '@angular/common/http';
+import { ApiExplorerComponent } from './apiexplorer/apiexplorer.component';
+import { ProjectExplorerComponent } from './projectexplorer/projectexplorer.component';
+import { AgGridModule } from 'ag-grid-angular';
 
 @NgModule({
   declarations: [
@@ -37,12 +40,15 @@ import { HttpClientModule } from '@angular/common/http';
     TabsetComponent,
     NotesComponent,
     EmbeddedMermaidComponent,
-    MermaidHeaderControlsComponent
+    MermaidHeaderControlsComponent,
+    ApiExplorerComponent,
+    ProjectExplorerComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
+    AgGridModule.withComponents([]),
     BrowserAnimationsModule,
     MatProgressSpinnerModule,
     MatTabsModule,
