@@ -1,7 +1,5 @@
 import { Component, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
-import { truncateSync } from 'fs';
-// import { temppart } from '../model/temppart';
 import { temppartsofprojects } from '../model/temppartsofprojects';
 import { tempproject } from '../model/tempproject';
 import { ApiService } from '../services/api.service';
@@ -33,6 +31,59 @@ export class ApiExplorerComponent implements OnChanges, OnInit {
   partColumnDefs: any[] = [];
   partRowData: any[] = [];
   changelog: any;
+
+  //Generic values:
+  noteColumnDefs =  [
+    { headerName: 'ID', field: 'id', sortable: true, filter: true, checkboxSelection: true, resizable: false, width:130 },
+    { headerName: 'Todo?', field: 'todo', sortable: true, editable:true, filter: true, resizable: false, width:130},
+    { headerName: 'Note', field: 'text', sortable: true, filter: 'agTextColumnFilter', editable:true, width: 800}
+  ];
+  noteTemplate = {
+      "id": null,
+      "text": "lorem ipsum",
+      "todo": true
+  };
+
+  qualitydimensionColumnDefs =  [
+    { headerName: 'ID', field: 'id', sortable: true, filter: true, checkboxSelection: true, resizable: false, width:130 },
+    { headerName: 'Default?', field: 'is_default', sortable: true, editable:true, filter: true, resizable: false, width:130},
+    { headerName: 'Name', field: 'name', sortable: true, editable:true, filter: true, resizable: false},
+    { headerName: 'Description', field: 'description', sortable: true, filter: 'agTextColumnFilter', editable:true},
+    { headerName: 'Default Result Type', field: 'defaultresulttype', sortable: true, editable:true, filter: true, resizable: false},
+    { headerName: 'Why does the Dimension matter?', field: 'why', sortable: true, editable:true, filter: true, resizable: false},
+    { headerName: 'References for why it matters', field: 'why_sources', sortable: true, editable:true, filter: true, resizable: false},
+  ];
+  qualitydimensionTemplate = {
+      "id": null,
+      "name": "Dimension Name",
+      "description": "Description",
+      "is_default": false,
+      "defaultresulttype": 1,
+      "why": "Why does this dimension offer value to the organisation?",
+      "why_sources": "References for why this dimension matters if you need to convince someone (e.g. primary research).",
+      "image": ""
+  };
+
+  partqualitydimensionColumnDefs =  [
+    { headerName: 'ID', field: 'id', sortable: true, filter: true, checkboxSelection: true, resizable: false, width:130 },
+    { headerName: 'Default?', field: 'is_default', sortable: true, editable:true, filter: true, resizable: false, width:130},
+    { headerName: 'Name', field: 'name', sortable: true, editable:true, filter: true, resizable: false},
+    { headerName: 'Description', field: 'description', sortable: true, filter: 'agTextColumnFilter', editable:true},
+    { headerName: 'Default Result Type', field: 'defaultresulttype', sortable: true, editable:true, filter: true, resizable: false},
+    { headerName: 'Why does the Dimension matter?', field: 'why', sortable: true, editable:true, filter: true, resizable: false},
+    { headerName: 'References for why it matters', field: 'why_sources', sortable: true, editable:true, filter: true, resizable: false},
+  ];
+  partqualitydimensionTemplate = {
+      "id": null,
+      "name": "Dimension Name",
+      "description": "Description",
+      "is_default": false,
+      "defaultresulttype": 1,
+      "why": "Why does this dimension offer value to the organisation?",
+      "why_sources": "References for why this dimension matters if you need to convince someone (e.g. primary research).",
+      "image": ""
+  };
+
 
   constructor( public apiService: ApiService) {
     this.prepareGrids();
@@ -117,6 +168,8 @@ export class ApiExplorerComponent implements OnChanges, OnInit {
 
           this.projectRowData = this.projects;
           this.gridApi_Project.sizeColumnsToFit();
+          //Force grid to update.
+          this.preloadData();
         } catch {
           throw `Failed to delete project of id ${id}`;
         }

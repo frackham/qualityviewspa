@@ -29,6 +29,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ApiExplorerComponent } from './apiexplorer/apiexplorer.component';
 import { ProjectExplorerComponent } from './projectexplorer/projectexplorer.component';
 import { AgGridModule } from 'ag-grid-angular';
+import { DatagridComponent } from './apiexplorer/datagrid/datagrid.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { AgGridModule } from 'ag-grid-angular';
     EmbeddedMermaidComponent,
     MermaidHeaderControlsComponent,
     ApiExplorerComponent,
-    ProjectExplorerComponent
+    ProjectExplorerComponent,
+    DatagridComponent
   ],
   imports: [
     BrowserModule,

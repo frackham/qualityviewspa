@@ -1,9 +1,7 @@
-<p>apiexplorer works!</p>
 <p> See <a target="_blank" href="https://www.ag-grid.com/angular-grid/getting-started/#add-ag-grid-to-your-project-1">ng grid docs</a></p>
 
 <div id="gridwrapper_project">
   <h2>Projects</h2>
-
   <!-- style="min-width: 500px; min-height: 500px; width: 100%; height: 100%;" -->
   <button (click)="onGridAdd_Project($event)">Add Project</button>
   <button [disabled]="onGridDelete_IsDisabled_Project()" (click)="onGridDelete_Project($event)">Delete Selected Parts</button>
@@ -23,7 +21,6 @@
   </ag-grid-angular>
   <p>Edit the projects above.</p>
 </div>
-
 <br />
 <div id="gridwrapper_part">
   <h2>Parts</h2>
@@ -45,4 +42,33 @@
   >
   </ag-grid-angular>
   <p>Edit the parts above.</p>
+</div>
+
+<div>
+  <app-datagrid
+    [modelType]="'tempnote'"
+    [nameSingular]="'Note'"
+    [namePlural]="'Notes'"
+    [columnDefs]='noteColumnDefs'
+    [newObjectTemplate]='noteTemplate'>
+  </app-datagrid>
+</div>
+
+<div>
+  <app-datagrid
+    [modelType]="'tempqualitydimension'"
+    [nameSingular]="'QualityDimension'"
+    [namePlural]="'QualityDimensions'"
+    [columnDefs]='qualitydimensionColumnDefs'
+    [newObjectTemplate]='qualitydimensionTemplate'>
+  </app-datagrid>
+</div>
+<div>
+  <app-datagrid
+    [modelType]="'temppartqualitydimension'"
+    [nameSingular]="'PartQualityDimension'"
+    [namePlural]="'PartQualityDimensions'"
+    [columnDefs]='partqualitydimensionColumnDefs'
+    [newObjectTemplate]='partqualitydimensionTemplate'>
+  </app-datagrid>
 </div>

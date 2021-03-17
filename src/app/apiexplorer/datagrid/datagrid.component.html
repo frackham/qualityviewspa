@@ -1,0 +1,20 @@
+<div id="gridwrapper">
+  <h2>{{namePlural}}</h2>
+  <!-- style="min-width: 500px; min-height: 500px; width: 100%; height: 100%;" -->
+  <button (click)="onGridAdd($event)">Add {{nameSingular}}</button>
+  <button [disabled]="onGridDelete_IsDisabled()" (click)="onGridDelete($event)">Delete Selected {{namePlural}}</button>
+  <ag-grid-angular
+      #agGridProject
+      style="min-width: 500px; width: 100%;"
+      class="ag-theme-material apiexplorer-grid"
+      [rowData]="objectRowData"
+      [columnDefs]="objectColumnDefs"
+      rowSelection="multiple"
+      [enableCellChangeFlash]="true"
+      [animateRows]="true"
+      (cellValueChanged)="onCellValueChanged($event)"
+      (gridReady)="onGridReady($event)"
+      domLayout='autoHeight'
+  >
+  </ag-grid-angular>
+</div>

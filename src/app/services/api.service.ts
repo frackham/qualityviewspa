@@ -26,59 +26,60 @@ export class ApiService {
       'Content-Type': 'application/json'
     })
   }
-// Note
-getSingleNote(id: string): Observable<tempnote> {
-  return this.httpClient.get<tempnote>(this.endpoint + '/note/' + id)
-  .pipe(
-    retry(1),
-    catchError(this.processError)
-  )
-}
 
-createNote(note: tempnote): void{
-  var noteUpdate: any = {};
-  noteUpdate.Text = note.text;
-  noteUpdate.Todo = note.todo;
-  delete noteUpdate.id;
-  this.httpClient.post<tempnote>(this.endpoint + '/note/', noteUpdate).subscribe(data => {
-    console.log('post response');
-    console.log(data);
-  });
-}
+  // Note
+  getSingleNote(id: string): Observable<tempnote> {
+    return this.httpClient.get<tempnote>(this.endpoint + '/note/' + id)
+    .pipe(
+      retry(1),
+      catchError(this.processError)
+    )
+  }
 
-deleteNote(id: string): any {
-  return this.httpClient.delete<tempnote>(this.endpoint + '/note/' + id)
-  .pipe(
-    retry(1),
-    catchError(this.processError)
-  )
-}
+  createNote(note: tempnote): void{
+    var noteUpdate: any = {};
+    noteUpdate.Text = note.text;
+    noteUpdate.Todo = note.todo;
+    delete noteUpdate.id;
+    this.httpClient.post<tempnote>(this.endpoint + '/note/', noteUpdate).subscribe(data => {
+      console.log('post response');
+      console.log(data);
+    });
+  }
 
-postSingleNote(id: string, note: tempnote): void{
-  // console.log(`attempting to post update for note ${id}`);
-  var noteUpdate: any = {};
-  noteUpdate.Text = note.text;
-  var todo: boolean = note.todo as boolean; //Ensure passed as bool.
-  noteUpdate.Todo = todo;
-  // noteUpdate.IsDefault = note.i;
-  // noteUpdate.Image = note.;
-  // noteUpdate.Logo = note.;
+  deleteNote(id: string): any {
+    return this.httpClient.delete<tempnote>(this.endpoint + '/note/' + id)
+    .pipe(
+      retry(1),
+      catchError(this.processError)
+    )
+  }
 
-  // console.log(`attempting to post: ${JSON.stringify(noteUpdate)}`);
+  postSingleNote(id: string, note: tempnote): void{
+    // console.log(`attempting to post update for note ${id}`);
+    var noteUpdate: any = {};
+    noteUpdate.Text = note.text;
+    var todo: boolean = note.todo as boolean; //Ensure passed as bool.
+    noteUpdate.Todo = todo;
+    // noteUpdate.IsDefault = note.i;
+    // noteUpdate.Image = note.;
+    // noteUpdate.Logo = note.;
 
-  this.httpClient.post<tempnote>(this.endpoint + '/note/' + id, noteUpdate).subscribe(data => {
-    console.log('post response');
-    console.log(data);
-  });
-}
+    // console.log(`attempting to post: ${JSON.stringify(noteUpdate)}`);
 
-getNotes(id: any): Observable<tempnote> {
-  return this.httpClient.get<tempnote>(this.endpoint + '/note/list')
-  .pipe(
-    retry(1),
-    catchError(this.processError)
-  )
-}
+    this.httpClient.post<tempnote>(this.endpoint + '/note/' + id, noteUpdate).subscribe(data => {
+      console.log('post response');
+      console.log(data);
+    });
+  }
+
+  getNotes(id: any): Observable<tempnote> {
+    return this.httpClient.get<tempnote>(this.endpoint + '/note/list')
+    .pipe(
+      retry(1),
+      catchError(this.processError)
+    )
+  }
 
   // Project
   getSingleProject(id: string): Observable<tempproject> {
@@ -200,4 +201,54 @@ getNotes(id: any): Observable<tempnote> {
     console.log(message);
     return throwError(message);
   }
+
+  ////////////////////////////////
+  // Generic
+  getSingleObject<T>(id: string, controller: string): Observable<T> {
+    return this.httpClient.get<T>(this.endpoint + '/' + controller + '/' + id)
+    .pipe(
+      retry(1),
+      catchError(this.processError)
+    )
+  }
+
+  createObject<T>(object: T, controller: string): void{
+    var objectUpdate: any = object;
+    // objectUpdate.Text = object.text;
+    // objectUpdate.Todo = object.todo;
+    delete objectUpdate.id;
+    this.httpClient.post<T>(this.endpoint + '/' + controller + '/', objectUpdate).subscribe(data => {
+      console.log('post response');
+      console.log(data);
+    });
+  }
+
+  deleteObject(id: string, controller: string): any {
+    return this.httpClient.delete(this.endpoint + '/' + controller + '/' + id)
+    .pipe(
+      retry(1),
+      catchError(this.processError)
+    )
+  }
+
+  postSingleObject<T>(id: string, object: T, controller: string): void{
+    // console.log(`attempting to post update for object ${id}`);
+    var objectUpdate: any = object;
+    // We use the '{object}/{id}/fromObject' endpoint as we are passing the same object, and not a carefully composed update object.
+    this.httpClient.post<T>(this.endpoint + '/' + controller + '/' + id + '/fromObject', objectUpdate).subscribe(data => {
+      console.log('post response');
+      console.log(data);
+    });
+  }
+
+  getObjects<T>(id: any, controller: string): Observable<T> {
+    return this.httpClient.get<T>(this.endpoint + '/' + controller + '/list')
+    .pipe(
+      retry(1),
+      catchError(this.processError)
+    )
+  }
+
+
+
 }
