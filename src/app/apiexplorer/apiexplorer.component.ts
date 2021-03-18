@@ -43,6 +43,9 @@ export class ApiExplorerComponent implements OnChanges, OnInit {
       "text": "lorem ipsum",
       "todo": true
   };
+  noteListFilter = {
+    "todo": true
+  }
 
   qualitydimensionColumnDefs =  [
     { headerName: 'ID', field: 'id', sortable: true, filter: true, checkboxSelection: true, resizable: false, width:130 },

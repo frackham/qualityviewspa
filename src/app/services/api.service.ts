@@ -241,8 +241,21 @@ export class ApiService {
     });
   }
 
-  getObjects<T>(id: any, controller: string): Observable<T> {
-    return this.httpClient.get<T>(this.endpoint + '/' + controller + '/list')
+  getObjects<T>(id: any, controller: string, filter?:any): Observable<T> {
+    var queryString:string = "";
+    if(filter){
+      //For each property, add as a querystring
+      for(const property in filter) {
+        console.log(`Filter for object type ${controller}: [ ${property}: ${filter[property]} ]`);
+        if(queryString.length>0) { queryString += "&";}
+        queryString += `${property}=${filter[property]}`;
+        console.log('queryString is now: ${queryString}');
+      }
+
+    }
+    if(queryString.length>0) { queryString = "?" + queryString; }
+
+    return this.httpClient.get<T>(this.endpoint + '/' + controller + '/list' + queryString)
     .pipe(
       retry(1),
       catchError(this.processError)

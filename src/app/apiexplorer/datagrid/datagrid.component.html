@@ -3,6 +3,9 @@
   <!-- style="min-width: 500px; min-height: 500px; width: 100%; height: 100%;" -->
   <button (click)="onGridAdd($event)">Add {{nameSingular}}</button>
   <button [disabled]="onGridDelete_IsDisabled()" (click)="onGridDelete($event)">Delete Selected {{namePlural}}</button>
+  <button (click)="refreshGrid($event)">Refresh</button>
+  <button (click)="toggleGrid($event)">Fold</button>
+  <div id="grid-wrapper" *ngIf="gridVisible === true">
   <ag-grid-angular
       #agGridProject
       style="min-width: 500px; width: 100%;"

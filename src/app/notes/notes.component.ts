@@ -1,10 +1,6 @@
-// import {SelectionModel} from '@angular/cdk/collections';
-// import {FlatTreeControl} from '@angular/cdk/tree';
 import {OnInit, Component, Injectable, SimpleChanges, ViewChild} from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import { tempnote } from '../model/tempnote';
-// import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
-// import {BehaviorSubject} from 'rxjs';
 import { ApiService } from '../services/api.service';
 
 
@@ -51,9 +47,10 @@ export class NotesComponent implements OnInit {
 
   }
 
+  //TODO: Use generic API calls instead of note, and remove note calls from apiservice.
+
   onGridAdd_Note(){
-    // console.log(this.noteRowData[0]);
-    console.log(this.noteRowData);
+    // console.log(this.noteRowData);
 
     var id = this.currentId === 0
       ? Math.max.apply(Math, this.noteRowData.map(function(o) { return o.id; }))
@@ -127,8 +124,8 @@ export class NotesComponent implements OnInit {
 
 
   ngOnChanges(changes: SimpleChanges): void{
-    console.log('OnChanges');
-    console.log(JSON.stringify(changes));
+    // console.log('OnChanges');
+    // console.log(JSON.stringify(changes));
 
     // tslint:disable-next-line:forin
     for (const propName in changes) {
@@ -151,8 +148,8 @@ export class NotesComponent implements OnInit {
       try {
         this.notes = <tempnote[]>res;
         this.dataLoaded.push('notes');
-        console.log('APIExplorer: notes loaded');
-        console.log(this.notes);
+        // console.log('APIExplorer: notes loaded');
+        // console.log(this.notes);
 
         this.noteRowData = this.notes;
         this.gridApi_Note.sizeColumnsToFit();

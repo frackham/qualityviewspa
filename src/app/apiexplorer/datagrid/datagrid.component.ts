@@ -17,6 +17,7 @@ export class DatagridComponent<T> implements OnChanges, OnInit {
   @Input() namePlural: string = '';
   @Input() columnDefs: any = null;
   @Input() newObjectTemplate: any = null;
+  @Input() listFilter: any = null;
 
   //required params
   // [x] type <-- or any.
@@ -41,6 +42,7 @@ export class DatagridComponent<T> implements OnChanges, OnInit {
 
   changelog: any = [];
   dirty: boolean;
+  gridVisible: boolean = true;
 
   constructor(public apiService: ApiService) {
     this.dirty = true;
@@ -58,7 +60,7 @@ export class DatagridComponent<T> implements OnChanges, OnInit {
 
   onGridAdd(){
     // console.log(this.objectRowData[0]);
-    console.log(this.objectRowData);
+    // console.log(this.objectRowData);
 
     var id = Math.max.apply(Math, this.objectRowData.map(function(o) { return o.id; }))
     id ++;
@@ -87,31 +89,44 @@ export class DatagridComponent<T> implements OnChanges, OnInit {
     }
   }
 
+  refreshGrid(){
+    this.initialise();
+  }
+
+  toggleGrid(){
+    this.gridVisible = !this.gridVisible;
+  }
+
   onGridDelete_IsDisabled(){
-    if(!this.gridApi_Object) { return true; }
-    return this.gridApi_Object.getSelectedRows().length == 0;
+    if (this.gridVisible && this.gridApi_Object) {
+      if(!this.gridApi_Object) { return true; }
+      return this.gridApi_Object.getSelectedRows().length == 0;
+    }
+    return false;
   }
 
   onGridDelete(e: Event){
-    var selectedObjects = this.gridApi_Object.getSelectedRows();
+    if(this.gridApi_Object) {
+      var selectedObjects = this.gridApi_Object.getSelectedRows();
 
-    selectedObjects.forEach((row: any) => {
-      var id = row.id;
-      this.apiService.deleteObject(id, this.nameSingular).subscribe((res: {}) => {
-        try {
-          var response = res;
+      selectedObjects.forEach((row: any) => {
+        var id = row.id;
+        this.apiService.deleteObject(id, this.nameSingular).subscribe((res: {}) => {
+          try {
+            var response = res;
 
 
-          this.objectRowData = this.objectsData;
-          this.gridApi_Object.sizeColumnsToFit();
+            this.objectRowData = this.objectsData;
+            this.gridApi_Object.sizeColumnsToFit();
 
-          //Force refresh
-          this.initialise();
-        } catch {
-          throw `Failed to delete object of id ${id}`;
-        }
+            //Force refresh
+            this.initialise();
+          } catch {
+            throw `Failed to delete object of id ${id}`;
+          }
+        });
       });
-    });
+    }
   }
 
 
@@ -137,10 +152,9 @@ export class DatagridComponent<T> implements OnChanges, OnInit {
 
 
   ngOnChanges(changes: SimpleChanges): void{
-    console.log('OnChanges');
-    console.log(JSON.stringify(changes));
+    // console.log('OnChanges');
+    // console.log(JSON.stringify(changes));
 
-    // tslint:disable-next-line:forin
     for (const propName in changes) {
          const change = changes[propName];
          const to  = JSON.stringify(change.currentValue);
@@ -162,21 +176,22 @@ export class DatagridComponent<T> implements OnChanges, OnInit {
 
 
   preloadData(){
-    this.apiService.getObjects(0, this.nameSingular).subscribe((res: any) => {
-      try {
-        this.objectsData = <any[]>res;
-        this.dataLoaded.push('objects');
-        console.log('APIExplorer: objects loaded');
-        console.log(this.objectsData);
+    if(this.gridApi_Object){
+      this.apiService.getObjects(0, this.nameSingular, this.listFilter).subscribe((res: any) => {
+        try {
+          this.objectsData = <any[]>res;
+          this.dataLoaded.push('objects');
+          console.log(`APIExplorer: objects loaded (${this.nameSingular})`);
+          // console.log(this.objectsData);
 
-        this.objectRowData = this.objectsData;
-        this.gridApi_Object.sizeColumnsToFit();
-      } catch {
-        throw "Failed to retrieve objects";
-      }
-    });
+          this.objectRowData = this.objectsData;
+          this.gridApi_Object.sizeColumnsToFit();
+        } catch {
+          throw "Failed to retrieve objects";
+        }
+      });
+
+    }
 
   }
-
-
 }
