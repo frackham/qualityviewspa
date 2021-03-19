@@ -22,29 +22,39 @@ export class ApiExplorerComponent implements OnChanges, OnInit {
 
   dataLoaded: string[] = [];
 
-  projects: tempproject[] = [];
-  projectColumnDefs: any[] = [];
-  projectRowData: any[] = [];
-
-  // parts: temppart[] = [];
-  parts: temppartsofprojects[] = [];
-  partColumnDefs: any[] = [];
-  partRowData: any[] = [];
   changelog: any;
 
   //Generic values:
-  noteColumnDefs =  [
-    { headerName: 'ID', field: 'id', sortable: true, filter: true, checkboxSelection: true, resizable: false, width:130 },
-    { headerName: 'Todo?', field: 'todo', sortable: true, editable:true, filter: true, resizable: false, width:130},
-    { headerName: 'Note', field: 'text', sortable: true, filter: 'agTextColumnFilter', editable:true, width: 800}
+  projectColumnDefs = [
+    { headerName: 'ID', field: 'id', sortable: true, filter: true, checkboxSelection: true },
+    { headerName: 'Project Name', field: 'name', sortable: true, filter: true, editable:true},
+    { headerName: 'Description', field: 'description', sortable: true, filter: true, editable:true},
+    { headerName: 'Last Updated', field: 'updatedOn', sortable: true, filter: true},
+    { headerName: 'Default Project?', field: 'isDefault', sortable: true, filter: true}
   ];
-  noteTemplate = {
-      "id": null,
-      "text": "lorem ipsum",
-      "todo": true
+
+  projectTemplate = {
+      "name": "New Project",
+      "description": "A project for...",
+      "isDefault": false
   };
-  noteListFilter = {
-    "todo": true
+  projectListFilter = {
+  }
+
+  partColumnDefs = [
+    { headerName: 'ID', field: 'id', sortable: true, filter: true, checkboxSelection: true },
+    { headerName: 'Project ID', field: 'projectId', sortable: true, filter: true },
+    { headerName: 'Project Name', field: 'projectName', sortable: true, filter: true},
+    { headerName: 'Project Description', field: 'projectDescription', sortable: true, filter: true},
+    { headerName: 'Part ID', field: 'partId', sortable: true, filter: true },
+    { headerName: 'Part Name', field: 'partName', sortable: true, filter: true, editable:true},
+    { headerName: 'Part Description', field: 'partDescription', sortable: true, filter: true, editable:true}
+  ];
+  partTemplate = {
+    "partName": "NewPart",
+    "partDescription": "A thing that does..."
+  };
+  partListFilter = {
   }
 
   qualitydimensionColumnDefs =  [
@@ -90,210 +100,200 @@ export class ApiExplorerComponent implements OnChanges, OnInit {
 
   constructor( public apiService: ApiService) {
     this.prepareGrids();
-    this.preloadData();
+    // this.preloadData();
 
+  }
+  ngOnInit(): void {
+    //throw new Error('Method not implemented.');
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    //throw new Error('Method not implemented.');
   }
 
   prepareGrids() {
-    this.projectColumnDefs = [
-      { headerName: 'ID', field: 'id', sortable: true, filter: true, checkboxSelection: true },
-      { headerName: 'Project Name', field: 'name', sortable: true, filter: true, editable:true},
-      { headerName: 'Description', field: 'description', sortable: true, filter: true, editable:true},
-      { headerName: 'Last Updated', field: 'updatedOn', sortable: true, filter: true},
-      { headerName: 'Default Project?', field: 'isDefault', sortable: true, filter: true}
-    ];
-
-    this.partColumnDefs = [
-      { headerName: 'ID', field: 'id', sortable: true, filter: true, checkboxSelection: true },
-      { headerName: 'Project ID', field: 'projectId', sortable: true, filter: true },
-      { headerName: 'Project Name', field: 'projectName', sortable: true, filter: true},
-      { headerName: 'Project Description', field: 'projectDescription', sortable: true, filter: true},
-      { headerName: 'Part ID', field: 'partId', sortable: true, filter: true },
-      { headerName: 'Part Name', field: 'partName', sortable: true, filter: true, editable:true},
-      { headerName: 'Part Description', field: 'partDescription', sortable: true, filter: true, editable:true}
-    ];
-
-  }
-
-  onGridAdd_Project(){
-    // console.log(this.projectRowData[0]);
-    console.log(this.projectRowData);
-
-    var id = Math.max.apply(Math, this.projectRowData.map(function(o) { return o.id; }))
-    id ++;
-    //New data is added to an array, even if 1 row.
-    var newData =
-      {
-        "id": id,
-        "name": "New Project",
-        "description": "Project Description",
-        "isDefault": false,
-        "image": "",
-        "logo": "",
-        "createdOn": new Date,
-        "updatedOn": null
-      }
-    ;
-    var res = this.gridApi_Project.applyTransaction({
-      add: [newData],
-      addIndex: id,
-    });
-
-    try {
-      this.apiService.createProject(newData);
-    } catch {
-      throw `Failed to write changes to new project ${newData}.`;
-    }
-  }
-
-  onGridAdd_Part(){
-    console.log(this.partRowData[0]);
-    this.partRowData.push();
-  }
-
-  onGridDelete_IsDisabled_Project(){
-    if(!this.gridApi_Project) { return true; }
-    return this.gridApi_Project.getSelectedRows().length == 0;
-  }
-  onGridDelete_IsDisabled_Part(){
-    if(!this.gridApi_Part) { return true; }
-    return this.gridApi_Part.getSelectedRows().length == 0;
-  }
-  onGridDelete_Project(e: Event){
-    var selectedProjects = this.gridApi_Project.getSelectedRows();
-
-    selectedProjects.forEach((row: any) => {
-      var id = row.id;
-      this.apiService.deleteProject(id).subscribe((res: {}) => {
-        try {
-          var response = res;
-
-
-          this.projectRowData = this.projects;
-          this.gridApi_Project.sizeColumnsToFit();
-          //Force grid to update.
-          this.preloadData();
-        } catch {
-          throw `Failed to delete project of id ${id}`;
-        }
-      });
-    });
-  }
-  onGridDelete_Part(e: Event){
-    var selectedParts = this.gridApi_Part.getSelectedRows();
-
-    selectedParts.forEach((row: any) => {
-      var id = row.id;
-      this.apiService.deletePart(id).subscribe((res: {}) => {
-        try {
-          var response = res;
-
-
-          this.partRowData = this.parts;
-          this.gridApi_Part.sizeColumnsToFit();
-        } catch {
-          throw `Failed to delete part of id ${id}`;
-        }
-      });
-    });
-  }
-
-  onCellValueChanged_Project(params: any) {
-    var changedData:any = [params.data];
-    params.api.applyTransaction({ update: changedData });
-
-    var apiObject = changedData[0];
-    try {
-      this.apiService.postSingleProject(apiObject.id, apiObject);
-    } catch {
-      throw `Failed to write changes to project ${changedData}, ${apiObject}`;
-    }
-  }
-  onCellValueChanged_Part(params: any) {
-    var changedData:any = [params.data];
-    params.api.applyTransaction({ update: changedData });
-
-    var apiObject = changedData[0];
-    try {
-      this.apiService.postSinglePart(apiObject.id, apiObject);
-    } catch {
-      throw `Failed to write changes to part ${changedData}, ${apiObject}`;
-    }
-  }
-
-  onGridReady_Project(params: any) {
-    this.gridApi_Project = params.api;
-    this.gridColumnApi_Project = params.columnApi;
-  }
-  onGridReady_Part(params: any) {
-    this.gridApi_Part = params.api;
-    this.gridColumnApi_Part = params.columnApi;
-  }
-
-  ngOnChanges(changes: SimpleChanges): void{
-    console.log('OnChanges');
-    console.log(JSON.stringify(changes));
-
-    // tslint:disable-next-line:forin
-    for (const propName in changes) {
-         const change = changes[propName];
-         const to  = JSON.stringify(change.currentValue);
-         const from = JSON.stringify(change.previousValue);
-         const changeLog = `${propName}: changed from ${from} to ${to} `;
-         this.changelog.push(changeLog);
-    }
-}
-
-  ngOnInit(): void {
 
 
   }
 
+//   onGridAdd_Project(){
+//     // console.log(this.projectRowData[0]);
+//     console.log(this.projectRowData);
 
-  preloadData(){
-    this.apiService.getProjects(0).subscribe((res: {}) => {
-      try {
-        this.projects = <tempproject[]>res;
-        this.dataLoaded.push('projects');
-        console.log('APIExplorer: projects loaded');
-        console.log(this.projects);
+//     var id = Math.max.apply(Math, this.projectRowData.map(function(o) { return o.id; }))
+//     id ++;
+//     //New data is added to an array, even if 1 row.
+//     var newData =
+//       {
+//         "id": id,
+//         "name": "New Project",
+//         "description": "Project Description",
+//         "isDefault": false,
+//         "image": "",
+//         "logo": "",
+//         "createdOn": new Date,
+//         "updatedOn": null
+//       }
+//     ;
+//     var res = this.gridApi_Project.applyTransaction({
+//       add: [newData],
+//       addIndex: id,
+//     });
 
-        this.projectRowData = this.projects;
-        this.gridApi_Project.sizeColumnsToFit();
-      } catch {
-        throw "Failed to retrieve projects";
-      }
-    });
+//     try {
+//       this.apiService.createProject(newData);
+//     } catch {
+//       throw `Failed to write changes to new project ${newData}.`;
+//     }
+//   }
 
-    // this.apiService.getParts(0).subscribe((res: {}) => {
-    //   try {
-    //     this.parts = <temppart[]>res;
-    //     this.dataLoaded.push('parts');
-    //     console.log('APIExplorer: parts loaded');
-    //     console.log(this.parts);
+//   onGridAdd_Part(){
+//     console.log(this.partRowData[0]);
+//     this.partRowData.push();
+//   }
+
+//   onGridDelete_IsDisabled_Project(){
+//     if(!this.gridApi_Project) { return true; }
+//     return this.gridApi_Project.getSelectedRows().length == 0;
+//   }
+//   onGridDelete_IsDisabled_Part(){
+//     if(!this.gridApi_Part) { return true; }
+//     return this.gridApi_Part.getSelectedRows().length == 0;
+//   }
+//   onGridDelete_Project(e: Event){
+//     var selectedProjects = this.gridApi_Project.getSelectedRows();
+
+//     selectedProjects.forEach((row: any) => {
+//       var id = row.id;
+//       this.apiService.deleteProject(id).subscribe((res: {}) => {
+//         try {
+//           var response = res;
 
 
-    //     this.partRowData = this.parts;
-    //   } catch {
-    //     throw "Failed to retrieve parts";
-    //   }
-    // });
+//           this.projectRowData = this.projects;
+//           this.gridApi_Project.sizeColumnsToFit();
+//           //Force grid to update.
+//           this.preloadData();
+//         } catch {
+//           throw `Failed to delete project of id ${id}`;
+//         }
+//       });
+//     });
+//   }
+//   onGridDelete_Part(e: Event){
+//     var selectedParts = this.gridApi_Part.getSelectedRows();
 
-    this.apiService.getPartDetails(0).subscribe((res: {}) => {
-      try {
-        this.parts = <temppartsofprojects[]>res;
-        this.dataLoaded.push('partsofprojects');
-        console.log('APIExplorer: partsofprojects loaded');
-        console.log(this.parts);
+//     selectedParts.forEach((row: any) => {
+//       var id = row.id;
+//       this.apiService.deletePart(id).subscribe((res: {}) => {
+//         try {
+//           var response = res;
 
 
-        this.partRowData = this.parts;
-      } catch {
-        throw "Failed to retrieve parts";
-      }
-    });
+//           this.partRowData = this.parts;
+//           this.gridApi_Part.sizeColumnsToFit();
+//         } catch {
+//           throw `Failed to delete part of id ${id}`;
+//         }
+//       });
+//     });
+//   }
 
-  }
+//   onCellValueChanged_Project(params: any) {
+//     var changedData:any = [params.data];
+//     params.api.applyTransaction({ update: changedData });
+
+//     var apiObject = changedData[0];
+//     try {
+//       this.apiService.postSingleProject(apiObject.id, apiObject);
+//     } catch {
+//       throw `Failed to write changes to project ${changedData}, ${apiObject}`;
+//     }
+//   }
+//   onCellValueChanged_Part(params: any) {
+//     var changedData:any = [params.data];
+//     params.api.applyTransaction({ update: changedData });
+
+//     var apiObject = changedData[0];
+//     try {
+//       this.apiService.postSinglePart(apiObject.id, apiObject);
+//     } catch {
+//       throw `Failed to write changes to part ${changedData}, ${apiObject}`;
+//     }
+//   }
+
+//   onGridReady_Project(params: any) {
+//     this.gridApi_Project = params.api;
+//     this.gridColumnApi_Project = params.columnApi;
+//   }
+//   onGridReady_Part(params: any) {
+//     this.gridApi_Part = params.api;
+//     this.gridColumnApi_Part = params.columnApi;
+//   }
+
+//   ngOnChanges(changes: SimpleChanges): void{
+//     console.log('OnChanges');
+//     console.log(JSON.stringify(changes));
+
+//     // tslint:disable-next-line:forin
+//     for (const propName in changes) {
+//          const change = changes[propName];
+//          const to  = JSON.stringify(change.currentValue);
+//          const from = JSON.stringify(change.previousValue);
+//          const changeLog = `${propName}: changed from ${from} to ${to} `;
+//          this.changelog.push(changeLog);
+//     }
+// }
+
+//   ngOnInit(): void {
+
+
+//   }
+
+
+//   preloadData(){
+//     this.apiService.getProjects(0).subscribe((res: {}) => {
+//       try {
+//         this.projects = <tempproject[]>res;
+//         this.dataLoaded.push('projects');
+//         console.log('APIExplorer: projects loaded');
+//         console.log(this.projects);
+
+//         this.projectRowData = this.projects;
+//         this.gridApi_Project.sizeColumnsToFit();
+//       } catch {
+//         throw "Failed to retrieve projects";
+//       }
+//     });
+
+//     // this.apiService.getParts(0).subscribe((res: {}) => {
+//     //   try {
+//     //     this.parts = <temppart[]>res;
+//     //     this.dataLoaded.push('parts');
+//     //     console.log('APIExplorer: parts loaded');
+//     //     console.log(this.parts);
+
+
+//     //     this.partRowData = this.parts;
+//     //   } catch {
+//     //     throw "Failed to retrieve parts";
+//     //   }
+//     // });
+
+//     this.apiService.getPartDetails(0).subscribe((res: {}) => {
+//       try {
+//         this.parts = <temppartsofprojects[]>res;
+//         this.dataLoaded.push('partsofprojects');
+//         console.log('APIExplorer: partsofprojects loaded');
+//         console.log(this.parts);
+
+
+//         this.partRowData = this.parts;
+//       } catch {
+//         throw "Failed to retrieve parts";
+//       }
+//     });
+
+//   }
 
 
 }

@@ -19,22 +19,9 @@ export class DatagridComponent<T> implements OnChanges, OnInit {
   @Input() newObjectTemplate: any = null;
   @Input() listFilter: any = null;
 
-  //required params
-  // [x] type <-- or any.
-  // [x] name
-  // [x] pluralname
-  // [x] columndefs
-  // [ ] api endpoint: create single
-  // [x] api endpoint: update single
-  // [x] api endpoint: get data
-  // [x] api endpoint: delete
-
-  //new data function?
-
   private gridApi_Object: any;
   private gridColumnApi_Object: any;
 
-  dataLoaded: string[] = [];
 
   objectsData: any[] = [];
   objectColumnDefs: any[] = [];
@@ -51,7 +38,6 @@ export class DatagridComponent<T> implements OnChanges, OnInit {
   initialise(){
     this.prepareGrid();
     this.preloadData();
-    this.dirty = false;
   }
 
   prepareGrid() {
@@ -98,11 +84,17 @@ export class DatagridComponent<T> implements OnChanges, OnInit {
   }
 
   onGridDelete_IsDisabled(){
+    //TODO: Refactor to avoid warning in console. Seems to be undefined or null, but not caught by checks below?
     if (this.gridVisible && this.gridApi_Object) {
-      if(!this.gridApi_Object) { return true; }
-      return this.gridApi_Object.getSelectedRows().length == 0;
+      if(this.gridApi_Object == null) { return true; } //Null or undefined.
+      // console.log(this.gridApi_Object);
+      var rows = this.gridApi_Object.getSelectedRows();
+      // console.log(rows);
+      //We can only delete if there are rows and the grid is ready.
+      //Note use of  != null to check for null AND undefined.
+      return rows != null ? rows.length == 0 : true; //If rows are null, return disabled, else if rows have values return enabled.
     }
-    return false;
+    return true;
   }
 
   onGridDelete(e: Event){
@@ -147,6 +139,7 @@ export class DatagridComponent<T> implements OnChanges, OnInit {
   onGridReady(params: any) {
     this.gridApi_Object = params.api;
     this.gridColumnApi_Object = params.columnApi;
+    this.initialise();
   }
 
 
@@ -180,12 +173,12 @@ export class DatagridComponent<T> implements OnChanges, OnInit {
       this.apiService.getObjects(0, this.nameSingular, this.listFilter).subscribe((res: any) => {
         try {
           this.objectsData = <any[]>res;
-          this.dataLoaded.push('objects');
-          console.log(`APIExplorer: objects loaded (${this.nameSingular})`);
+          // console.log(`APIExplorer: objects loaded (${this.nameSingular})`);
           // console.log(this.objectsData);
 
           this.objectRowData = this.objectsData;
           this.gridApi_Object.sizeColumnsToFit();
+          this.dirty = false; //Only is not dirty when data has been successfully loaded AND no changes.
         } catch {
           throw "Failed to retrieve objects";
         }

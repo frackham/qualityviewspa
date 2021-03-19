@@ -5,28 +5,15 @@
   <li>Quality view presentation - all useful, starts at 10.30 RE QVs themselves: <a href="https://www.infoq.com/presentations/quality-views-technical-debt/">https://www.infoq.com/presentations/quality-views-technical-debt/</a></li>
 </ul>
 
-<div id="gridwrapper_note">
-  <h2>Notes</h2>
-
-  <button (click)="onGridAdd_Note($event)">Add Note</button>
-  <button [disabled]="onGridDelete_IsDisabled_Note()" (click)="onGridDelete_Note($event)">Delete Selected Notes</button>
-  <ag-grid-angular
-      #agGridNote
-      style="min-width: 500px; width: 100%;"
-      class="ag-theme-material apiexplorer-grid apiexplorer-grid-note"
-      [rowData]="noteRowData"
-      [defaultColDef]="defaultColDef"
-      [columnDefs]="noteColumnDefs"
-      rowSelection="multiple"
-      [enableCellChangeFlash]="true"
-      [animateRows]="true"
-      (cellValueChanged)="onCellValueChanged_Note($event)"
-      (gridReady)="onGridReady_Note($event)"
-      domLayout='autoHeight'
-  >
-  </ag-grid-angular>
-  <p>Edit the notes above.</p>
+<div>
+  <app-datagrid
+    [modelType]="'tempnote'"
+    [nameSingular]="'Note'"
+    [namePlural]="'Notes'"
+    [columnDefs]='noteColumnDefs'
+    [newObjectTemplate]='noteTemplate'
+    [listFilter]='noteListFilter'>
+  </app-datagrid>
 </div>
-
 
 </div>
