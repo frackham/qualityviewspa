@@ -20,6 +20,8 @@ export class ApiExplorerComponent implements OnChanges, OnInit {
   private gridApi_Part: any;
   private gridColumnApi_Part: any;
 
+  whileLoading: boolean = true;
+  whileHttpLoading: boolean = true;
   dataLoaded: string[] = [];
 
   changelog: any;
@@ -114,7 +116,14 @@ export class ApiExplorerComponent implements OnChanges, OnInit {
 
 
   }
+  ngAfterViewInit() {
+    //Delay to avoid  "Expression has changed after it was checked". See https://blog.angular-university.io/angular-debugging/
+    setTimeout(() => {
+      this.whileHttpLoading = false;
+      this.whileLoading = false;
+    });
 
+  }
 //   onGridAdd_Project(){
 //     // console.log(this.projectRowData[0]);
 //     console.log(this.projectRowData);

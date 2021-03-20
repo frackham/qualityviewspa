@@ -13,6 +13,8 @@ export class DatagridComponent<T> implements OnChanges, OnInit {
   @ViewChild('agGridObject') agGridObject!: AgGridAngular;
   @Input()
   modelType!: <T>({ }) => T;
+  @Input()
+  readModelType?: <T>({ }) => T;
   @Input() nameSingular: string = '';
   @Input() namePlural: string = '';
   @Input() columnDefs: any = null;
