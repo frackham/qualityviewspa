@@ -53,7 +53,7 @@ export class DatagridComponent<T> implements OnChanges, OnInit {
   	this.objectColumnDefs = this.columnDefs;
   }
 
-  onGridAdd() {
+  onGridAdd($ev:Event) {
   	// Relies on (table having a primary key id called id, and template having an id value.)
   	const newData = this.newObjectTemplate;
 
@@ -75,18 +75,20 @@ export class DatagridComponent<T> implements OnChanges, OnInit {
 
   		this.apiService.createObject(newData, this.nameSingular);
   		this.alertService.success(`Success!! ${this.nameSingular} added.`, this.alertOptions);
+  		// Trigger refresh after adding object so that deleting same object doesn't throw an error
+  		this.refreshGrid(new Event('null'), false);
   	} catch {
   		this.alertService.error(`Failed to add ${this.nameSingular}, ${res}.`, this.alertOptions);
   		throw new Error(`Failed to write changes to new object of type ${this.nameSingular} using: ${newData}.`);
   	}
   }
 
-  refreshGrid() {
+  refreshGrid($ev:Event, doAlert:boolean = true) {
   	this.alertService.info(`Data refreshed.`, this.alertOptions);
   	this.initialise();
   }
 
-  toggleGrid() {
+  toggleGrid($ev:Event) {
   	this.gridVisible = !this.gridVisible;
   }
 

@@ -15,7 +15,7 @@
         "@typescript-eslint"
     ],
     "rules": {
-        "max-len": ["error", { "code": 120 }],
+        "max-len": ["error", { "code": 140 }],
         "indent": ["error", "tab"],
         "object-curly-spacing": ["error", "always", { "arraysInObjects": false }],
 
@@ -23,6 +23,11 @@
         "no-tabs": "off",
         "require-jsdoc": "off",
         "new-cap": "off",
-        "no-mixed-spaces-and-tabs": "off"
+        "no-mixed-spaces-and-tabs": "off",
+
+        // Rules that I have to disable, but don't really want to:
+
+        "linebreak-style": "off", // Won't autofix CRLF <==> LF, too painful to resolve manually for now!
+        "no-unused-vars": "off"   // Picks up angular directives e.g. Component.
     }
 }
