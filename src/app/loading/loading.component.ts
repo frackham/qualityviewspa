@@ -16,7 +16,7 @@ export class LoadingComponent implements OnInit {
   }
 
   ngOnChanges($e:any): void {
-    console.log(`Loading: changes==> [${JSON.stringify($e)}]`);
+    // console.log(`Loading: changes==> [${JSON.stringify($e)}]`);
   }
 
 }

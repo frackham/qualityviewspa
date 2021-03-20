@@ -47,33 +47,23 @@ export class DatagridComponent<T> implements OnChanges, OnInit {
   }
 
   onGridAdd(){
-    // console.log(this.objectRowData[0]);
-    // console.log(this.objectRowData);
+    //Relies on (table having a primary key id called id, and template having an id value.)
+    var newData = this.newObjectTemplate;
 
     var id = Math.max.apply(Math, this.objectRowData.map(function(o) { return o.id; }))
     id ++;
-    //New data is added to an array, even if 1 row.
-    var newData =
-      {
-        "id": id,
-        "name": "New Object",
-        "description": "Object Description",
-        "isDefault": false,
-        "image": "",
-        "logo": "",
-        "createdOn": new Date,
-        "updatedOn": null
-      }
-    ;
+
+    newData.id = id;
+
     var res = this.gridApi_Object.applyTransaction({
-      add: [newData],
+      add: [newData], //New data is added to an array, even if 1 row.
       addIndex: id,
     });
 
     try {
       this.apiService.createObject(newData, this.nameSingular);
     } catch {
-      throw `Failed to write changes to new object ${newData}.`;
+      throw `Failed to write changes to new object of type ${this.nameSingular} using: ${newData}.`;
     }
   }
 
@@ -116,7 +106,7 @@ export class DatagridComponent<T> implements OnChanges, OnInit {
             //Force refresh
             this.initialise();
           } catch {
-            throw `Failed to delete object of id ${id}`;
+            throw `Failed to delete object of type ${this.nameSingular} using id ${id}`;
           }
         });
       });
@@ -132,7 +122,7 @@ export class DatagridComponent<T> implements OnChanges, OnInit {
     try {
       this.apiService.postSingleObject(apiObject.id, apiObject, this.nameSingular);
     } catch {
-      throw `Failed to write changes to object ${changedData}, ${apiObject}`;
+      throw `Failed to write changes to object of type ${this.nameSingular} using ${changedData}, ${apiObject}`;
     }
   }
 
@@ -182,7 +172,7 @@ export class DatagridComponent<T> implements OnChanges, OnInit {
           this.gridApi_Object.sizeColumnsToFit();
           this.dirty = false; //Only is not dirty when data has been successfully loaded AND no changes.
         } catch {
-          throw "Failed to retrieve objects";
+          throw `Failed to retrieve objects of type ${this.nameSingular}`;
         }
       });
 
