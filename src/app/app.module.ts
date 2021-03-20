@@ -30,6 +30,10 @@ import { ApiExplorerComponent } from './apiexplorer/apiexplorer.component';
 import { ProjectExplorerComponent } from './projectexplorer/projectexplorer.component';
 import { AgGridModule } from 'ag-grid-angular';
 import { DatagridComponent } from './apiexplorer/datagrid/datagrid.component';
+import { AlertModule } from './ui-generic/alert';
+
+//Alerting from: https://github.com/cornflourblue/angular-10-alert-notifications, https://jasonwatmore.com/post/2020/07/16/angular-10-alert-notifications-example
+
 
 @NgModule({
   declarations: [
@@ -50,6 +54,7 @@ import { DatagridComponent } from './apiexplorer/datagrid/datagrid.component';
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
+    AlertModule,
     AgGridModule.withComponents([]),
     BrowserAnimationsModule,
     MatProgressSpinnerModule,

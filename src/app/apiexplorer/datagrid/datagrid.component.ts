@@ -1,14 +1,16 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import { ApiService } from 'src/app/services/api.service';
+import { AlertService } from 'src/app/ui-generic/alert';
 
 
 @Component({
-  selector: 'app-datagrid',
-  templateUrl: './datagrid.component.html',
-  styleUrls: ['./datagrid.component.scss']
+	selector: 'app-datagrid',
+	templateUrl: './datagrid.component.html',
+	styleUrls: ['./datagrid.component.scss'],
 })
 
+// eslint-disable-next-line no-unused-vars
 export class DatagridComponent<T> implements OnChanges, OnInit {
   @ViewChild('agGridObject') agGridObject!: AgGridAngular;
   @Input()
@@ -21,138 +23,161 @@ export class DatagridComponent<T> implements OnChanges, OnInit {
   @Input() newObjectTemplate: any = null;
   @Input() listFilter: any = null;
 
-  private gridApi_Object: any;
-  private gridColumnApi_Object: any;
+  private gridApiObject: any;
+  private gridColumnApiObject: any;
 
 
   objectsData: any[] = [];
   objectColumnDefs: any[] = [];
   objectRowData: any[] = [];
 
+
+  alertOptions = {
+  	autoClose: true,
+  	keepAfterRouteChange: false,
+  };
   changelog: any = [];
   dirty: boolean;
   gridVisible: boolean = true;
 
-  constructor(public apiService: ApiService) {
-    this.dirty = true;
+  constructor(public apiService: ApiService, public alertService: AlertService) {
+  	this.dirty = true;
   }
 
-  initialise(){
-    this.prepareGrid();
-    this.preloadData();
+  initialise() {
+  	this.prepareGrid();
+  	this.preloadData();
   }
 
   prepareGrid() {
-    this.objectColumnDefs = this.columnDefs;
+  	this.objectColumnDefs = this.columnDefs;
   }
 
-  onGridAdd(){
-    //Relies on (table having a primary key id called id, and template having an id value.)
-    var newData = this.newObjectTemplate;
+  onGridAdd() {
+  	// Relies on (table having a primary key id called id, and template having an id value.)
+  	const newData = this.newObjectTemplate;
 
-    var id = Math.max.apply(Math, this.objectRowData.map(function(o) { return o.id; }))
-    id ++;
+  	// eslint-disable-next-line prefer-spread
+  	let id = Math.max.apply(Math, this.objectRowData.map(function(o) {
+  		return o.id;
+  	}));
+  	id ++;
 
-    newData.id = id;
+  	newData.id = id;
 
-    var res = this.gridApi_Object.applyTransaction({
-      add: [newData], //New data is added to an array, even if 1 row.
-      addIndex: id,
-    });
+  	let res;
 
-    try {
-      this.apiService.createObject(newData, this.nameSingular);
-    } catch {
-      throw `Failed to write changes to new object of type ${this.nameSingular} using: ${newData}.`;
-    }
+  	try {
+  		res = this.gridApiObject.applyTransaction({
+  			add: [newData], // New data is added to an array, even if 1 row.
+  			addIndex: id,
+  		});
+
+  		this.apiService.createObject(newData, this.nameSingular);
+  		this.alertService.success(`Success!! ${this.nameSingular} added.`, this.alertOptions);
+  	} catch {
+  		this.alertService.error(`Failed to add ${this.nameSingular}, ${res}.`, this.alertOptions);
+  		throw new Error(`Failed to write changes to new object of type ${this.nameSingular} using: ${newData}.`);
+  	}
   }
 
-  refreshGrid(){
-    this.initialise();
+  refreshGrid() {
+  	this.alertService.info(`Data refreshed.`, this.alertOptions);
+  	this.initialise();
   }
 
-  toggleGrid(){
-    this.gridVisible = !this.gridVisible;
+  toggleGrid() {
+  	this.gridVisible = !this.gridVisible;
   }
 
-  onGridDelete_IsDisabled(){
-    //TODO: Refactor to avoid warning in console. Seems to be undefined or null, but not caught by checks below?
-    if (this.gridVisible && this.gridApi_Object) {
-      if(this.gridApi_Object == null) { return true; } //Null or undefined.
-      // console.log(this.gridApi_Object);
-      var rows = this.gridApi_Object.getSelectedRows();
-      // console.log(rows);
-      //We can only delete if there are rows and the grid is ready.
-      //Note use of  != null to check for null AND undefined.
-      return rows != null ? rows.length == 0 : true; //If rows are null, return disabled, else if rows have values return enabled.
-    }
-    return true;
+  onGridDeleteIsDisabled() {
+  	// TODO: Refactor to avoid warning in console. Seems to be undefined or null, but not caught by checks below?
+  	if (this.gridVisible && this.gridApiObject) {
+  		if (this.gridApiObject == null) {
+  			return true;
+  		} // Null or undefined.
+  		// console.log(this.gridApi_Object);
+  		const rows = this.gridApiObject.getSelectedRows();
+  		// console.log(rows);
+  		// We can only delete if there are rows and the grid is ready.
+  		// Note use of  != null to check for null AND undefined.
+
+  		return rows != null ? rows.length == 0 : true;
+  		// If rows are null, return disabled, else if rows have values return enabled.
+  	}
+  	return true;
   }
 
-  onGridDelete(e: Event){
-    if(this.gridApi_Object) {
-      var selectedObjects = this.gridApi_Object.getSelectedRows();
+  onGridDelete(e: Event) {
+  	if (this.gridApiObject) {
+  		const selectedObjects = this.gridApiObject.getSelectedRows();
 
-      selectedObjects.forEach((row: any) => {
-        var id = row.id;
-        this.apiService.deleteObject(id, this.nameSingular).subscribe((res: {}) => {
-          try {
-            var response = res;
+  		selectedObjects.forEach((row: any) => {
+  			const id = row.id;
+  			this.apiService.deleteObject(id, this.nameSingular).subscribe((res: {}) => {
+  				try {
+  					// const response = res;
 
 
-            this.objectRowData = this.objectsData;
-            this.gridApi_Object.sizeColumnsToFit();
+  					this.objectRowData = this.objectsData;
+  					this.gridApiObject.sizeColumnsToFit();
 
-            //Force refresh
-            this.initialise();
-          } catch {
-            throw `Failed to delete object of type ${this.nameSingular} using id ${id}`;
-          }
-        });
-      });
-    }
+  					this.alertService.success(`Success!! ${this.nameSingular} deleted.`, this.alertOptions);
+  					// Force refresh
+  					this.initialise();
+  				} catch {
+  					this.alertService.error(`Failed to delete ${this.nameSingular}.`, this.alertOptions);
+  					throw new Error(`Failed to delete object of type ${this.nameSingular} using id ${id}`);
+  				}
+  			});
+  		});
+  	}
   }
 
 
   onCellValueChanged(params: any) {
-    var changedData:any = [params.data];
-    params.api.applyTransaction({ update: changedData });
+  	const changedData:any = [params.data];
+  	params.api.applyTransaction({ update: changedData });
 
-    var apiObject = changedData[0];
-    try {
-      this.apiService.postSingleObject(apiObject.id, apiObject, this.nameSingular);
-    } catch {
-      throw `Failed to write changes to object of type ${this.nameSingular} using ${changedData}, ${apiObject}`;
-    }
+  	const apiObject = changedData[0];
+  	try {
+  		this.apiService.postSingleObject(apiObject.id, apiObject, this.nameSingular);
+
+  		this.alertService.success(`Success!! ${this.nameSingular} updated.`, this.alertOptions);
+  	} catch {
+  		this.alertService.error(`Failed to update ${this.nameSingular}.`, this.alertOptions);
+  		throw new Error(
+  			`Failed to write changes to object of type ${this.nameSingular} using ${changedData}, ${apiObject}`);
+  	}
   }
-
 
 
   onGridReady(params: any) {
-    this.gridApi_Object = params.api;
-    this.gridColumnApi_Object = params.columnApi;
-    this.initialise();
+  	this.gridApiObject = params.api;
+  	this.gridColumnApiObject = params.columnApi;
+  	this.initialise();
   }
 
 
+  ngOnChanges(changes: SimpleChanges): void {
+  	// console.log('OnChanges');
+  	// console.log(JSON.stringify(changes));
 
-  ngOnChanges(changes: SimpleChanges): void{
-    // console.log('OnChanges');
-    // console.log(JSON.stringify(changes));
+  	for (const propName in changes) {
+  		if (Object.prototype.hasOwnProperty.call(changes, propName)) {
+  			const change = changes[propName];
+  			const to = JSON.stringify(change.currentValue);
+  			const from = JSON.stringify(change.previousValue);
+  			const changeLogUpdate = `${propName}: changed from ${from} to ${to} `;
+  			this.changelog.push(changeLogUpdate);
+  		}
+  	}
 
-    for (const propName in changes) {
-         const change = changes[propName];
-         const to  = JSON.stringify(change.currentValue);
-         const from = JSON.stringify(change.previousValue);
-         const changeLogUpdate = `${propName}: changed from ${from} to ${to} `;
-         this.changelog.push(changeLogUpdate);
-    }
-
-    //Only load when data is available
-    if(this.dirty && this.nameSingular !== '') {
-      this.initialise();
-    }
-}
+  	// Only load when data is available
+  	if (this.dirty && this.nameSingular !== '') {
+  		this.initialise();
+  	}
+  }
 
   ngOnInit(): void {
 
@@ -160,23 +185,21 @@ export class DatagridComponent<T> implements OnChanges, OnInit {
   }
 
 
-  preloadData(){
-    if(this.gridApi_Object){
-      this.apiService.getObjects(0, this.nameSingular, this.listFilter).subscribe((res: any) => {
-        try {
-          this.objectsData = <any[]>res;
-          // console.log(`APIExplorer: objects loaded (${this.nameSingular})`);
-          // console.log(this.objectsData);
+  preloadData() {
+  	if (this.gridApiObject) {
+  		this.apiService.getObjects(0, this.nameSingular, this.listFilter).subscribe((res: any) => {
+  			try {
+  				this.objectsData = <any[]>res;
+  				// console.log(`APIExplorer: objects loaded (${this.nameSingular})`);
+  				// console.log(this.objectsData);
 
-          this.objectRowData = this.objectsData;
-          this.gridApi_Object.sizeColumnsToFit();
-          this.dirty = false; //Only is not dirty when data has been successfully loaded AND no changes.
-        } catch {
-          throw `Failed to retrieve objects of type ${this.nameSingular}`;
-        }
-      });
-
-    }
-
+  				this.objectRowData = this.objectsData;
+  				this.gridApiObject.sizeColumnsToFit();
+  				this.dirty = false; // Only is not dirty when data has been successfully loaded AND no changes.
+  			} catch {
+  				throw new Error(`Failed to retrieve objects of type ${this.nameSingular}`);
+  			}
+  		});
+  	}
   }
 }

@@ -1,0 +1,96 @@
+:host {
+  // alert tag.
+  // color: red;
+  // background-color: blue;
+  position: absolute;
+  z-index: 200;
+  width: 20%;
+  right: 4%;
+  bottom: 5%;
+  // left:0;
+  // border: 1px dashed hotpink;
+}
+
+.alert {
+  // border: 1px dashed cyan;
+  background-color: rgba($color: #8f8f8f, $alpha: 0.8);
+
+  right: 5%;
+  bottom: 2%;
+  margin: 0;
+  padding: 0;
+}
+
+
+.close {
+  position: absolute;
+  right: 3%;
+  top: 3%;
+  padding: 2px;
+}
+
+.message {
+  // background-color: white;
+  // width: calc(100% - 3em);
+  width: 100%;
+  // max-width: 24em;
+  padding: 1em 1em 1em 1.5em;
+  border-left-width: 6px;
+  border-left-style: solid;
+  border-radius: 3px;
+  position: relative;
+  line-height: 1.5;
+
+  & + & {
+    margin-top: 2em;
+  }
+
+  &:before {
+    color: white;
+    width:  1.5em;
+    height: 1.5em;
+    position: absolute;
+    top: 1em;
+    left: -3px;
+    border-radius: 50%;
+    transform: translateX(-50%);
+    font-weight: bold;
+    line-height: 1.5;
+    text-align: center;
+  }
+
+  p {
+    margin: 0 0 1em;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.message--error {
+  border-left-color: firebrick;
+
+  &:before {
+    background-color: firebrick;
+    content: "‼";
+  }
+}
+
+.message--warning {
+  border-left-color: darkorange;
+
+  &:before {
+    background-color: darkorange;
+    content: "!";
+  }
+}
+
+.message--success {
+  border-left-color: darkolivegreen;
+
+  &:before {
+    background-color: darkolivegreen;
+    content: "✔";
+  }
+}
