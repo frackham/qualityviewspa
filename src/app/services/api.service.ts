@@ -26,169 +26,6 @@ export class ApiService {
   	}),
   }
 
-  // Note
-  getSingleNote(id: string): Observable<tempnote> {
-  	return this.httpClient.get<tempnote>(this.endpoint + '/note/' + id)
-  		.pipe(
-  			retry(1),
-  			catchError(this.processError),
-  		);
-  }
-
-  createNote(note: tempnote): void {
-  	const noteUpdate: any = {};
-  	noteUpdate.Text = note.text;
-  	noteUpdate.Todo = note.todo;
-  	delete noteUpdate.id;
-  	this.httpClient.post<tempnote>(this.endpoint + '/note/', noteUpdate).subscribe((data) => {
-  		console.log('post response');
-  		console.log(data);
-  	});
-  }
-
-  deleteNote(id: string): any {
-  	return this.httpClient.delete<tempnote>(this.endpoint + '/note/' + id)
-  		.pipe(
-  			retry(1),
-  			catchError(this.processError),
-  		);
-  }
-
-  postSingleNote(id: string, note: tempnote): void {
-  	// console.log(`attempting to post update for note ${id}`);
-  	const noteUpdate: any = {};
-  	noteUpdate.Text = note.text;
-  	const todo: boolean = note.todo as boolean; // Ensure passed as bool.
-  	noteUpdate.Todo = todo;
-  	// noteUpdate.IsDefault = note.i;
-  	// noteUpdate.Image = note.;
-  	// noteUpdate.Logo = note.;
-
-  	// console.log(`attempting to post: ${JSON.stringify(noteUpdate)}`);
-
-  	this.httpClient.post<tempnote>(this.endpoint + '/note/' + id, noteUpdate).subscribe((data) => {
-  		console.log('post response');
-  		console.log(data);
-  	});
-  }
-
-  getNotes(id: any): Observable<tempnote> {
-  	return this.httpClient.get<tempnote>(this.endpoint + '/note/list')
-  		.pipe(
-  			retry(1),
-  			catchError(this.processError),
-  		);
-  }
-
-  // Project
-  getSingleProject(id: string): Observable<tempproject> {
-  	return this.httpClient.get<tempproject>(this.endpoint + '/project/' + id)
-  		.pipe(
-  			retry(1),
-  			catchError(this.processError),
-  		);
-  }
-
-  deleteProject(id: string): any {
-  	return this.httpClient.delete<tempproject>(this.endpoint + '/project/' + id)
-  		.pipe(
-  			retry(1),
-  			catchError(this.processError),
-  		);
-  }
-  createProject(project: tempproject): void {
-  	// console.log(`attempting to post update for project ${id}`);
-  	const projectUpdate: any = {};
-  	projectUpdate.Name = project.name;
-  	projectUpdate.Description = project.description;
-  	delete projectUpdate.id;
-  	// projectUpdate.IsDefault = project.i;
-  	// projectUpdate.Image = project.;
-  	// projectUpdate.Logo = project.;
-
-  	// console.log(`attempting to post: ${JSON.stringify(projectUpdate)}`);
-
-  	this.httpClient.post<tempproject>(this.endpoint + '/project/', projectUpdate).subscribe((data) => {
-  		console.log('post response');
-  		console.log(data);
-  	});
-  }
-
-  postSingleProject(id: string, project: tempproject): void {
-  	// console.log(`attempting to post update for project ${id}`);
-  	const projectUpdate: any = {};
-  	projectUpdate.Name = project.name;
-  	projectUpdate.Description = project.description;
-  	// projectUpdate.IsDefault = project.i;
-  	// projectUpdate.Image = project.;
-  	// projectUpdate.Logo = project.;
-
-  	// console.log(`attempting to post: ${JSON.stringify(projectUpdate)}`);
-
-  	this.httpClient.post<tempproject>(this.endpoint + '/project/' + id, project).subscribe((data) => {
-  		console.log('post response');
-  		console.log(data);
-  	});
-  }
-
-  getProjects(id: any): Observable<tempproject> {
-  	return this.httpClient.get<tempproject>(this.endpoint + '/project/list')
-  		.pipe(
-  			retry(1),
-  			catchError(this.processError),
-  		);
-  }
-
-  // Part
-  getSinglePart(id: string): Observable<temppart> {
-  	return this.httpClient.get<temppart>(this.endpoint + '/part/' + id)
-  		.pipe(
-  			retry(1),
-  			catchError(this.processError),
-  		);
-  }
-
-  deletePart(id: string): any {
-  	return this.httpClient.delete<temppart>(this.endpoint + '/part/' + id)
-  		.pipe(
-  			retry(1),
-  			catchError(this.processError),
-  		);
-  }
-
-  getParts(id: any): Observable<temppart> {
-  	return this.httpClient.get<temppart>(this.endpoint + '/part/list')
-  		.pipe(
-  			retry(1),
-  			catchError(this.processError),
-  		);
-  }
-
-  getPartDetails(id: any): Observable<temppartsofprojects> {
-  	return this.httpClient.get<temppartsofprojects>(this.endpoint + '/part/listdetails')
-  		.pipe(
-  			retry(1),
-  			catchError(this.processError),
-  		);
-  }
-
-  postSinglePart(id: string, part: temppart): void {
-  	// console.log(`attempting to post update for project ${id}`);
-  	const partUpdate: any = {};
-  	partUpdate.Name = part.name;
-  	partUpdate.Description = part.description;
-  	// projectUpdate.IsDefault = project.i;
-  	// projectUpdate.Image = project.;
-  	// projectUpdate.Logo = project.;
-
-  	// console.log(`attempting to post: ${JSON.stringify(projectUpdate)}`);
-
-  	this.httpClient.post<temppart>(this.endpoint + '/part/' + id, part).subscribe((data) => {
-  		console.log('post response');
-  		console.log(data);
-  	});
-  }
-
   // /////////////////////
   processError(err: { error: { message: string; }; status: any; message: any; }) {
   	let message = '';
@@ -262,6 +99,51 @@ export class ApiService {
   	// console.log(`queryString: ${queryString}`);
 
   	return this.httpClient.get<T>(this.endpoint + '/' + controller + '/list' + queryString)
+  		.pipe(
+  			retry(1),
+  			catchError(this.processError),
+  		);
+  }
+
+
+  // Generic, using override endpoints
+  createObjectWithExplicitEndpoint<T>(createOverrideEndpoint: string, object: T, controller: string): void {
+  	const objectUpdate: any = object;
+  	delete objectUpdate.id;
+  	if (createOverrideEndpoint.substring(1) !== '/') {
+  		createOverrideEndpoint = '/' + createOverrideEndpoint;
+  	}
+  	this.httpClient.post<T>(this.endpoint + createOverrideEndpoint, objectUpdate).subscribe((data) => {
+  		console.log('post response');
+  		console.log(data);
+  	});
+  }
+
+
+  getObjectsWithExplicitEndpoint<T>(listOverrideEndpoint: string, id: any, controller: string, filter?:any): Observable<T> {
+  	let queryString:string = '';
+
+  	if (listOverrideEndpoint.substring(0, 1) !== '/') {
+  		listOverrideEndpoint = '/' + listOverrideEndpoint;
+  	}
+  	if (filter) {
+  		// For each property, add as a querystring
+  		for (const property in filter) {
+  			if (Object.prototype.hasOwnProperty.call(filter, property)) {
+  				// console.log(`Filter for object type ${controller}: [ ${property}: ${filter[property]} ]`);
+  				if (queryString.length>0) {
+  					queryString += '&';
+  				}
+  				queryString += `${property}=${filter[property]}`;
+  			}
+  		}
+  	}
+  	if (queryString.length>0) {
+  		queryString = '?' + queryString;
+  	}
+  	// console.log(`queryString: ${queryString}`);
+
+  	return this.httpClient.get<T>(this.endpoint + listOverrideEndpoint + queryString)
   		.pipe(
   			retry(1),
   			catchError(this.processError),

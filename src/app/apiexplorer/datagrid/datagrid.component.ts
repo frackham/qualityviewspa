@@ -15,8 +15,7 @@ export class DatagridComponent<T> implements OnChanges, OnInit {
   @ViewChild('agGridObject') agGridObject!: AgGridAngular;
   @Input()
   modelType!: <T>({ }) => T;
-  @Input()
-  readModelType?: <T>({ }) => T;
+  @Input() apiEndpointOverrides?: any; // Expects object with paired values e.g { "create": "/controller/pathToEndpoint"  }
   @Input() nameSingular: string = '';
   @Input() namePlural: string = '';
   @Input() columnDefs: any = null;
@@ -42,6 +41,17 @@ export class DatagridComponent<T> implements OnChanges, OnInit {
 
   constructor(public apiService: ApiService, public alertService: AlertService) {
   	this.dirty = true;
+  }
+
+  getOverrideEndpoint(pathKey:string) : string {
+  	// Just gets the keyvalue, return "" if not found
+  	if (this.apiEndpointOverrides) {
+  		const keyValue = this.apiEndpointOverrides[pathKey];
+  		if (keyValue) {
+  			return keyValue;
+  		}
+  	}
+  	return '';
   }
 
   initialise() {
@@ -73,7 +83,12 @@ export class DatagridComponent<T> implements OnChanges, OnInit {
   			addIndex: id,
   		});
 
-  		this.apiService.createObject(newData, this.nameSingular);
+  	  const createOverrideEndpoint = this.getOverrideEndpoint('list');
+  		if (createOverrideEndpoint !== '') {
+  			this.apiService.createObjectWithExplicitEndpoint(createOverrideEndpoint, newData, this.nameSingular);
+  		} else {
+  		  this.apiService.createObject(newData, this.nameSingular);
+  		}
   		this.alertService.success(`Success!! ${this.nameSingular} added.`, this.alertOptions);
   		// Trigger refresh after adding object so that deleting same object doesn't throw an error
   		this.refreshGrid(new Event('null'), false);
@@ -84,7 +99,9 @@ export class DatagridComponent<T> implements OnChanges, OnInit {
   }
 
   refreshGrid($ev:Event, doAlert:boolean = true) {
-  	this.alertService.info(`Data refreshed.`, this.alertOptions);
+  	if (doAlert) {
+  		this.alertService.info(`Data refreshed.`, this.alertOptions);
+  	}
   	this.initialise();
   }
 
@@ -125,6 +142,7 @@ export class DatagridComponent<T> implements OnChanges, OnInit {
   					this.gridApiObject.sizeColumnsToFit();
 
   					this.alertService.success(`Success!! ${this.nameSingular} deleted.`, this.alertOptions);
+
   					// Force refresh
   					this.initialise();
   				} catch {
@@ -189,19 +207,37 @@ export class DatagridComponent<T> implements OnChanges, OnInit {
 
   preloadData() {
   	if (this.gridApiObject) {
-  		this.apiService.getObjects(0, this.nameSingular, this.listFilter).subscribe((res: any) => {
-  			try {
-  				this.objectsData = <any[]>res;
-  				// console.log(`APIExplorer: objects loaded (${this.nameSingular})`);
-  				// console.log(this.objectsData);
+  		const listOverrideEndpoint = this.getOverrideEndpoint('list');
+  		if (listOverrideEndpoint !== '') {
+  			// this.apiService.createObjectWithExplicitEndpoint(listOverrideEndpoint, newData, this.nameSingular);
+  			this.apiService.getObjectsWithExplicitEndpoint(listOverrideEndpoint, 0, this.nameSingular, this.listFilter)
+  				.subscribe((res: any) => {
+  					try {
+  						this.objectsData = <any[]>res;
 
-  				this.objectRowData = this.objectsData;
-  				this.gridApiObject.sizeColumnsToFit();
-  				this.dirty = false; // Only is not dirty when data has been successfully loaded AND no changes.
-  			} catch {
-  				throw new Error(`Failed to retrieve objects of type ${this.nameSingular}`);
-  			}
-  		});
+  						this.objectRowData = this.objectsData;
+  						this.gridApiObject.sizeColumnsToFit();
+  						this.dirty = false; // Only is not dirty when data has been successfully loaded AND no changes.
+  					} catch {
+  						// eslint-disable-next-line max-len
+  						throw new Error(`Failed to retrieve objects of type ${this.nameSingular} using explicit endpoint ${listOverrideEndpoint}`);
+  					}
+  			});
+  		} else {
+  		  this.apiService.getObjects(0, this.nameSingular, this.listFilter).subscribe((res: any) => {
+  				try {
+  					this.objectsData = <any[]>res;
+  					// console.log(`APIExplorer: objects loaded (${this.nameSingular})`);
+  					// console.log(this.objectsData);
+
+  					this.objectRowData = this.objectsData;
+  					this.gridApiObject.sizeColumnsToFit();
+  					this.dirty = false; // Only is not dirty when data has been successfully loaded AND no changes.
+  				} catch {
+  					throw new Error(`Failed to retrieve objects of type ${this.nameSingular}`);
+  				}
+  			});
+  		}
   	}
   }
 }

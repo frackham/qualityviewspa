@@ -1,13 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {MatTabsModule} from '@angular/material/tabs';
-import {MatTreeModule} from '@angular/material/tree';
-import {MatExpansionModule} from '@angular/material/expansion';
-import {MatChipsModule} from '@angular/material/chips';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatTreeModule } from '@angular/material/tree';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -23,7 +23,7 @@ import { MermaidHeaderControlsComponent } from './tabset/embedded-mermaid/mermai
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { HttpClientModule } from '@angular/common/http';
 import { ApiExplorerComponent } from './apiexplorer/apiexplorer.component';
@@ -32,49 +32,50 @@ import { AgGridModule } from 'ag-grid-angular';
 import { DatagridComponent } from './apiexplorer/datagrid/datagrid.component';
 import { AlertModule } from './ui-generic/alert';
 
-//Alerting from: https://github.com/cornflourblue/angular-10-alert-notifications, https://jasonwatmore.com/post/2020/07/16/angular-10-alert-notifications-example
+// Alerting from: https://github.com/cornflourblue/angular-10-alert-notifications,
+// and https://jasonwatmore.com/post/2020/07/16/angular-10-alert-notifications-example
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    SandboxComponent,
-    MoodboardComponent,
-    ProgressSpinnerComponent,
-    LoadingComponent,
-    TabsetComponent,
-    NotesComponent,
-    EmbeddedMermaidComponent,
-    MermaidHeaderControlsComponent,
-    ApiExplorerComponent,
-    ProjectExplorerComponent,
-    DatagridComponent
-  ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    AppRoutingModule,
-    AlertModule,
-    AgGridModule.withComponents([]),
-    BrowserAnimationsModule,
-    MatProgressSpinnerModule,
-    MatTabsModule,
-    MatExpansionModule,
-    MatButtonModule,
-    MatChipsModule,
-    MatSlideToggleModule,
-    MatIconModule,
-    MatDividerModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatTreeModule,
-    MatCheckboxModule,
-    MatFormFieldModule
+	declarations: [
+		AppComponent,
+		SandboxComponent,
+		MoodboardComponent,
+		ProgressSpinnerComponent,
+		LoadingComponent,
+		TabsetComponent,
+		NotesComponent,
+		EmbeddedMermaidComponent,
+		MermaidHeaderControlsComponent,
+		ApiExplorerComponent,
+		ProjectExplorerComponent,
+		DatagridComponent,
+	],
+	imports: [
+		BrowserModule,
+		HttpClientModule,
+		AppRoutingModule,
+		AlertModule,
+		AgGridModule.withComponents([]),
+		BrowserAnimationsModule,
+		MatProgressSpinnerModule,
+		MatTabsModule,
+		MatExpansionModule,
+		MatButtonModule,
+		MatChipsModule,
+		MatSlideToggleModule,
+		MatIconModule,
+		MatDividerModule,
+		MatDatepickerModule,
+		MatNativeDateModule,
+		MatTreeModule,
+		MatCheckboxModule,
+		MatFormFieldModule,
 
-  ],
-  providers: [
+	],
+	providers: [
 
-  ],
-  bootstrap: [AppComponent]
+	],
+	bootstrap: [AppComponent],
 })
 export class AppModule { }

@@ -16,6 +16,7 @@
 <div>
   <app-datagrid
     [modelType]="'temppart'"
+    [apiEndpointOverrides]='partEndpointOverrides'
     [nameSingular]="'Part'"
     [namePlural]="'Parts'"
     [columnDefs]='partColumnDefs'
